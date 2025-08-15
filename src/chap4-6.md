@@ -95,7 +95,7 @@ gen_fcidump(fchname='anthracene_cc-pVDZ_uhf_uno_asrot2gvb7_s.fch',nacto=14,nacte
 
 where the arguments `nacto` and `nacte` are the number of active orbitals and the number of active electrons, respectively. This module requires the PySCF installed.
 
-### 4.6.1.6 get_1e_exp_and_sort_pair(mo_fch, no_fch, npair)
+### 4.6.1.6 get_1e_exp_and_sort_pair
 Compute 1e expectation values of MOs in file `mo_fch`, using information from
 file `no_fch` (which usually includes NOs).
 Sort paired MOs in `mo_fch` by 1e expectation values.

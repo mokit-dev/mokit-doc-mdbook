@@ -12,16 +12,17 @@ Table of Content
 * [4.6.7 The mirror_wfn module](#467-the-mirror_wfn-module)
 
 
-## 4.6.1 APIs from `gaussian` and `rwwfn` module
+## 4.6.1 Frequently used APIs in MOKIT workflow
 
-`gaussian` module provides some APIs for manipulating .fch(k) files while `rwwfn` provides some APIs for read/write .fch(k) or .log files. Some commonly used APIs in this module are shown below.
+`gaussian` module provides some APIs for manipulating .fch(k) files while `rwwfn` provides some APIs for read/write .fch(k) or .log files. 
+Some commonly used APIs in these modules are shown below.
 
 1. load_mol_from_fch(fchname)
 2. loc(fchname, method, idx)
 3. uno(fchname)
 4. permute_orb(fchname, orb1, orb2)
 5. gen_fcidump(fchname, nacto, nacte, mem=4000, np=None)
-6. read_int1e_from_gau_log(logname, itype, nbf)
+6. get_1e_exp_and_sort_pair(mo_fch, no_fch, npair)
 7. read_mo_from_fch(fchname, nbf, nif, ab)
 8. read_density_from_gau_log(logname, itype, nbf)
 9. read_dm_from_fch(fchname, itype, nbf)
@@ -94,16 +95,15 @@ gen_fcidump(fchname='anthracene_cc-pVDZ_uhf_uno_asrot2gvb7_s.fch',nacto=14,nacte
 
 where the arguments `nacto` and `nacte` are the number of active orbitals and the number of active electrons, respectively. This module requires the PySCF installed.
 
-### 4.6.1.6 read_int1e_from_gau_log
-Read various one-electron integral matrices from a Gaussian output file. For example, read AO-basis overlap
+### 4.6.1.6 get_1e_exp_and_sort_pair
+Compute 1e expectation values of MOs in file `mo_fch`, using information from
+file `no_fch` (which usually includes NOs).
+Sort paired MOs in `mo_fch` by 1e expectation values.
 
 ```python
-from mokit.lib import rwwfn
-S = rwwfn.read_int1e_from_gau_log(logname='00-h2o_cc-pVDZ_1.5.log',itype=1,nbf=24)
+from mokit.lib.rwwfn import get_1e_exp_and_sort_pair as sort_pair
+sort_pair(mo_fch, no_fch, npair)
 ```
-
-Argument `itype`: The type of one-electron integral matrices. Allowed values are 1,2,3,4 for Overlap, Kinetic Energy, Potential Energy, and Core Hamiltonian, respectively.
-
 ### 4.6.1.7 read_mo_from_fch
 Read MOs from a Gaussian .fch(k) file. For example
 
@@ -214,14 +214,7 @@ dat2fch ben_triplet_uhf_uno_asrot2gvb2.dat ben_triplet_uhf_uno_asrot2gvb2.fch
 ```
 the filenames above come from a triplet CASSCF(6,6) calculation for benzene.
 
-### 4.6.1.14 reorder2dbabasv
-Reorder MOs in the file `gvbN_s.fch`. A new file `gvbN_new.fch` would be generated. The order of MOs in `gvbN_s.fch` is expected to be docc-bonding-socc-antibonding-vir. The order of MOs in `gvbN_new.fch` would be docc-bonding1-antibonding1-bonding2-antibonding2-...-socc-vir.
 
-```python
-from mokit.lib.rwwfn import reorder2dbabasv
-
-reorder2dbabasv(fchname='ben_triplet_uhf_uno_asrot2gvb2_s.fch')
-```
 
 ## 4.6.2 APIs related to PDB file
 
@@ -388,6 +381,14 @@ from mokit.lib.wfn_analysis import find_antibonding_orb
 find_antibonding_orb(fchname, i1, i2, i3)
 ```
 
+### 4.6.3.9 reorder2dbabasv
+Reorder MOs in the file `gvbN_s.fch`. A new file `gvbN_new.fch` would be generated. The order of MOs in `gvbN_s.fch` is expected to be docc-bonding-socc-antibonding-vir. The order of MOs in `gvbN_new.fch` would be docc-bonding1-antibonding1-bonding2-antibonding2-...-socc-vir.
+
+```python
+from mokit.lib.rwwfn import reorder2dbabasv
+
+reorder2dbabasv(fchname='ben_triplet_uhf_uno_asrot2gvb2_s.fch')
+```
 
 ## 4.6.4 Other functions in rwwfn
 
@@ -409,13 +410,19 @@ See also [4.6.1.7](#4617-read_mo_from_fch).
 ### 4.6.4.2 read/write eigenvalue or occupation number
 
 ```
-read_eigenvalues_from_fch(fchname, nif, ab, noon)  
-read_on_from_orb(orbname, nif, ab, on)  
-read_on_from_dat(datname, nmo, on, alive)  
-read_on_from_xml(xmlname, nmo, ab, on)  
-read_on_from_bdf_orb(orbname, nif, ab, on)  
-read_ev_from_bdf_orb(orbname, nif, ab, ev)  
-read_on_from_dalton_mopun(orbname, nif, on)  
+read_eigenvalues_from_fch(fchname, nif, ab, noon)
+read_ev_from_mkl(mklname, nmo, ab, ev)
+read_ev_from_bdf_orb(orbname, nif, ab, ev)
+read_ev_from_amo(amoname, nif, ab, ev)
+read_on_from_orb(orbname, nif, ab, on)
+read_on_from_gms_dat(datname, nmo, on, alive)
+read_on_from_xml(xmlname, nmo, ab, on)
+read_on_from_bdf_orb(orbname, nif, ab, on)
+read_on_from_dalton_mopun(orbname, nif, on)
+read_on_from_dalton_out(outname, nacto, on)
+read_on_from_mkl(mklname, nmo, ab, on)
+read_on_from_molden(molden, nmo, occ)
+read_nmo_from_molden(molden, nmo_a, nmo_b) 
 write_eigenvalues_to_fch(fchname, nif, ab, on, replace)  
 write_on_to_orb(orbname, nif, ab, on, replace)  
 ```
@@ -438,6 +445,18 @@ read_shltyp_and_shl2atm_from_fch(fchname, k, shltyp, shl2atm)
 
 ### 4.6.4.4 read/write density and other matrices  
 
+**read_int1e_from_gau_log**
+
+Read various one-electron integral matrices from a Gaussian output file. For example, read AO-basis overlap
+
+```python
+from mokit.lib import rwwfn
+S = rwwfn.read_int1e_from_gau_log(logname='00-h2o_cc-pVDZ_1.5.log',itype=1,nbf=24)
+```
+
+Argument `itype`: The type of one-electron integral matrices. Allowed values are 1,2,3,4 for Overlap, Kinetic Energy, Potential Energy, and Core Hamiltonian, respectively.
+
+**Others**
 ```
 read_ovlp_from_molcas_out(outname, nbf, S)  
 write_dm_into_fch(fchname, nbf, total, dm)  
@@ -448,7 +467,7 @@ update_density_using_mo_in_fch(fchname)
 update_density_using_no_and_on(fchname)  
 read_ao_ovlp_from_47(file47, nbf, S)  
 ```
-See also [4.6.1.6](#4616-read_int1e_from_gau_log), [4.6.1.8](#4618-read_density_from_gau_log), 
+See also [4.6.1.8](#4618-read_density_from_gau_log), 
 [4.6.1.9](#4619-read_dm_from_fch), [4.6.1.10](#46110-write_pyscf_dm_into_fch).
 
 ### 4.6.4.5 read energy and other results
@@ -486,7 +505,6 @@ check_cart_in_fch(fchname, cart)
 check_sph_in_fch(fchname, sph)  
 check_if_uhf_equal_rhf(fchname, eq)  
 gen_no_from_density_and_ao_ovlp(nbf, nif, P, ao_ovlp, noon, new_coeff)  
-get_1e_exp_and_sort_pair(mo_fch, no_fch, npair)
 sort_no_by_noon(fchname, i1, i2)
 get_core_valence_sep_idx(fchname, idx)
 fch_r2u(fchname, brokensym)
@@ -553,6 +571,7 @@ qchem2gms(fchname, inpname)
 qchem2molcas(fchname, inpname)
 qchem2molpro(fchname, inpname)
 qchem2psi(fchname, inpname)
+qchem2pyscf(fchname, pyname)
 qchem2orca(fchname, inpname)
 standardize_fch(fchname)
 ```

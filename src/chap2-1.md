@@ -4,7 +4,7 @@ If you only want to use some utilities of MOKIT (e.g. transfer MOs among various
 
 Only 20+ out of all utilities in MOKIT are provided. These executables are compressed into .7z file and can be downloaded at [Releases](https://gitlab.com/jxzou/mokit/-/releases). Download, uncompress it, and set the environment variables, then these utilities can used in any directory.
 
-If you are only interested in the usage of the utility `frag_guess_wfn` under Windows, please read [here](./chap4-5.html#4532-frag_guess_wfn) for a quick guide.
+If you are only interested in the usage of the utility `frag_guess_wfn` under Windows, please read [here](./chap4-5.html#4534-frag_guess_wfn) for a quick guide.
 
 To set the environment variables, search 'environment' ("环境变量" in Chinese) in the Windows search bar, then press `Enter` and click `Edit` to edit the `PATH` variables. Create a new path and type the path of MOKIT binary directory. For example, on my computer the path is `D:\360Downloads\mokit\bin`.
 

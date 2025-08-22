@@ -24,6 +24,7 @@ Aug 18, 2025
 - [Papers citing MOKIT](./citing.md)
 - [Appendix](./chap_appdx.md): 
   + [FAQs](./chap_appdx.md), limitations and [bug report](./chap_appdx.md#a3-bug-report)
+- [About us](./about.md)
 
 **Hot Topics**
 

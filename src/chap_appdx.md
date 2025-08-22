@@ -393,6 +393,5 @@ If you find any bug frequently occurs, please go to [MOKIT GitLab](https://gitla
 (2) Join the Tencent QQ group (Group ID: 470745084) if you can communicate in Chinese, and show your problem in the QQ group. Private messages through QQ might not be replied.  
 (3) Contact the developer jxzou via E-mail njumath[at]sina.cn, with your input and output files attached. Reply/Answer is not guaranteed since jxzou is very busy.
 
-## A4 Acknowledgement
-Thanks to all MOKIT developers and users for constructive suggestions, bugs report and contributions.
+
 

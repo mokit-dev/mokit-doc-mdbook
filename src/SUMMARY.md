@@ -38,5 +38,6 @@
 - [Papers citing MOKIT](./citing.md)
 - [Appendix](./chap_appdx.md)
 
+[About](./about.md)
 [News](./news.md)
 [Charts](./charts.md)

@@ -24,7 +24,7 @@ Aug 18, 2025
 - [Papers citing MOKIT](./citing.md)
 - [Appendix](./chap_appdx.md): 
   + [FAQs](./chap_appdx.md), limitations and [bug report](./chap_appdx.md#a3-bug-report)
-- [About us](./about.md)
+- [About us](./about.md) and [Charts](./charts.md) for download/citation count
 
 **Hot Topics**
 
@@ -34,8 +34,8 @@ Aug 18, 2025
 
 **News**
 
-[Charts](./charts.md) for download/citation count &nbsp;&nbsp;&nbsp; 
-[Release v1.2.6](./news.md#20241119-new-release-v126) &nbsp;&nbsp;&nbsp; [1500 downloads on anaconda](./news.md#20250710-1500-downloads-on-anaconda)
+[50 citations](./news.md#20250730-50-citations) &nbsp;&nbsp;&nbsp; 
+[1500 downloads on anaconda](./news.md#20250710-1500-downloads-on-anaconda) &nbsp;&nbsp;&nbsp; [Release v1.2.6](./news.md#20241119-new-release-v126)
 
 **Tips**
 

@@ -15,3 +15,5 @@ Thanks to all MOKIT contributors and users for constructive suggestions, bugs re
 
 ## Lectures and presentations
 * [MOKIT | ISTCP 2024](https://www.bilibili.com/video/BV1jBmAYhEzs)
+* [Invited Talk 2025 (1/2)](https://www.koushare.com/live/details/45931)
+* [Invited Talk 2025 (2/2)](https://www.koushare.com/live/details/45932)

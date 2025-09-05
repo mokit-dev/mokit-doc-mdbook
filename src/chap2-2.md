@@ -22,7 +22,7 @@ Like [Section 2.3](./chap2-3.md), there is still something to do after "installa
 You can choose option 1 or 2 below. After mokit is successfully installed, if you want GAMESS to be called by `automr`, you need to [install GAMESS properly](./chap4-4.md#4410-gvb_prog) and write related environment variables.
 
 ### Option 1: Install from conda (for Linux only)
-This is the easiest way, but network is required to auto-download the requirements (like Intel MKL). 
+This is the easiest way, but network is required to auto-download the requirements (like Intel MKL). Both the default and conda-forge channel require `glibc >= 2.17`.
 
 If you have no access to network, but still do not want to compile MOKIT manually, you can try options in [Section 2.2.2](#222-pre-built-linux-executables-and-libraries).
 
@@ -49,7 +49,7 @@ See [here](#update-mokit-with-conda) for updating mokit with conda.
 
 #### Use MOKIT with conda-forge channel
 
-The MOKIT installed following instructions above, which is from `mokit` channel by default, is hardly compatible with conda-forge environment. If you have to enable conda-forge, an alternative way is to install from `mokit/label/cf`
+The MOKIT installed following instructions above, which is from `mokit` channel by default, is hardly compatible with conda-forge environment. If you have to enable conda-forge, an alternative way is to install from `mokit/label/cf`.
 
 If you have enabled conda-forge (by `conda config --add channels conda-forge` or modifying condarc), you can directly do
 ```

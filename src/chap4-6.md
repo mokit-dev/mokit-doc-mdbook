@@ -75,12 +75,16 @@ uno(fchname='benzene_uhf.fch')
 ```
 
 ### 4.6.1.4 nio
-Generate natural ionization orbitals (NIOs) for N -> (N-1) electrons ionization process (see the original paper JCP 2016, 144, 204117). It is simply calculated by diagonalizing (P_N - P_(N-1))*S. This way of obtaining natural orbitals are also called natural difference orbitals (NDOs). The "lost" electron is mainly ionized from the NIO which has the eigenvalue closest to 1.0. This can be viewed as a good approximation to Dyson orbitals, while the computational cost of NIOs is usually much less than that of Dyson orbitals. The syntax of usage is `nio(n_fch, n_1_fch)`, where `n_fch`/`n_1_fch` are the .fch(k) file for N/(N-1) electron state, respectively. These two files must include correct total densities in `Total SCF Density` section in .fch file. For routine HF/DFT calculations, this is automatically ensured. For automatic CASSCF calculations performed by MOKIT, the density are also ensured to be correct. For other types of calculations, it is the users' responsibility to make sure whether the total densities are correctly generated and stored. An example is shown below
+Generate natural ionization orbitals (NIOs) for N -> (N-1) electrons ionization process (see the original paper [JCP 2016, 144, 204117](https://doi.org/10.1063/1.4951738)). It is simply calculated by diagonalizing `(P_N - P_(N-1))*S`. This way of obtaining natural orbitals are also called natural difference orbitals (NDOs). The "lost" electron is mainly ionized from the NIO which has the eigenvalue closest to 1.0. This can be viewed as a good approximation to Dyson orbitals, while the computational cost of NIOs is usually much less than that of Dyson orbitals. 
+
+Syntax: `nio(n_fch, n_1_fch)`, where `n_fch`/`n_1_fch` are the .fch(k) file for N/(N-1) electron state, respectively. An example is shown below
 
 ```python
 from mokit.lib.gaussian import nio
 nio('C6H12O3_neutral.fch','C6H12O3_frag1_uhf.fch')
 ```
+
+These two fch files must include correct total densities in `Total SCF Density` section. For routine HF/DFT calculations, this is automatically ensured. For automatic CASSCF calculations performed by MOKIT, the density are also ensured to be correct. For other types of calculations, it is the users' responsibility to make sure whether the total densities are correctly generated and stored.
 
 The wave function in two .fch(k) files can either be RHF or UHF-type, as long as the calculations are performed appropriately. Here "UHF-type" means a UHF/UKS calculation.
 
@@ -161,7 +165,7 @@ Write a PySCF density matrix into a given Gaussian .fch(k) file. This module doe
 write_pyscf_dm_into_fch(fchname, itype, nbf, dm, force)
 ```
 
-where `dm` is the PySCF density matrix with dimension (nbf,nbf). `itype` has the same meaning with that in [read_dm_from_fch](#4619-read_dm_from_fch). `force` is a bool variable, and its meaning is:
+where `dm` is the PySCF density matrix with dimension (nbf,nbf). `itype` has the same meaning with that in [read_dm_from_fch](#46110-read_dm_from_fch). `force` is a bool variable, and its meaning is:
 
 (1) If the string corresponding to `itype` (e.g. 'Total SCF Density') can be found/located in the given .fch file, this parameter will not be used, i.e. setting True/False does not matter.
 
@@ -433,7 +437,7 @@ write_mo_into_fch(fchname, nbf, nif, ab, mo)
 write_mo_into_psi_mat(matfile, nbf, nif, mo)  
 copy_orb_and_den_in_fch(fchname1, fchname2, deleted)  
 ```
-See also [4.6.1.7](#4617-read_mo_from_fch).
+See also [4.6.1.8](#4618-read_mo_from_fch).
 
 ### 4.6.4.2 read/write eigenvalue or occupation number
 
@@ -495,8 +499,8 @@ update_density_using_mo_in_fch(fchname)
 update_density_using_no_and_on(fchname)  
 read_ao_ovlp_from_47(file47, nbf, S)  
 ```
-See also [4.6.1.8](#4618-read_density_from_gau_log), 
-[4.6.1.9](#4619-read_dm_from_fch), [4.6.1.10](#46110-write_pyscf_dm_into_fch).
+See also [4.6.1.9](#4619-read_density_from_gau_log), 
+[4.6.1.10](#46110-read_dm_from_fch), [4.6.1.11](#46111-write_pyscf_dm_into_fch).
 
 ### 4.6.4.5 read energy and other results
 

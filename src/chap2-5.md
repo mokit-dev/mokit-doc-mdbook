@@ -51,7 +51,7 @@ Here we provide a list for common used prog keywords and corresponding dependenc
 | `automr` methods | additional dependencies | instructions |
 | --- | --- | --- |
 | [DMRGCI/DMRGSCF](./chap4-4.md#4414-dmrgscf_prog) | pyscf[dmrgscf] and Block | [here](./chap2-3.md#installation-tips-and-instructions) |
-| [CASPT2](./chap4-4.md#4415-caspt2_prog) | OpenMolcas/Molpro/ORCA | [here](./chap2-3.md#installation-tips-and-instructions) |
+| [CASPT2](./chap4-4.md#4415-caspt_prog) | OpenMolcas/Molpro/ORCA | [here](./chap2-3.md#installation-tips-and-instructions) |
 | [MRCISD](./chap4-4.md#4417-mrcisd_prog) | See keyword documentation | |
 | [MC-PDFT](./chap4-4.md#4420-mcpdft_prog) | pyscf-forge | |
 

@@ -56,19 +56,19 @@ DMRG-CASCI aims at solving the CI problem for a very large active space. For an 
 ## 4.3.6 NEVPT2
 Second order N-Electron Valence state Perturbation Theory based on the CASSCF reference.
 
-Please read related keyword [NEVPT2_prog](./chap4-4.md#4416-nevpt2_prog) in Section 4.4.
+Please read related keyword [NEVPT_prog](./chap4-4.md#4416-nevpt_prog) in Section 4.4.
 
 ## 4.3.7 CASPT2
 Second order Perturbation Theory based on CASSCF reference.
 
-Generally speaking, NEVPT2 is more recommended than CASPT2 since there is no need for IP-EA shift, real or imaginary shift in NEVPT2. If you are really a fan of CASPT2, it is recommended to use [CASPT2K](#438-caspt2k) instead. Please read related keyword [CASPT2_prog](./chap4-4.md#4415-caspt2_prog) in Section 4.4.
+Generally speaking, NEVPT2 is more recommended than CASPT2 since there is no need for IP-EA shift, real or imaginary shift in NEVPT2. If you are really a fan of CASPT2, it is recommended to use [CASPT2K](#438-caspt2k) instead. Please read related keyword [CASPT_prog](./chap4-4.md#4415-caspt_prog) in Section 4.4.
 
 ## 4.3.8 CASPT2K
 Second order Perturbation Theory based on CASSCF reference.
 
 This is a new feature since ORCA 5.0. A revised zeroth order Hamiltonian is applied to alleviate the intruder state problem of CASPT2 method. No IP-EA shift is needed in this method.
 
-Note here you can write this keyword as either CASPT2K or CASPT2-K in .gjf file, but you'd better use the method name CASPT2-K in official writing or publishing. The keyword `CASPT2_prog` will automatically be set as ORCA, since this method is only supported in ORCA currently.
+Note here you can write this keyword as either CASPT2K or CASPT2-K in .gjf file, but you'd better use the method name CASPT2-K in official writing or publishing. The keyword `CASPT_prog` will automatically be set as ORCA, since this method is only supported in ORCA currently.
 
 ## 4.3.9 CASPT3
 Third order Perturbation Theory based on CASSCF reference.

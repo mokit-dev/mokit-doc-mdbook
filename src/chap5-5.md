@@ -54,16 +54,14 @@ In fact, in such case the word 'desired' has different meanings for different us
 Some other users may want the CAS(2,2) to contain the C-O bond, and some users may
 want the C-H bond.
 
-Here I will show how to swap two orbitals to get desired results. Using the ethanol
-as an example, assuming that we have perform a simple CASPT2(2,2)/cc-pVDZ calculation,
-the input file ethanol.gjf is shown below
+Here I will show how to swap two orbitals to get desired results. Using the ethanol as an example, assuming that we have perform a simple CASPT2(2,2)/cc-pVDZ calculation, the input file ethanol.gjf is shown below
 
 ```
 %mem=4GB
 %nprocshared=4
 #p CASPT2(2,2)/cc-pVDZ
 
-mokit{CASPT2_prog=ORCA}
+mokit{CASPT_prog=ORCA}
 
 0 1
 C     0.00000000  0.00000000  0.00000000

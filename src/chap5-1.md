@@ -175,7 +175,7 @@ To perform the NEVPT2 calculation for a large molecule, you can use the local co
 %nprocshared=48
 #p NEVPT2(6,6)/cc-pVTZ
 
-mokit{CASSCF_prog=ORCA,NEVPT2_prog=ORCA,DLPNO}
+mokit{CASSCF_prog=ORCA,NEVPT_prog=ORCA,DLPNO}
 ...
 ```
 

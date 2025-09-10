@@ -5,7 +5,7 @@ Here are the list of all `automr` keywords, grouped by category.
 | For program specification | | | |
 | --- | --- | --- | --- |
 | [HF_prog](#449-hf_prog) | [GVB_prog](#4410-gvb_prog) | [CASCI_prog](#4411-casci_prog) | [CASSCF_prog](#4412-casscf_prog) |
-| [DMRGCI_prog](#4413-dmrgci_prog) | [DMRGSCF_prog](#4414-dmrgscf_prog) | [CASPT2_prog](#4415-caspt2_prog) | [NEVPT2_prog](#4416-nevpt2_prog) |
+| [DMRGCI_prog](#4413-dmrgci_prog) | [DMRGSCF_prog](#4414-dmrgscf_prog) | [CASPT_prog](#4415-caspt_prog) | [NEVPT_prog](#4416-nevpt_prog) |
 | [MRCISD_prog](#4417-mrcisd_prog) | [MRMP2_prog](#4419-mrmp2_prog) | [MCPDFT_prog](#4420-mcpdft_prog) | |
 
 </br>
@@ -36,14 +36,10 @@ Here are the list of all `automr` keywords, grouped by category.
 
 </br>
 
-If any of the `readrhf`, `readuhf`, and `readno` keywords is used, there is no need
-to write Cartesian coordinates in .gjf file, since the geometry will be read from
-the specified .fch(k) file.
+If any of the `readrhf`, `readuhf`, and `readno` keywords is used, there is no need to write Cartesian coordinates in .gjf file, since the geometry will be read from the specified .fch(k) file.
 
 ## 4.4.1 readrhf
-Read RHF/ROHF orbitals from a specified .fch file. Do not provide a UHF-type .fch
-file using this keyword. This keyword is usually used along with another keyword
-`ist=3` (see [ist](#444-ist)).
+Read RHF/ROHF orbitals from a specified .fch file. Do not provide a UHF-type .fch file using this keyword. This keyword is usually used along with another keyword `ist=3` (see [ist](#444-ist)).
 
 ## 4.4.2 readuhf
 Read UHF orbitals from a specified .fch(k) file. `automr` will firstly check the difference between alpha and beta MOs. If the difference is tiny, the wave function in .fch file will be identified as a RHF one and will call utility fch_u2r to generate a RHF-type .fch file (in which all beta information is deleted). Otherwise (i.e. truly UHF), `automr` will generate UHF natural orbitals (UNO) using input UHF orbitals. It is strongly recommended to check the stability of UHF wave function (using keyword 'stable=opt' in Gaussian). An instable or not-the-lowest UHF solution sometimes leads to improper GVB or CASSCF results.
@@ -158,25 +154,45 @@ Also note that the MPI version used by Block is probably contradicted with MPI v
 
 By default, the OpenMP version of Block would be called during performing DMRG calculations. But if you want to use MPI version of Block (and you have installed it), you need to write `mokit{block_mpi}`.
 
-## 4.4.15 CASPT2_prog
-Specify the program for performing CASPT2 calculation, e.g. `CASPT2_prog=OpenMolcas`.
-Currently only OpenMolcas(default), Molpro and ORCA are supported. All core orbitals
-are not frozen. Note that a default IP-EA shift 0.25 a.u. will be applied and it
-cannot be modified. If your CASPT2 results are sensitive to the IP-EA shift, it
-implies that CASPT2 is not suitable to your problem. Another two types of shift
-(the real or imaginary shift) is not supported.
+## 4.4.15 CASPT_prog
+Specify the program for performing a CASPT2 or CASPT3 calculation, e.g. `CASPT_prog=OpenMolcas`. Currently only OpenMolcas(default), Molpro and ORCA are supported. Bagel is not supported here but we are working on that. All core orbitals are not frozen. Note that a default IP-EA shift 0.25 a.u. will be applied and it cannot be modified. If your CASPT2 results are sensitive to the IP-EA shift, it implies that CASPT2 is not suitable to your problem in that case. Another two types of shift (the real or imaginary shift) is not supported. If the user wants only CASPT2, the keyword `CASPT2_prog` can be used as an alias for `CASPT_prog`. For CASPT3, `CASPT_prog=Molpro` is the default and only option, thus no need to specify this keyword.
 
-Generally speaking, NEVPT2 and CASPT2-K are more recommended than CASPT2 since there
-is no need for IP-EA shift, real or imaginary shift in NEVPT2 or CASPT2-K methods.
+Generally speaking, NEVPT2 and CASPT2-K are more recommended than CASPT2 since there is no need for IP-EA shift, real or imaginary shift in NEVPT2 or CASPT2-K methods.
 
-## 4.4.16 NEVPT2_prog
-Specify the program for performing NEVPT2 calculation, e.g. `NEVPT2_prog=PySCF`. Currently supported programs are PySCF(default), Molpro, ORCA, OpenMolcas and BDF. All core orbitals are not frozen.
+## 4.4.16 NEVPT_prog
+Specify the program for performing an NEVPT calculation, e.g. `NEVPT_prog=PySCF`. Currently supported programs are PySCF(default), Molpro, ORCA, OpenMolcas and BDF. All core orbitals are not frozen. This keyword is applicable to NEVPT2, NEVPT3, NEVPT4(SD) calculations. For NEVPT3, `NEVPT_prog` can only be equal to `ORCA` or `BDF`. For NEVPT4(SD), `NEVPT_prog=ORCA` is the default and the only option, thus there is no need to specify the keyword in such case. Two input examples are shown below
 
-Note that there exist at least two variants of the NEVPT2: SC-NEVPT2 and FIC-NEVPT2 (aka PC-NEVPT2). By default, for NEVPT2_prog=PySCF/Molpro/ORCA/OpenMolcas, SC-NEVPT2 is chosen; while for `NEVPT2_prog=BDF`, FIC-NEVPT2 is chosen. To turn on the FIC-NEVPT2 when using PySCF/Molpro/ORCA/OpenMolcas, please read [FIC](#4434-fic). Also note that
+(1) CASSCF and SC-NEVPT2 by calling PySCF
+```
+%mem=100GB
+%nprocshared=32
+#p NEVPT2/def2TZVP
 
-(1) When you specify `NEVPT2_prog=Molpro` or OpenMolcas, both of the SC-NEVPT2 and FIC-NEVPT2 energies are actually printed in Molpro/OpenMolcas output (.out file). You can open the output file and read it manually, if you need that energy.
+mokit{}
 
-(2) If you specify `NEVPT2_prog=OpenMolcas`, it actually turns into a DMRG-NEVPT2 computation, no matter how large/small the size of active space is. In this special case, you need to install the QCMaquis package (interfaced with OpenMolcas) for DMRG computations.
+0 1
+...
+```
+
+(2) FIC-NEVPT3 by calling ORCA
+```
+%mem=200GB
+%nprocshared=64
+#p NEVPT3/def2TZVP
+
+mokit{NEVPT_prog=ORCA}
+
+0 1
+...
+```
+
+Note that there exist at least two variants of the NEVPT2: SC-NEVPT2 and FIC-NEVPT2 (aka PC-NEVPT2). By default, for NEVPT_prog=PySCF/Molpro/ORCA/OpenMolcas, SC-NEVPT2 is chosen; while for `NEVPT_prog=BDF`, FIC-NEVPT2 is chosen. To turn on the FIC-NEVPT2 when using PySCF/Molpro/ORCA/OpenMolcas, please use the keyword [FIC](#4434-fic). Also note that
+
+(1) When you specify `NEVPT_prog=Molpro` or OpenMolcas, both of the SC-NEVPT2 and FIC-NEVPT2 energies are actually printed in Molpro/OpenMolcas output (.out file). You can open the output file and read it manually, if you need that energy.
+
+(2) If you specify `NEVPT_prog=OpenMolcas`, it actually turns into a DMRG-NEVPT2 computation, no matter how large/small the size of active space is. In this special case, you need to install the QCMaquis package (interfaced with OpenMolcas) for DMRG computations.
+
+(3) `NEVPT2_prog` can be used an alias when you request an NEVPT2 calculation. There is no alias like `NEVPT3_prog` or `NEVPT4_prog`.
 
 ## 4.4.17 MRCISD_prog
 Specify the program for performing MRCISD calculation. By default, `MRCISD_prog=OpenMolcas`. You MUST also specify a contraction type, please read [CtrType](#4421-ctrtype) carefully. Currently, `automr` supports the interfaces of three MRCISD variants:
@@ -313,7 +329,7 @@ and put that into `$MOLCAS/basis_library/jk_Basis/`.
 ## 4.4.31 F12
 Request to turn on the F12 technique in NEVPT2 computations conducted by ORCA. F12 is not used by default. But if you turn on F12, [RI](#4429-ri) will be turned on as a byproduct.
 
-This option currently can only be used in CASSCF and CASSCF-NEVPT2 computations conducted by ORCA program, i.e. you need to specify `CASSCF_prog=ORCA,NEVPT2_prog=ORCA,F12` in mokit{}. To learn more about the near-complete auxiliary basis set used in F12 technique, see the following section.
+This option currently can only be used in CASSCF and CASSCF-NEVPT2 computations conducted by ORCA program, i.e. you need to specify `CASSCF_prog=ORCA,NEVPT_prog=ORCA,F12` in mokit{}. To learn more about the near-complete auxiliary basis set used in F12 technique, see the following section.
 
 ## 4.4.32 F12_cabs
 Specify a near-complete auxiliary basis set for the F12 technique in NEVPT2 computations conducted by ORCA. Usually you do not need to specify this, since the automr program will automatically assign a proper auxiliary basis set according to the basis set (e.g. cc-pVTZ-F12-CABS for cc-pVTZ-F12). You can simply open the output file of automr and see what CABS is assigned.
@@ -323,14 +339,10 @@ Request to turn on the DLPNO technique in NEVPT2 computations conducted by ORCA.
 DLPNO is not used by default. But if you turn on DLPNO, RI (see 4.4.28) and FIC
 (see 4.4.33) will be turned on as byproducts.
 
-This option currently can only be used in CASSCF and CASSCF-NEVPT2 computations conducted by ORCA program, i.e. you need to specify `CASSCF_prog=ORCA,NEVPT2_prog=ORCA,DLPNO` in mokit{}. Of course it can be combined with F12 to perform RI-DLPNO-FIC-NEVPT2-F12 computations for large systems, where the keywords should be `mokit{CASSCF_prog=ORCA,NEVPT2_prog=ORCA,DLPNO,F12}`.
+This option currently can only be used in CASSCF and CASSCF-NEVPT2 computations conducted by ORCA program, i.e. you need to specify `CASSCF_prog=ORCA,NEVPT_prog=ORCA,DLPNO` in mokit{}. Of course it can be combined with F12 to perform RI-DLPNO-FIC-NEVPT2-F12 computations for large systems, where the keywords should be `mokit{CASSCF_prog=ORCA,NEVPT_prog=ORCA,DLPNO,F12}`.
 
 ## 4.4.34 FIC
-Request the FIC- variant of NEVPT2 (i.e. FIC-NEVPT2) to be used. By default SC-
-NEVPT2 is invoked if you specify NEVPT2 in route section `#p NEVPT2/...` and use
-PySCF/Molpro/OpenMolcas/ORCA program as `NEVPT2_prog`. But if you specify `NEVPT2_prog=BDF`,
-this option is turned on as a byproduct and FIC-NEVPT2 will then be performed.
-SC-NEVPT2 is not supported in BDF. FIC-NEVPT2 is not supported in PySCF.
+Request the FIC- variant of NEVPT2 (i.e. FIC-NEVPT2) to be used. By default SC-NEVPT2 is invoked if you specify NEVPT2 in route section `#p NEVPT2/...` and use PySCF/Molpro/OpenMolcas/ORCA program as `NEVPT_prog`. But if you specify `NEVPT_prog=BDF`, this option is turned on as a byproduct and FIC-NEVPT2 will then be performed. SC-NEVPT2 is not supported in BDF. FIC-NEVPT2 is not supported in PySCF.
 
 ## 4.4.35 ON_thres
 When ist=5, this parameter is the threshold of natural orbital occupation numbers (NOON) for determining the number of active orbitals. Default value is 0.02, which means orbital occupation numbers 0.02~1.98 will be considered as active orbitals in subsequent CAS/DMRG calculations.

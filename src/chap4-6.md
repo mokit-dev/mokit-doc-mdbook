@@ -20,14 +20,14 @@ Some commonly used APIs in these modules are shown below.
 1. load_mol_from_fch(fchname)
 2. loc(fchname, method, idx)
 3. uno(fchname)
-4. permute_orb(fchname, orb1, orb2)
-5. gen_fcidump(fchname, nacto, nacte, mem=4000, np=None)
-6. get_1e_exp_and_sort_pair(mo_fch, no_fch, npair)
-7. read_mo_from_fch(fchname, nbf, nif, ab)
-8. read_density_from_gau_log(logname, itype, nbf)
-9. read_dm_from_fch(fchname, itype, nbf)
-10. write_pyscf_dm_into_fch(fchname, nbf, dm, itype, force)
-11. gen_ao_tdm(logname, nbf, nif, mo, istate)
+4. nio(n_fch, n_1_fch)
+5. permute_orb(fchname, orb1, orb2)
+6. gen_fcidump(fchname, nacto, nacte, mem=4000, np=None)
+7. get_1e_exp_and_sort_pair(mo_fch, no_fch, npair)
+8. read_mo_from_fch(fchname, nbf, nif, ab)
+9. read_density_from_gau_log(logname, itype, nbf)
+10. read_dm_from_fch(fchname, itype, nbf)
+11. write_pyscf_dm_into_fch(fchname, nbf, dm, itype, force)
 12. export_mat_into_txt(txtname, n, mat, lower, label)
 13. pairing_open_with_vir
 
@@ -66,7 +66,6 @@ pbc_loc('water64-MOS-1_0.molden', box=np.eye(3)*12.42, method='berry')
 ```
 The method can be either 'berry' or 'pm'. The wannier centers of the localized orbitals will be exported into a new file with suffix `*_wannier.xyz` by default.
 
-
 ### 4.6.1.3 uno
 Generate UHF natural orbitals(UNOs) from a given Gaussian .fch(k) file. For example
 
@@ -75,7 +74,17 @@ from mokit.lib.gaussian import uno
 uno(fchname='benzene_uhf.fch')
 ```
 
-### 4.6.1.4 permute_orb
+### 4.6.1.4 nio
+Generate natural ionization orbitals (NIOs) for N -> (N-1) electrons ionization process (see the original paper JCP 2016, 144, 204117). It is simply calculated by diagonalizing (P_N - P_(N-1))*S. This way of obtaining natural orbitals are also called natural difference orbitals (NDOs). The "lost" electron is mainly ionized from the NIO which has the eigenvalue closest to 1.0. This can be viewed as a good approximation to Dyson orbitals, while the computational cost of NIOs is usually much less than that of Dyson orbitals. The syntax of usage is `nio(n_fch, n_1_fch)`, where `n_fch`/`n_1_fch` are the .fch(k) file for N/(N-1) electron state, respectively. These two files must include correct total densities in `Total SCF Density` section in .fch file. For routine HF/DFT calculations, this is automatically ensured. For automatic CASSCF calculations performed by MOKIT, the density are also ensured to be correct. For other types of calculations, it is the users' responsibility to make sure whether the total densities are correctly generated and stored. An example is shown below
+
+```python
+from mokit.lib.gaussian import nio
+nio('C6H12O3_neutral.fch','C6H12O3_frag1_uhf.fch')
+```
+
+The wave function in two .fch(k) files can either be RHF or UHF-type, as long as the calculations are performed appropriately. Here "UHF-type" means a UHF/UKS calculation.
+
+### 4.6.1.5 permute_orb
 Swap/exchange two orbitals in a given .fch(k) file. For example
 
 ```python
@@ -85,7 +94,7 @@ permute_orb('ethanol_rhf_proj_loc_pair2gvb8_s.fch',6,13)
 
 then the MO 6 and MO 13 will be swapped/exchanged. The index of the first orbital starts from 1.
 
-### 4.6.1.5 gen_fcidump
+### 4.6.1.6 gen_fcidump
 Generate a FCIDUMP file which contains the effective 1e integrals and 2e integrals from a given Gaussian .fch(k) file. Such a FICUDMP file can be used in CASCI, DMRG-CASCI, GVB-BCCC, or any post-CASCI calculations. For example
 
 ```python
@@ -95,7 +104,7 @@ gen_fcidump(fchname='anthracene_cc-pVDZ_uhf_uno_asrot2gvb7_s.fch',nacto=14,nacte
 
 where the arguments `nacto` and `nacte` are the number of active orbitals and the number of active electrons, respectively. This module requires the PySCF installed.
 
-### 4.6.1.6 get_1e_exp_and_sort_pair
+### 4.6.1.7 get_1e_exp_and_sort_pair
 Compute 1e expectation values of MOs in file `mo_fch`, using information from
 file `no_fch` (which usually includes NOs).
 Sort paired MOs in `mo_fch` by 1e expectation values.
@@ -104,7 +113,7 @@ Sort paired MOs in `mo_fch` by 1e expectation values.
 from mokit.lib.rwwfn import get_1e_exp_and_sort_pair as sort_pair
 sort_pair(mo_fch, no_fch, npair)
 ```
-### 4.6.1.7 read_mo_from_fch
+### 4.6.1.8 read_mo_from_fch
 Read MOs from a Gaussian .fch(k) file. For example
 
 ```python
@@ -116,7 +125,7 @@ Argument `ab`: character with length=1, 'a'/'b' for reading alpha/beta orbitals.
 
 See also [4.6.4.1](#4641-readwrite-mo) to read/write MOs from files of other programs.
 
-### 4.6.1.8 read_density_from_gau_log
+### 4.6.1.9 read_density_from_gau_log
 Read various types of density matrix from a Gaussian output file. For example, read the Alpha Density Matrix from a .log file
 
 ```python
@@ -127,7 +136,7 @@ den = rwwfn.read_density_from_gau_log(logname='00-h2o_cc-pVDZ_1.5.log', itype=2,
 argument `itype`:  
 1/2/3 for Total/Alpha/Beta Density Matrix.
 
-### 4.6.1.9 read_dm_from_fch
+### 4.6.1.10 read_dm_from_fch
 Read various types of density matrix from a Gaussian .fch(k) file. For example, read the Total SCF Density from a .fchk file
 
 ```python
@@ -145,7 +154,7 @@ den = rwwfn.read_dm_from_fch(fchname='00-h2o_cc-pVDZ_1.5.fchk',itype=1,nbf=24)
 
 See also [4.6.4.4](#4644-readwrite-density-and-other-matrices) for other operations on density matrix. 
 
-### 4.6.1.10 write_pyscf_dm_into_fch
+### 4.6.1.11 write_pyscf_dm_into_fch
 Write a PySCF density matrix into a given Gaussian .fch(k) file. This module does two things: (1) deal with the order of basis functions and their normalization factors, (2) then export density matrix into a given .fch(k) file. All arguments of this module are shown below
 
 ```python
@@ -165,20 +174,6 @@ from mokit.lib.py2fch import write_pyscf_dm_into_fch
 ```
 
 Note that this module cannot generate a .fch(k) file from scratch, the user must provide one such file. The recommended approach is firstly using the utility `bas_fch2py` to generate PySCF input file or using the Python module `load_mol_from_fch` to a generate proper PySCF object, then do computations in PySCF. Finally using the module `write_pyscf_dm_into_fch` to export desired density matrix.
-
-### 4.6.1.11 gen_ao_tdm
-Generate AO-basis ground->excited state Transition Density Matrix for CIS/TDHF/TDDFT from a Gaussian output file. Currently only closed shell is taken into consideration. For example, read the S0->S1 Transition Density Matrix from a Gaussian .log file (with iop(9/40=5) specified in .gjf file)
-
-```python
-from mokit.lib import rwwfn, excited
-mo = rwwfn.read_mo_from_fch(fchname='00-h2o_cc-pVDZ_0.96_rhf.fchk',nbf=24,nif=24,ab='a')
-tdm = excited.gen_ao_tdm(logname='00-h2o_cc-pVDZ_0.96_rhf.log',nbf=24,nif=24,mo=mo,istate=1)
-rwwfn.export_mat_into_txt(txtname='h2o_tdm.txt',n=24,mat=tdm,lower=False,label='transition density matrix')
-```
-
-Argument `istate`: the *i*-th excited state. For example, i=1 for the first excited state.
-
-The last python statement means exporting the transition density matrix into a plain text file, see the API below.
 
 ### 4.6.1.12 export_mat_into_txt
 Export a square matrix into a plain text file. The example of exporting transition density matrix is shown in Section 4.6.1.11. Here I offer one more example - export the lower triangle of a symmetric AO-basis overlap matrix
@@ -201,7 +196,6 @@ Paring each singly occupied orbital with a virtual one, for a high spin GVB wave
 
 ```python
 from mokit.lib.rwwfn import pairing_open_with_vir
-
 pairing_open_with_vir(fchname='ben_triplet_uhf_uno_asrot2gvb2.fch')
 ```
 

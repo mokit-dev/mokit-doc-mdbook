@@ -15,3 +15,7 @@ The download number on [anaconda](https://anaconda.org/mokit/mokit) reaches 1500
 ## 20250730 50 citations
 
 The number of papers citing MOKIT reaches 50 by the end of July, 2025.
+
+## 20250919 2000 downloads on anaconda
+
+The download number on [anaconda](https://anaconda.org/mokit/mokit) reaches 2000 in Sep 19, 2025.

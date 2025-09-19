@@ -34,8 +34,7 @@
 
     <script>
 
-    function add_chart(canvasId, jsonFilePath) {  
-        
+    function add_chart(canvasId, jsonFilePath) {          
             const ctx = document.getElementById(canvasId).getContext('2d');
             
             // 使用fetch获取JSON文件
@@ -104,8 +103,7 @@
                 }).catch(error => {
                     console.error('获取数据失败:', error);
                     document.body.innerHTML += `<p style="color: red;">加载数据失败: ${error.message}</p>`;
-                });
-        //});
+            });
     }
     // 调用函数，传入JSON文件的路径
     document.addEventListener('DOMContentLoaded', function() {

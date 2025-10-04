@@ -32,7 +32,12 @@ If you have no access to network, but still do not want to compile MOKIT manuall
 
 #### Use MOKIT with default channel
 
-Creating a new environment before installing is highly recommended, to avoid changing your base environment.
+Creating a new environment before installing is highly recommended, to avoid changing your base environment. You can create the environment in one go
+```
+conda create -n mokit-py39 python=3.9 mokit -c mokit # 3.9-3.11 are available
+conda activate mokit-py39
+```
+or step by step
 ```
 conda create -n mokit-py39 python=3.9 # 3.9-3.11 are available
 conda activate mokit-py39

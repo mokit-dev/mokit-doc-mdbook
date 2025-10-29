@@ -19,6 +19,7 @@
             margin-bottom: 20px;
             color: #333;
         }
+
     </style>
 </head>
 <body>
@@ -32,35 +33,132 @@
         <canvas id="citeChart"></canvas>
     </div>
 
+    <div class="chart-container">
+        <h2 class="chart-title">Star Count</h2>
+        <canvas id="starChart"></canvas>
+    </div>
     <script>
 
-    function add_chart(canvasId, jsonFilePath) {          
-            const ctx = document.getElementById(canvasId).getContext('2d');
+    Chart.defaults.elements.line.tension = 0.3;
+    Chart.defaults.elements.line.fill = true;
+    // Chart.defaults.datasets.spanGaps = true;
+
+    function mycallback(context) {
+        let label = context.dataset.label || '';
+        if (label) {
+            label += ': ';
+        }
+        if (context.parsed.y !== null) {
+            label += context.parsed.y;
+        } else {
+            label += 'No data';
+        }
+        return label;
+    }
+    
+    const colors = [
+        { border: 'rgb(75, 192, 192)', background: 'rgba(75, 192, 192, 0.1)' },
+        { border: 'rgb(255, 99, 132)', background: 'rgba(255, 99, 132, 0.1)' },
+        { border: 'rgb(54, 162, 235)', background: 'rgba(54, 162, 235, 0.1)' },
+        { border: 'rgb(255, 205, 86)', background: 'rgba(255, 205, 86, 0.1)' },
+        { border: 'rgb(153, 102, 255)', background: 'rgba(153, 102, 255, 0.1)' },
+        { border: 'rgb(201, 203, 207)', background: 'rgba(201, 203, 207, 0.1)' }
+    ];
+
+    function add_chart(canvasId, jsonFilePaths) {          
+        const ctx = document.getElementById(canvasId).getContext('2d');
             
-            // 使用fetch获取JSON文件
-            fetch(jsonFilePath)
-                .then(response => {
-                    return response.json();
-                })
-                .then(data => {
-                    
-                    let labels, values;
-                    labels = data.dates;
-                    values = data.counts;
+        if (typeof jsonFilePaths === 'string') {
+            jsonFilePaths = [jsonFilePaths];
+        }
+
+    // Create promises for all fetch requests
+    const fetchPromises = jsonFilePaths.map((filePath, index) => 
+        fetch(filePath)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Failed to load ${filePath}: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Extract filename for label (remove path and extension)
+                const fileName = filePath.split('/').pop().replace('.json', '');
+                // remove 'star' prefix if exists
+                const cleanName = fileName.replace(/^star/, '');
+                return {
+                    dates: data.dates,
+                    counts: data.counts,
+                    label: cleanName,
+                    color: colors[index % colors.length],
+                    // Store as date objects for proper sorting and comparison
+                    dateObjects: data.dates.map(date => new Date(date))
+                };
+            })
+            .catch(error => {
+                console.error(`Error loading ${filePath}:`, error);
+                throw error;
+            })
+    );
+    
+    // Wait for all promises to resolve
+    Promise.all(fetchPromises)
+        .then(datasetsData => {
+            // Combine all unique dates from all datasets and sort them
+            const allDatesSet = new Set();
+            datasetsData.forEach(data => {
+                data.dates.forEach(date => allDatesSet.add(date));
+            });
+            
+            const allDates = Array.from(allDatesSet).sort((a, b) => new Date(a) - new Date(b));
+            
+            // Create datasets for Chart.js with aligned data
+            const datasets = datasetsData.map((data, index) => {
+                // Create a map for quick lookup of counts by date
+                const dateCountMap = new Map();
+                data.dates.forEach((date, i) => {
+                    dateCountMap.set(date, data.counts[i]);
+                });
+                
+                // Create aligned data array (null for missing dates)
+                const alignedData = allDates.map(date => {
+                    return dateCountMap.has(date) ? dateCountMap.get(date) : null;
+                });
+                
+                return {
+                    label: data.label,
+                    data: alignedData,
+                    borderColor: data.color.border,
+                    backgroundColor: data.color.background,
+                    // tension: 0.3,
+                    // fill: true,
+                    spanGaps: true, // Allow connecting lines across gaps
+                    // pointBackgroundColor: data.color.border,
+                    // pointBorderColor: '#fff',
+                    // pointBorderWidth: 2,
+                    // pointRadius: 3,
+                    // pointHoverRadius: 5
+                };
+            });
+
+            // debugging logs
+            // console.log('All Dates:', allDates);
+            // console.log('Datasets:', datasets);
                     
                     // 创建图表
                     new Chart(ctx, {
                         type: 'line',
                         data: {
-                            labels: labels,
-                            datasets: [{
-                                label: 'count',
-                                data: values,
-                                borderColor: 'rgb(75, 192, 192)',
-                                backgroundColor: 'rgba(75, 192, 192, 0.1)',
-                                tension: 0.3,
-                                fill: true
-                            }]
+                            labels: allDates,
+                            // datasets: [{
+                            //     label: 'count',
+                            //     data: values,
+                            //     borderColor: 'rgb(75, 192, 192)',
+                            //     backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                            //     tension: 0.3,
+                            //     fill: true
+                            // }]
+                            datasets: datasets
                         },
                         options: {
                             responsive: true,
@@ -97,18 +195,29 @@
                                     },
                                     min: 0
                                 }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: datasets.length > 1,
+                                    position: 'top'
+                                },
+                                tooltip: {
+                                    mode: 'index',
+                                    callbacks: { label: mycallback }
+                                }
                             }
                         }
                     });
                 }).catch(error => {
-                    console.error('获取数据失败:', error);
-                    document.body.innerHTML += `<p style="color: red;">加载数据失败: ${error.message}</p>`;
+                    console.error('Error creating chart:', error);
+                    throw error;
             });
     }
     // 调用函数，传入JSON文件的路径
     document.addEventListener('DOMContentLoaded', function() {
     add_chart('downloadChart', './count/download.json');
     add_chart('citeChart', './count/cite.json');
+    add_chart('starChart', ['./count/stargithub.json', './count/stargitlab.json']);
     });
     </script>
 </body>

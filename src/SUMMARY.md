@@ -40,4 +40,4 @@
 
 [About](./about.md)
 [News](./news.md)
-[Charts](./charts.md)
+<!-- [Charts](./charts.md) -->

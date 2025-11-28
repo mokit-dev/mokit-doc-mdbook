@@ -19,6 +19,7 @@ Oct 12, 2025
   + [Utilities](./chap4-5.md)
   + [APIs](./chap4-6.md)
   + [Methods and keywords](./chap4-7.md) in `autosr`
+  + [Visualization Tools](./chap4-8.md)
 - [Examples](./chap5_example.md)
 - [Developer's Guide](./chap6.md)
 - [Papers citing MOKIT](./citing.md)

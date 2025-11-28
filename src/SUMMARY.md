@@ -24,6 +24,7 @@
   - [List of Utilities in MOKIT](./chap4-5.md)
   - [APIs in MOKIT](./chap4-6.md)
   - [Methods and Keywords in `autosr`](./chap4-7.md)
+  - [Visualization Tools](./chap4-8.md)
 - [Examples](./chap5_example.md)
   - [Examples of `automr`](./chap5-1.md)
   - [Examples of Transferring MOs](./chap5-2.md)

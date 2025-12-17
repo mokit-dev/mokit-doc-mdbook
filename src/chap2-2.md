@@ -1,9 +1,9 @@
-# 2.2 Linux Pre-built and MacOS brew Build
+# 2.2 Conda Installation and Other Pre-build
 
 This section goes over several installing approaches that, unlike [Section 2.3](./chap2-3.md), does not require building from source manually. 
 
-1. Install from conda (for Linux only). Binary package is provided in this approach.
-2. Use homebrew build (for MacOS only). Although there's no binaries for MacOS yet, this approach will build it automatically.
+1. Install from conda (for Linux and MacOS). Binary package is provided in this approach.
+2. Use homebrew build (for MacOS only). This approach will build it automatically.
 3. Manually download pre-built Linux binaries (it's not a conda package). 
     > Unlike conda, this approach will not take care of dependency versions (like numpy) for you, and you need to set environment variables manually. So this approach is usually not recommended. 
     >
@@ -21,11 +21,14 @@ Like [Section 2.3](./chap2-3.md), there is still something to do after "installa
 ## 2.2.1 Online Installation
 You can choose option 1 or 2 below. After mokit is successfully installed, if you want GAMESS to be called by `automr`, you need to [install GAMESS properly](./chap4-4.md#4410-gvb_prog) and write related environment variables.
 
-### Option 1: Install from conda (for Linux only)
+### Option 1: Install from conda (for Linux and MacOS)
 This is the easiest way, but network is required to auto-download the requirements. 
 
-We ship MOKIT at two channels, the `mokit` channel (used with anaconda default main channel) and the `mokit/label/cf` channel (used with conda-forge).
+For Linux x86-64 platform, 
+we ship MOKIT at two channels, the `mokit` channel (used with anaconda default main channel) and the `mokit/label/cf` channel (used with conda-forge).
 Both the default and conda-forge channel require `glibc >= 2.17`.
+For MacOS arm64 platform, there's only `mokit/label/cf` channel. Other platforms are not supported yet, like Linux aarch64 or MacOS x86-64.
+
 Replace conda with mamba/micromamba is ok in principle.
 
 If you have no access to network, but still do not want to compile MOKIT manually, you can try options in [Section 2.2.2](#222-pre-built-linux-executables-and-libraries).
@@ -66,7 +69,8 @@ conda install mokit -c mokit/label/cf
 ```
 If not, it's recommended to create an environment first before installing.
 ```
-conda create -n mokit-cf python=3.9 -c conda-forge # 3.9-3.11 are available
+conda create -n mokit-cf python=3.11 -c conda-forge 
+# For linux x86-64, 3.9-3.11 are available. For MacOS arm64, only 3.11 is available.
 conda activate mokit-cf
 conda install mokit -c mokit/label/cf -c conda-forge
 ```

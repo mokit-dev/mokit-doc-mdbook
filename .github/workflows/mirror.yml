@@ -1,0 +1,42 @@
+name: Sync to GitLab
+
+on:
+  # Trigger on push to specific branches
+  push:
+    branches-ignore: []
+  
+  # Optional: Also sync tags
+  #tags:
+  #  - '*'
+  
+  # Optional: Allow manual triggering
+  workflow_dispatch:
+    inputs:
+      force-sync:
+        description: 'Force sync all refs'
+        required: false
+        default: 'false'
+
+jobs:
+  mirror-to-gitlab:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Get all history for proper mirroring
+          
+      - name: Mirror to GitLab
+        uses: yesolutions/mirror-action@master
+        with:
+          # GitLab repository URL
+          REMOTE: 'https://gitlab.com/jeanwsr/mokit-doc-mdbook'
+          
+          # Authentication
+          GIT_USERNAME: 'jeanwsr'
+          GIT_PASSWORD: ${{ secrets.GITLAB_TOKEN }}
+          
+          # Optional configuration
+          GIT_PUSH_ARGS: '--mirror'  # Use --mirror for exact copy (recommended)
+          

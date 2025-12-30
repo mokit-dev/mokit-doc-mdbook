@@ -38,5 +38,5 @@ jobs:
           GIT_PASSWORD: ${{ secrets.GITLAB_TOKEN }}
           
           # Optional configuration
-          GIT_PUSH_ARGS: '--mirror'  # Use --mirror for exact copy (recommended)
+          #GIT_PUSH_ARGS: '--mirror'  # Use --mirror for exact copy (recommended)
           

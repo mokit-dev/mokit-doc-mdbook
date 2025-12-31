@@ -25,102 +25,77 @@ You can choose option 1 or 2 below. After mokit is successfully installed, if yo
 This is the easiest way, but network is required to auto-download the requirements. 
 
 For Linux x86-64 platform, 
-we ship MOKIT at two channels, the `mokit` channel (used with anaconda default main channel) and the `mokit/label/cf` channel (used with conda-forge).
+we used to ship MOKIT at two channels, the `mokit` channel (used with anaconda default main channel) and the `mokit/label/cf` channel (used with conda-forge).
 Both the default and conda-forge channel require `glibc >= 2.17`.
-For MacOS arm64 platform, there's only `mokit/label/cf` channel. Other platforms are not supported yet, like Linux aarch64 or MacOS x86-64.
+Starting from v1.2.7rc15, these two channels are merged into one channel `mokit` (used with conda-forge). `mokit/label/cf` can still be used as an alias for `mokit`.
 
-Replace conda with mamba/micromamba is ok in principle.
+For MacOS arm64 platform, there's only one `mokit` channel. Other platforms are not supported yet, like Linux aarch64 or MacOS x86-64.
+
+<!--Replace conda with mamba/micromamba is ok in principle.-->
 
 If you have no access to network, but still do not want to compile MOKIT manually, you can try options in [Section 2.2.2](#222-pre-built-linux-executables-and-libraries).
 
-#### Use MOKIT with default channel
+#### Use MOKIT with conda-forge channel
 
-Creating a new environment before installing is highly recommended, to avoid changing your base environment. You can create the environment in one go
+Creating a new environment before installing is highly recommended, to avoid changing your base environment. You can create the environment in one go like
 ```
-conda create -n mokit-py39 python=3.9 mokit -c mokit # 3.9-3.11 are available
-conda activate mokit-py39
-```
-or step by step
-```
-conda create -n mokit-py39 python=3.9 # 3.9-3.11 are available
-conda activate mokit-py39
-conda install mokit -c mokit
+conda create -n mokit-py311 python=3.11 mokit -c mokit -c conda-forge
+conda activate mokit-py311
 ```
 
-Each time when you login onto the machine, you need to activate the virtual environment by `conda activate mokit-py39` and then you can use MOKIT on the current computer/node. But if you want to submit MOKIT jobs to a queue on Cluster（集群）, things are somewhat different and please read [Section 2.4.3](./chap2-4.html#243-use-mokit-on-cluster) carefully.
+For Linux x86-64, you can use any version of Python 3.9-3.12. For MacOS arm64, only 3.11 is available. 
+If you have enabled conda-forge (by `conda config --add channels conda-forge` or modifying condarc), you can
+omit the `-c conda-forge` option.
 
-If you have not installed PySCF and you want to install it now, you can choose to
+Each time when you login onto the machine, you need to activate the virtual environment by `conda activate mokit-py311` and then you can use MOKIT on the current computer/node. But if you want to submit MOKIT jobs to a queue on Cluster（集群）, things are somewhat different and please read [Section 2.4.3](./chap2-4.html#243-use-mokit-on-cluster) carefully.
 
-(1) run `pip install pyscf` in this virtual environment. 
-
-(2) follow the [instruction below](#use-mokit-with-conda-forge-channel) to install pyscf and MOKIT with conda-forge channel.
+If you have not installed PySCF and you want to install it now, you can follow the [instruction below](#install-pyscf-with-mokit).
 
 See [here](#update-mokit-with-conda) for updating mokit with conda.
 
 
 
-#### Use MOKIT with conda-forge channel
+#### Install pyscf with MOKIT
 
-The MOKIT installed following instructions above, which is from `mokit` channel by default, is hardly compatible with conda-forge environment. If you want to enable conda-forge, an alternative way is to install from `mokit/label/cf`.
+There are two options of online installation:
 
-If you have enabled conda-forge (by `conda config --add channels conda-forge` or modifying condarc), you can directly do
+1. run `pip install pyscf` in your virtual environment.
+1. install with conda. pyscf and MOKIT can be installed in the conda-forge channel at the same time
 ```
-conda install mokit -c mokit/label/cf
-```
-If not, it's recommended to create an environment first before installing.
-```
-conda create -n mokit-cf python=3.11 -c conda-forge 
-# For linux x86-64, 3.9-3.11 are available. For MacOS arm64, only 3.11 is available.
-conda activate mokit-cf
-conda install mokit -c mokit/label/cf -c conda-forge
-```
-
-When pyscf is also needed, it can be installed in the conda-forge channel at the same time
-```
-conda install mokit pyscf -c mokit/label/cf -c conda-forge
+conda install mokit pyscf -c mokit -c conda-forge
 ```
 or separately
 ```
 conda install pyscf -c conda-forge
-conda install mokit -c mokit/label/cf -c conda-forge
+conda install mokit -c mokit -c conda-forge
 ```
 
 #### Update MOKIT with conda
 
 Usually the following command works. 
 ```
-# for default channel
-conda update mokit -c mokit
-# for conda-forge channel
-conda update mokit -c mokit/label/cf -c conda-forge
+conda update mokit -c mokit -c conda-forge
 ```
 
 Sometimes it may fail to find the latest version of MOKIT, especially when you haven't update mokit for a few months or use conda-forge in which dependencies evolve quite fast. 
 In this case, there's a few workarounds:
 
-(1) update mokit along with some dependencies
+(1) remove and install
 ```
-# for default channel
-conda update mokit mkl -c mokit
-# for conda-forge channel
-conda update mokit openblas -c mokit/label/cf -c conda-forge
+conda uninstall mokit numpy openblas -c mokit -c conda-forge
+conda install mokit -c mokit -c conda-forge
 ```
-(2) install a specified version (please visit [here](https://anaconda.org/mokit/mokit) to see the latest version number)
+(2) update mokit along with some dependencies
 ```
-# for default channel
-conda install mokit=1.2.7rc9 -c mokit
-# for conda-forge channel
-conda install mokit=1.2.7rc9 -c mokit/label/cf -c conda-forge
+conda update mokit openblas -c mokit -c conda-forge
 ```
-(3) remove and install
+(3) install a specified version (please visit [here](https://anaconda.org/mokit/mokit) to see the latest version number)
 ```
-# for default channel
-conda uninstall mokit numpy mkl -c mokit
-conda install mokit -c mokit
-# for conda-forge channel
-conda uninstall mokit numpy openblas -c mokit/label/cf -c conda-forge
-conda install mokit -c mokit/label/cf -c conda-forge
+conda install mokit=1.2.7rc16 -c mokit -c conda-forge
 ```
+
+> [!IMPORTANT]
+> If you have installed MOKIT by `conda install mokit -c mokit` with the version <= 1.2.7rc14 and want to update it, please use the "remove and install" method.
 
 ### Option 2: Use homebrew-toolchains (for MacOS only)
 * Prerequisites: 

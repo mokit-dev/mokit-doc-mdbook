@@ -10,7 +10,6 @@ on:
     branches: ["master"]
     paths-ignore:
       - .github/workflows/mirror.yml
-    
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -31,7 +30,7 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
-    #env 
+    #env
     #  MDBOOK_VERSION: 0.4.36
     steps:
       - uses: actions/checkout@v4
@@ -40,9 +39,9 @@ jobs:
           curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf -y | sh
           rustup update
           curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | sh
-          cargo binstall -y mdbook --version "^0.4"
-          cargo binstall -y mdbook-admonish
-          mdbook-admonish install .
+          cargo binstall -y mdbook 
+          # cargo binstall -y mdbook-admonish
+          # mdbook-admonish install .
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5

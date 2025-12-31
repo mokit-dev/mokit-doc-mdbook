@@ -9,9 +9,9 @@ The latest version of MOKIT source code can be downloaded via [mokit-master.zip]
 3. `f2py`: Anaconda Python3(recommended) or Miniconda + Numpy
 
 It is recommended to install the Intel compiler and Anaconda Python3 on your computer/node. Although these two packages may be large, they meet all prerequisites of compiling MOKIT. Note that the Intel compiler is free of charge for academic use. You can download Anaconda Python3 from the [NJU mirror website](http://mirrors.nju.edu.cn/anaconda/archive), e.g the package `Anaconda3-2024.02-1-Linux-x86_64.sh`.
-```admonish note
+<!--
 Currently python >= 3.12 is not supported due to the new f2py backend has not been fully supported yet. Please use python <= 3.11 (create such an environment with network, or download an old Anaconda3 (2024.02 and earlier)).
-```
+-->
 
 If you do not have the `ifort` compiler or Intel MKL on your computer, you may want to download and install them. There are several versions recommended, you can choose any one of them:  
 (1) Intel Parallel Studio XE 2017~2020 are all OK (2019 or 2020 preferred).  

@@ -128,7 +128,7 @@ Charge=6. Atoms=1 Basis=INTGRL Blocks=3 1 1 1
         0.8000000000        1.0000000000
 <strong>Charge=0. Atoms=1 Basis=INTGRL Ghost
 Bq   0.7809234989   -1.0000597432    0.6745590841</strong>
-</pre></code>
+</code></pre>
 
 What you need to do is two things: (1) modify the AtomTypes from 8 to 9 (because
 we add one Bq atom); (2) add coordinates of the Bq dummy atom in the end of the

@@ -607,9 +607,9 @@ mf = scf.RHF(mol).run()
 py2qchem(mf, 'h2o.in')
 ```
 
-```admonish note
-After MOKIT version 1.2.6rc5, a lazy import of functions in this subsection is enabled. `from mokit.lib.py2qchem import py2qchem` can be replaced by `from mokit.lib import *` or `from mokit.lib import py2qchem`.
-```
+> [!NOTE]
+> After MOKIT version 1.2.6rc5, a lazy import of functions in this subsection is enabled. `from mokit.lib.py2qchem import py2qchem` can be replaced by `from mokit.lib import *` or `from mokit.lib import py2qchem`.
+
 
 Run it using python and then a Q-Chem input file `h2o.in` and a scratch directory `h2o` will be generated. The orbital file(s) is put in `h2o/`. If you run
 ```

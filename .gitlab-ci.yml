@@ -5,23 +5,23 @@ pages:
   stage: deploy
   image: rust:1
   script:
-  - >
-    curl -L --proto '=https' --tlsv1.2 
-    -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
-  - cargo binstall -y mdbook --version "^0.4"
-  - cargo binstall -y mdbook-admonish
-  #- tar xvzf mdbook-v*-x86_64-unknown-linux-gnu.tar.gz
-  #- tar xvzf mdbook-toc-*-x86_64-unknown-linux-gnu.tar.gz
-  #- chown root:root mdbook*
-  #- ls -l
-  - mdbook-admonish install .
-  - bash patch.sh
-  - mdbook build
+    - >
+      curl -L --proto '=https' --tlsv1.2 
+      -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+    - cargo binstall -y mdbook
+    #- cargo binstall -y mdbook-admonish
+    #- tar xvzf mdbook-v*-x86_64-unknown-linux-gnu.tar.gz
+    #- tar xvzf mdbook-toc-*-x86_64-unknown-linux-gnu.tar.gz
+    #- chown root:root mdbook*
+    #- ls -l
+    #- mdbook-admonish install .
+    - bash patch.sh
+    - mdbook build
   artifacts:
     paths:
-    - public
+      - public
   only:
-  - master
+    - master
 
 .pdf:
   #rules:
@@ -42,13 +42,12 @@ pages:
     #header-template = "<p style='font-size:10px; text-align: center;'  class='title'></p>"
     #footer-template = "<p style='font-size:10px; text-align: center'>Page <span class='pageNumber'></span> / <span class='totalPages'></span></p>"
   script:
-  - tar xvzf mdbook-v*-x86_64-unknown-linux-gnu.tar.gz
-  - tar xvzf mdbook-toc-*-x86_64-unknown-linux-gnu.tar.gz
-  - chown root:root mdbook*
-  - ls -l
-  - ./mdbook build
-  - mv public/pdf/output.pdf public/pdf/${TARGET}.pdf
+    - tar xvzf mdbook-v*-x86_64-unknown-linux-gnu.tar.gz
+    - tar xvzf mdbook-toc-*-x86_64-unknown-linux-gnu.tar.gz
+    - chown root:root mdbook*
+    - ls -l
+    - ./mdbook build
+    - mv public/pdf/output.pdf public/pdf/${TARGET}.pdf
   artifacts:
     paths:
-    - public/pdf/${TARGET}.pdf
-
+      - public/pdf/${TARGET}.pdf

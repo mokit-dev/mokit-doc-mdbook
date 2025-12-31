@@ -191,9 +191,9 @@ export GMS=$HOME/software/gamess/rungms
 The `LD_LIBRARY_PATH` is needed since the OpenBLAS dynamic library is put there.
 Remember to modify the `GMS` path to suit your local environment. 
 
-```admonish warning
-The PYTHONPATH has changed since MOKIT version 1.2.5rc2.
-```
+
+<!--The PYTHONPATH has changed since MOKIT version 1.2.5rc2.-->
+
 
 Note that you need to run `source ~/.bashrc` or exit the terminal as well as re-login, in order to activate newly written environment variables.
 

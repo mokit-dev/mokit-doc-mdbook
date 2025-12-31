@@ -120,9 +120,8 @@ cd ~/software/gamess/source/
 
 You may need to type `y` after running `./modify_GMS1.sh`. The script will modify source code and re-compile GAMESS, taking about 2 minutes. The linked GAMESS executable will be `gamess.01.x`. If you already had an executable named `gamess.01.x`, please rename it to another filename. Otherwise it will be destroyed and replaced during re-compilation.
 
-```admonish note
-Note for conda users: the MOKIT conda package does not contain `src/`. An alternative way is to go to [GitLab repo](https://gitlab.com/jxzou/mokit/-/tree/master/src?ref_type=heads) and download those two files.
-```
+> [!NOTE]
+> Note for conda users: the MOKIT conda package does not contain `src/`. An alternative way is to go to [GitLab repo](https://gitlab.com/jxzou/mokit/-/tree/master/src?ref_type=heads) and download those two files.
 
 Besides, for GAMESS earlier than version 2021-R1, it only supports 32 CPU cores. If your machine has more cores (and if you want to use >32 cores), you need to modify the variable MAXCPUS in file gamess/ddi/compddi. See a simple guide in file `src/modify_GMS_beyond32CPU.txt`. Since GAMESS 2021, the MAXCPUS is already set to 128, so modification is not needed.
 

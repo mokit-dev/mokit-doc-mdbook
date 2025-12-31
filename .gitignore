@@ -1,6 +1,6 @@
 book
 mdbook*
 mer*.js
-*css
+/*css
 public/
 *tar.gz

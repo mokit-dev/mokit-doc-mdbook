@@ -173,7 +173,7 @@ Unlike the conda install approach, using pre-built MOKIT in this subsection do n
 
 ### Download
 
-[centos7_conda_py38](https://gitlab.com/jxzou/mokit/-/jobs/artifacts/master/download?job=centos7_conda_py38)  
+<!--[centos7_conda_py38](https://gitlab.com/jxzou/mokit/-/jobs/artifacts/master/download?job=centos7_conda_py38)  -->
 [centos7_conda_py39](https://gitlab.com/jxzou/mokit/-/jobs/artifacts/master/download?job=centos7_conda_py39)   
 [py39_gcc10](https://gitlab.com/jxzou/mokit/-/jobs/artifacts/master/download?job=py39_gcc10)  
 [py310_gcc10](https://gitlab.com/jxzou/mokit/-/jobs/artifacts/master/download?job=py310_gcc10)
@@ -208,7 +208,6 @@ If your linux kernel is roughly as old as Centos7's, choose the one started with
 
 | Artifacts | Python version | Compatible Anaconda version | Compatible Miniconda version | NumPy version |
 | :---: | :---: | :---: | :---: | :---: |
-| centos7_conda_py38 | 3.8 | 2021.05 | py38_4.10.3 | 1.20 |
 | centos7_conda_py39 | 3.9 | 2022.10 | py39_22.11.1 | 1.21 |
 | py39_gcc10 | 3.9 | 2022.10 | py39_22.11.1 | 1.21 |
 | py310_gcc10 | 3.10 | 2023.03 | py310_23.3.1 | 1.23 |
@@ -221,7 +220,6 @@ If your linux kernel is roughly as old as Centos7's, choose the one started with
 
 | Artifacts | Compatible OS | glibc version | Python version | GCC version | NumPy version |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| centos7_conda_py38 | Centos 7 | 2.17 | 3.8 | 5.3 | 1.20 |
 | centos7_conda_py39 | Centos 7 | 2.17 | 3.9 | 5.3 | 1.21 |
 | py39_gcc10 | Debian >= 11, Ubuntu >= 20.04 | 2.31 | 3.9 | 10.2 | 1.21 |
 | py310_gcc10 | Debian >= 11, Ubuntu >= 20.04 | 2.31 | 3.10 | 10.2 | 1.23 |
@@ -233,7 +231,7 @@ Tips:
 * The GCC and NumPy version listed refer to the version used to compile the artifacts. 
   - You don't need to have the same GCC in your local machine.
   - NumPy can be sensitive to version sometimes. Try upgrade (or downgrade) numpy if your python complained about version when `import`. 
-  - The NumPy version for each prebuilt is fixed, because offline anaconda users cannot update anything and have to follow the [anaconda version recommendation](#how-to-choose-anaconda-version-if-installing-offline) above. We may switch to newer miniconda image when the current ones are considered too old. The NumPy version for `py*_gcc*` prebuilts used to be latest but after 1.2.6rc26 they are also fixed.
+  - The NumPy version for each prebuilt is fixed, because offline anaconda users cannot update anything and have to follow the [anaconda version recommendation](#how-to-choose-anaconda-version-if-installing-offline) above. We may switch to newer miniconda image when the current ones are considered too old.
 
 
 

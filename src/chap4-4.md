@@ -8,7 +8,7 @@ Here are the list of all `automr` keywords, grouped by category.
 | [DMRGCI_prog](#4413-dmrgci_prog) | [DMRGSCF_prog](#4414-dmrgscf_prog) | [CASPT_prog](#4415-caspt_prog) | [NEVPT_prog](#4416-nevpt_prog) |
 | [MRCISD_prog](#4417-mrcisd_prog) | [MRMP2_prog](#4419-mrmp2_prog) | [MCPDFT_prog](#4420-mcpdft_prog) | |
 
-</br>
+<br/>
 
 | For workflow specification | | | | 
 | --- | --- | --- | --- | 
@@ -17,7 +17,7 @@ Here are the list of all `automr` keywords, grouped by category.
 | | [ON_thres](#4435-on_thres) | [UNO_thres](#4436-uno_thres) | [Skip_UNO](#4444-skip_uno) |
 | | [excludeXH](#4437-excludexh), [OnlyXH](#4448-onlyxh) | [HFonly](#4451-hfonly) |
 
-</br>
+<br/>
 
 | For method details | | | | |
 | --- | --- | --- | --- | --- |
@@ -26,7 +26,7 @@ Here are the list of all `automr` keywords, grouped by category.
 | For GVB | [GVB_conv](#4443-gvb_conv) | [Inherit](#4445-inherit) | [Npair](#4446-npair) | [FcGVB](#4447-fcgvb) |
 | Wavefunction settings | [noDMRGNO](#4450-nodmrgno) |
 
-</br>
+<br/>
 
 | Others | | | | 
 | --- | --- | --- | --- | 
@@ -34,7 +34,7 @@ Here are the list of all `automr` keywords, grouped by category.
 |For additional properties | [Force](#447-force) | [NMR](#4438-nmr) | [ICSS](#4439-icss) |
 | For excited states  | [Nstates](#4440-nstates) | [Mixed_Spin](#4441-mixed_spin) | [Root](#4442-root), [Xmult](#4449-xmult) |
 
-</br>
+<br/>
 
 If any of the `readrhf`, `readuhf`, and `readno` keywords is used, there is no need to write Cartesian coordinates in .gjf file, since the geometry will be read from the specified .fch(k) file.
 

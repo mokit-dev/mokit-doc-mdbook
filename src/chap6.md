@@ -100,25 +100,25 @@ Of course, debugging can be: simply commit the change, push to GitLab and see wh
 
 ## 6.4 Documentation
 
-The current online documentation is enabled via [mdBook](https://github.com/rust-lang/mdBook), utilizing [Yethiel's template](https://gitlab.com/yethiel/pages-mdbook) and modified [Nord Theme](https://github.com/gbrlsnchs/mdBook-nord-template).
+The current online documentation is enabled via [mdBook](https://github.com/rust-lang/mdBook)
+<!--, utilizing [Yethiel's template](https://gitlab.com/yethiel/pages-mdbook) and modified [Nord Theme](https://github.com/gbrlsnchs/mdBook-nord-template)-->
+.
 
 For configuration tips (rendering, themes, etc.), see [mdBook Doc](https://rust-lang.github.io/mdBook/format/configuration/index.html). 
 
 All chapters should be registered in `SUMMARY.md`, and thus they will appear in the side bar.
 
 ### Build and preview
-We have included the `mdbook` linux binary in the source code, so simply do
+Install `mdbook` and do
 
 ```bash
-tar xzvf mdbook-toc*.tar.gz
-tar xzvf mdbook-v*.tar.gz
 # modify md in src
-./mdbook build
-./mdbook serve
+mdbook build
+mdbook serve
 # open your browser to visit http://localhost:3000
 ```
 
-On other platforms, you can download the binaries in the GitHub repo of mdBook and mdbook-toc, or use WSL (you don't need a browser inside WSL), or use `cargo install mdbook mdbook-toc`.
+On other platforms, you can download the binaries in the GitHub repo of mdBook, or use WSL (you don't need a browser inside WSL).
 
 Simple modifications can be done on the GitLab website. Clicking the `Edit` button or `Open the Web IDE` allows you modify and commit online.
 
@@ -131,13 +131,12 @@ mdBook's [math support](https://rust-lang.github.io/mdBook/format/mathjax.html) 
 The inline math should be written as `\\( \\)`.
 
 #### Blocks for note/warning
-We can use [admonish](https://github.com/tommilligan/mdbook-admonish)'s note block. It looks like
+We can use [mdbook's Admonitions](https://rust-lang.github.io/mdBook/format/markdown.html#admonitions). It looks like
 
-```admonish note
-Some note.
-```
+> [!NOTE]
+> Some note.
 
-The type of blocks can be `note`, `tip`, `example`, `warning`, `danger`, etc. See [admonish doc](https://tommilligan.github.io/mdbook-admonish/overview.html) for more information.
+The type of blocks can be `NOTE`, `TIP`, `IMPORTANT`, `WARNING`, `CAUTION`.
 
 #### Flowchart
 

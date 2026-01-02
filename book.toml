@@ -10,6 +10,7 @@ build-dir = "public"
 [output.html]
 #additional-css = ["./assets/custom.css"]
 additional-css = [
+  "theme/custom.css",
 #  "theme/light.css",
 #  "theme/dark.css", 
 #  "./mdbook-admonish.css",

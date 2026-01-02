@@ -1,0 +1,4 @@
+
+:root {
+  --sidebar-width: clamp(250px, 400px, 75vw);
+}

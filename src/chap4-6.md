@@ -269,6 +269,7 @@ orca_2mkl azobenzene_S1_freq_o -gbw
 mv azobenzene_S1_freq_o.gbw azobenzene_S1_freq.gbw
 ```
 
+> [!NOTE]
 > In an ORCA geometry optimization job, we need to specify both `MOread` and `%moinp` in order to read MOs from .gbw file. It is not like the single-point calculation case that ORCA will automatically reads MOs from .gbw file as long as .inp/.gbw share the same basename. And when using `%moinp`, the filename in double quotation marks cannot be the same as that generate by .inp file, so here we use `azobenzene_S1_freq.gbw` instead of `azobenzene_S1_freq_o.gbw`.
 
 Now we have three related files

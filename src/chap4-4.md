@@ -32,7 +32,7 @@ Here are the list of all `automr` keywords, grouped by category.
 | --- | --- | --- | --- | 
 | Acceleration technique | [RI](#4429-ri), [RIJK_bas](#4430-rijk_bas) | [F12](#4431-f12), [F12_cabs](#4432-f12_cabs) for NEVPT2 | [DLPNO](#4433-dlpno) for NEVPT2 |
 |For additional properties | [Force](#447-force) | [NMR](#4438-nmr) | [ICSS](#4439-icss) |
-| For excited states  | [Nstates](#4440-nstates) | [Mixed_Spin](#4441-mixed_spin) | [Root](#4442-root), [Xmult](#4449-xmult) |
+| For excited states  | [Nstates](#4440-nstates) | [MixedSpin](#4441-mixedspin) | [Root](#4442-root), [Xmult](#4449-xmult) |
 
 <br/>
 
@@ -395,10 +395,10 @@ Note that:
 See a detailed example in [5.4 ICSS and NICS](./chap5-4.html#54-icss-and-nics).
 
 ## 4.4.40 Nstates
-Specify the number of roots to be averaged in SA-CASSCF computations. For example, Nstates=2 stands for 3 electronic states (ground state + two excited states). The default is to average states with the same spin. If you want to average S0/T1, you should also write the keyword [Mixed_Spin](#4441-mixed_spin).
+Specify the number of roots to be averaged in SA-CASSCF computations. For example, Nstates=2 stands for 3 electronic states (ground state + two excited states). The default is to average states with the same spin. If you want to average S0/T1, you should also write the keyword [MixedSpin](#4441-mixedspin).
 
-## 4.4.41 Mixed_Spin
-Specifying this keyword means that allowing electronic states with different spin multiplicities to be averaged in SA-CASSCF. If you want to write this keyword, just write Mixed_Spin. Do not write Mixed_Spin=.True. or Mixed_Spin=True. If this keyword is not specified, the default setting is to average states with the same spin.
+## 4.4.41 MixedSpin
+Specifying this keyword means that allowing electronic states with different spin multiplicities to be averaged in SA-CASSCF. If you want to write this keyword, just write `MixedSpin` in `mokit{}`. Do not write `MixedSpin=.True.` or `MixedSpin=True`. If this keyword is not specified, the default setting is to average states with the same spin. `Mixed_Spin` is deprecated and no longer used. Currently a precise setting of the number of states for each spin is not implemented. When you specify `mokit{Nstates=1,MixedSpin}`, it usually leads to S0/T1 SA-CASSCF for a singlet species. But when you specify `mokit{Nstates=3,MixedSpin}`, the number of singlets/triplets is not a fixed number and may vary with molecules.
 
 ## 4.4.42 Root
 Specify the root which you are interested in State-Specific CASSCF (SS-CASSCF) calculations. Default value is 0 (ground state). `Root=1` stands for the first excited state. For example, if the ground state is S0, then `Root=1` stands for the S1 state. Note that this keyword is mutually exclusive to the keyword `Nstates` in [Nstates](#4440-nstates), since the latter one is used for SA-CASSCF. Currently dynamic correlation based on SS-CASSCF is not supported. The SS-CASSCF calculation is performed after the ground state CASSCF calculation.

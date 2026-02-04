@@ -268,17 +268,35 @@ unfchk  <-> a2m
 To transfer MOs from Amesp back to Gaussian, you can use the [amo2fch](#453-amo2fch) utility.
 
 ## 4.5.19 fch2bdf
-Generate three BDF files (`_bdf.inp`, .BAS, .scforb/.inporb) from a Gaussian .fch(k) file. Cartesian coordinates are written in the `_bdf.inp` file, while the basis set data is held in .BAS file. The molecular orbitals are written in the .scforb/.inporb file. Note that BDF does not support Cartesian-type basis functions, so only spherical harmonic functions will be used. If there exists any Cartesian-type basis function in .fch(k) file, this utility will signal errors. Two examples are shown and explained below
+Generate three BDF files (`xx_bdf.inp`, `xx.BAS`, `xx_bdf.scforb`/`xx_bdf.inporb`) from a Gaussian .fch(k) file. Cartesian coordinates are written in the `xx_bdf.inp` file, while the basis set data is held in .BAS file. The molecular orbitals are written in the .scforb/.inporb file. Note that BDF does not support Cartesian-type basis functions, so only spherical harmonic functions will be used. If there exists any Cartesian-type basis function in .fch(k) file, this utility will signal errors. Six examples are shown and explained below
 
-(1) `fch2bdf a.fch`  
-This is used for transferring RHF/ROHF/UHF orbitals. Three files will be generated: a_bdf.inp, A.BAS and a.scforb. The data in 'Alpha Orbital Energies' and 'Beta Orbital Energies' sections in .fch file will be read and printed into the a.scforb file.
+(1) `fch2bdf h2o.fch`  
+This is used to transform RHF/ROHF/UHF orbitals. Three files will be generated: h2o_bdf.inp, H2O.BAS and h2o.scforb. The data in 'Alpha Orbital Energies' and 'Beta Orbital Energies' sections in .fch file will be read and printed into the a.scforb file.
 
-(2) `fch2bdf a.fch -no`  
-This is used for transferring NOs. Three files will be generated: a_bdf.inp, A.BAS and a.inporb. Note the data of 'Alpha Orbital Energies' section in .fch file (assumed occupation numbers) will be read and printed into the a.inporb file, but the occupation numbers do not affect subsequent computations.
+(2) `fch2bdf h2o_b3lyp.fch -dft 'GB3LYP D3BJ'`  
+This is used to transform KS-DFT orbitals. If you want to use the Gaussian B3LYP functional in BDF, you should write GB3LYP after the `-dft` flag. If you want to use the built-in B3LYP in BDF, you can simply write B3LYP. For the built-in BHHLYP in BDF, you should write BHandHLYP, e.g.
+```
+fch2bdf h2o_roks.fch -dft 'BHandHLYP'
+```
+If you want to use D3zero rather than D3BJ, you can specify `-dft 'GB3LYP D3zero'`. D3 is not accepted by `fch2bdf` since it is viewed as a controversial string.
 
-This utility will call another two utilities `fch2inp` and `bas_gms2bdf`. So if you want to compile fch2bdf, you have to compile `fch2inp` and `bas_gms2bdf` additionally.
+> If you open the BDF input file and look at the dispersion correction keyword, keep in mind that `D3` actually means D3BJ in BDF convention, and `D3zero` is D3zero.
 
-Note that to transfer HF orbitals, the data in 'Alpha Orbital Energies' and 'Beta Orbital Energies' section should be genuine orbital energies, since BDF program will use these values. Random values (like zero) will affect SCF computations and thus it cannot converge in 1 cycle (or even fails to converge). This is totally different with other quantum chemistry software packages where only orbitals are useful and orbital energies are useless. When transferring NOs, the occupation numbers in 'Alpha Orbital Energies' section do not affect subsequent computations.
+(3) `fch2bdf CN_cation.fch -xtda`  
+Generate files for a subsequent X-TDA calculation. Assuming the ground state spin multiplicity is mult=2, the generate input file includes keywords that calculating 5 doublet states (including the ground state) and 4 quartet states.
+
+(4) `fch2bdf CN_cation.fch -socxtda`  
+Generate files for a subsequent SOC-X-TDA calculation. Assuming the ground state spin multiplicity is mult=2, the generate input file includes keywords that calculating 5 doublet states (including the ground state) and 4 quartet states. And the SOCME between D-Q states will be calculated.
+
+(5) `fch2bdf CN_cation.fch -xtddft`  
+Generate files for a subsequent X-TDDFT calculation. Assuming the ground state spin multiplicity is mult=2, the generate input file includes keywords that calculating 5 doublet states (including the ground state). No quartet state will be calculated since spin-up excited state is not yet implemented in X-TDDFT. SOC is not yet implemented in X-TDDFT, either.
+
+(6) `fch2bdf h2o_casscf.fch -no`  
+This is used to transform NOs. Three files will be generated: h2o_bdf.inp, H2O.BAS and h2o_bdf.inporb. Note the data of 'Alpha Orbital Energies' section in .fch file (assumed occupation numbers) will be read and printed into the a.inporb file, but the occupation numbers do not affect subsequent computations.
+
+This utility will call another utility `fch2inp`. So if you want to use `fch2bdf`, you have to compile `fch2inp` additionally.
+
+Note that to transform HF orbitals, the data in 'Alpha Orbital Energies' and 'Beta Orbital Energies' section should be genuine orbital energies, since BDF program will use these values. Random values (like zero) will affect SCF computations and thus it cannot be converged in 1 cycle (or even fails to converge). This is totally different with other quantum chemistry software packages where only orbitals are useful and orbital energies are useless. During transforming NOs, the occupation numbers in 'Alpha Orbital Energies' section do not affect subsequent computations.
 
 To transfer MOs from BDF back to Gaussian, see [bdf2fch](#4512-bdf2fch).
 

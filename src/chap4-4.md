@@ -455,7 +455,7 @@ Specify the spin multiplicity of the target excited state in a SS-CASSCF calcula
 (4) `mokit{root=2,Xmult=1}` means the S<sub>2</sub> state.
 
 ## 4.4.50 noDMRGNO
-This keyword is deprecated since MOKIT 1.2.7rc20. That is to say, you can only use this keyword for MOKIT <= 1.2.7rc19. If this keyword is specified, the users requests not to generate natural orbitals in a DMRG-CASCI calculation. It is only valid for a DMRG-CASCI job. This keyword could save some time when one wants to check whether the DMRG-CASCI electronic energy converges with [maxM](#4422-maxm). After the user confirms a suitable `maxM`, he/she can remove this keyword and perform a single point calculation to generate DMRG NOs. For version >= 1.2.7rc20, the DMRG-CASCI workflow is improved, and now it takes nmuch less time to obtain both the electronic energy and the natural orbitals.
+This keyword is deprecated since MOKIT 1.2.7rc20. That is to say, you can only use this keyword for MOKIT <= 1.2.7rc19. If this keyword is specified, the users requests not to generate natural orbitals in a DMRG-CASCI calculation. It is only valid for a DMRG-CASCI job. This keyword could save some time when one wants to check whether the DMRG-CASCI electronic energy converges with [maxM](#4422-maxm). After the user confirms a suitable `maxM`, he/she can remove this keyword and perform a single point calculation to generate DMRG NOs. Since MOKIT>=1.2.7rc20, the DMRG-CASCI workflow is improved, and now it takes much less time to obtain both the electronic energy and natural orbitals.
 
 ## 4.4.51 HFonly
 Request the `automr` program to terminate after the HF calculations are finished. This is useful when one wants to perform the sfX2C-UHF calculation using fragment guess. An input example is shown below

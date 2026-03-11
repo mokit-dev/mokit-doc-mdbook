@@ -40,5 +40,5 @@
 - [Appendix](./chap_appdx.md)
 
 [About](./about.md)
-[News](./news.md)
+<!-- [News](./news.md) -->
 <!-- [Charts](./charts.md) -->

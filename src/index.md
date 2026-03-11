@@ -33,10 +33,6 @@ Mar 2, 2026
 
 [How to perform GKS-EDA/SAPT](./chap5-3.md) &nbsp;&nbsp;&nbsp; [How to transfer MOs](./chap4-5.md) &nbsp;&nbsp;&nbsp; 
 
-**News**
-
-[50 citations](./news.md#20250730-50-citations) &nbsp;&nbsp;&nbsp; 
-[2000 downloads on anaconda](./news.md#20250919-2000-downloads-on-anaconda) &nbsp;&nbsp;&nbsp; [Release v1.2.6](./news.md#20241119-new-release-v126)
 
 **Tips**
 

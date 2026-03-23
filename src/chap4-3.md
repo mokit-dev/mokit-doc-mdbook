@@ -1,12 +1,15 @@
 # 4.3 Keywords of supported methods in `automr`
 Currently, the keywords of all supported methods in `automr` are: 
 
-[GVB](#431-gvb), [CASCI](#433-casci),
-[CASSCF](#432-casscf), [DMRGCI](#435-dmrgci), [DMRGSCF](#434-dmrgscf), 
+[GVB](#431-gvb), [CASCI](#433-casci), [CASSCF](#432-casscf), [DMRGCI](#435-dmrgci), [DMRGSCF](#434-dmrgscf), 
 
-[NEVPT2](#436-nevpt2), [CASPT2](#437-caspt2), [CASPT2K](#438-caspt2k), [CASPT3](#439-caspt3), [SDSPT2](#4310-sdspt2), [MRMP2](#4311-mrmp2), [OVBMP2](#4312-ovbmp2), [MRCISD](#4313-mrcisd), [MRCISDT](#4314-mrcisdt), 
+[NEVPT2](#436-nevpt2), [NEVPT3](#437-nevpt3), [NEVPT4SD](#438-nevpt4sd), 
 
-[MCPDFT](#4315-mcpdft), [DFTCI](#4316-dftci), [FICMRCCSD](#4317-ficmrccsd), [BCCC2b](#4318-bccc2b), [BCCC3b](#4319-bccc3b).
+[CASPT2](#439-caspt2), [CASPT2K](#4310-caspt2k), [CASPT3](#4311-caspt3),  
+
+[SDSPT2](#4312-sdspt2), [MRMP2](#4313-mrmp2), [OVBMP2](#4314-ovbmp2), [MRCISD](#4315-mrcisd), [MRCISDT](#4316-mrcisdt), 
+
+[MCPDFT](#4317-mcpdft), [DFTCI](#4318-dftci), [FICMRCCSD](#4319-ficmrccsd), [BCCC2b](#4320-bccc2b), [BCCC3b](#4321-bccc3b).
 
 More multi-configurational and multi-reference methods will be supported in the future.
 These terms should be written in the `#p ...` line in the .gjf file.
@@ -54,28 +57,38 @@ DMRGCI can be viewed as the 0-th step of the DMRGSCF step, i.e. DMRGSCF without 
 DMRG-CASCI aims at solving the CI problem for a very large active space. For an active space smaller than singlet CAS(16,16), CASCI is recommended and there is no need to use DMRG-CASCI (see [CASCI](#433-casci)). But if you are interested in the behavior/performance of DMRG-CASCI in such case, you can specify `DMRGCI` in the Route Section of the .gjf file.
 
 ## 4.3.6 NEVPT2
-Second order N-Electron Valence state Perturbation Theory based on the CASSCF reference.
+Second-order N-Electron Valence state Perturbation Theory based on the CASSCF reference. FIC-NEVPT2 (a.k.a. PC-NEVPT2) and SC-NEVPT2 variants are supported.
 
 Please read related keyword [NEVPT_prog](./chap4-4.md#4416-nevpt_prog) in Section 4.4.
 
-## 4.3.7 CASPT2
+## 4.3.7 NEVPT3
+FIC-NEVPT3, third-order N-Electron Valence state Perturbation Theory based on the CASSCF reference.
+
+Please read related keyword [NEVPT_prog](./chap4-4.md#4416-nevpt_prog) in Section 4.4.
+
+## 4.3.8 NEVPT4SD
+FIC-NEVPT4(SD), fourth-order N-Electron Valence state Perturbation Theory based on the CASSCF reference, which is restricted to the single and double excitations with respect to the reference wave function.
+
+Please read related keyword [NEVPT_prog](./chap4-4.md#4416-nevpt_prog) in Section 4.4.
+
+## 4.3.9 CASPT2
 Second order Perturbation Theory based on CASSCF reference.
 
-Generally speaking, NEVPT2 is more recommended than CASPT2 since there is no need for IP-EA shift, real or imaginary shift in NEVPT2. If you are really a fan of CASPT2, it is recommended to use [CASPT2K](#438-caspt2k) instead. Please read related keyword [CASPT_prog](./chap4-4.md#4415-caspt_prog) in Section 4.4.
+Generally speaking, NEVPT2 is more recommended than CASPT2 since there is no need for IP-EA shift, real or imaginary shift in NEVPT2. If you are really a fan of CASPT2, it is recommended to use [CASPT2K](#4310-caspt2k) instead. Please read related keyword [CASPT_prog](./chap4-4.md#4415-caspt_prog) in Section 4.4.
 
-## 4.3.8 CASPT2K
+## 4.3.10 CASPT2K
 Second order Perturbation Theory based on CASSCF reference.
 
 This is a new feature since ORCA 5.0. A revised zeroth order Hamiltonian is applied to alleviate the intruder state problem of CASPT2 method. No IP-EA shift is needed in this method.
 
 Note here you can write this keyword as either CASPT2K or CASPT2-K in .gjf file, but you'd better use the method name CASPT2-K in official writing or publishing. The keyword `CASPT_prog` will automatically be set as ORCA, since this method is only supported in ORCA currently.
 
-## 4.3.9 CASPT3
+## 4.3.11 CASPT3
 Third order Perturbation Theory based on CASSCF reference.
 
 Only Molpro program can be called to perform CASPT3, and it is default.
 
-## 4.3.10 SDSPT2
+## 4.3.12 SDSPT2
 Static-dynamic-static multi-state multi-reference second-order perturbation theory (SDS-MS-MRPT2, or SDSPT2 for short).
 
 There are several restrictions when you use this method:
@@ -88,29 +101,29 @@ There are several restrictions when you use this method:
 
 This version of SDSPT2 is performed by the Xi'an CI module of BDF program. So you are assumed to have successfully installed BDF. You should cite this paper `DOI: 10.1080/00268976.2017.1308029` if you use this method.
 
-## 4.3.11 MRMP2
+## 4.3.13 MRMP2
 Second order Multi-reference Perturbation Theory based on CASSCF reference.
 
 After CASSCF converged, `automr` will call the GAMESS program to perform MRMP2 calculation. No other program is supported. Also, DMRG-MRMP2 is not supported and `automr` will abort in that case.
 
-## 4.3.12 OVBMP2
+## 4.3.14 OVBMP2
 Orthogonal valence bond Møller-Plesset 2 based on CASSCF reference.
 
 After CASSCF converged, `automr` will call the Gaussian program to perform OVB-MP2 calculation. No other program is supported. Also, DMRG-OVB-MP2 is not supported and `automr` will abort in that case.
 
 Note that OVBMP2 is a keyword in `automr` but OVB-MP2 is the method name. Do not mix them up. Some literature might call this method as 'CASSCF MP2' but that is actually misleading (those authors were fooled by keywords "CASSCF MP2" in Gaussian input file).
 
-## 4.3.13 MRCISD
+## 4.3.15 MRCISD
 Multi-reference Configuration Interaction Singles and Doubles, based on the CASCI/CASSCF reference.
 
 Please read related keyword [MRCISD_prog](./chap4-4.md#4417-mrcisd_prog) in Section 4.4.
 
-## 4.3.14 MRCISDT
+## 4.3.16 MRCISDT
 Multi-reference Configuration Interaction Singles, Doubles and Triples, based on the CASCI/CASSCF reference.
 
 Please read related keyword [MRCISDT_prog](./chap4-4.md#4418-mrcisdt_prog) in Section 4.4.
 
-## 4.3.15 MCPDFT
+## 4.3.17 MCPDFT
 Multi-configurational Pair Density Functional Theory, based on CASSCF reference. 
 
 Note that MCPDFT is a keyword in `automr` but MC-PDFT is the method name. Do not mix them up.
@@ -121,7 +134,7 @@ Note that if the active space is larger than (15,15), the MC-PDFT will be automa
 
 Please read related keyword [MCPDFT_prog](./chap4-4.md#4420-mcpdft_prog) in Section 4.4.
 
-## 4.3.16 DFTCI
+## 4.3.18 DFTCI
 The DFT/MRCI method by Stefan Grimme, Mirko Waletzke, and Martin Kleinschmidt et. al.
 
 Note that the name of this method is DFT/MRCI, but you should write the keyword DFTCI in the input file of `automr`, in order to perform DFT/MRCI computations.
@@ -130,12 +143,12 @@ Currently, to perform DFT/MRCI computations, you should have ORCA and DFT/MRCI p
 
 Note: full implementation of this keyword has not been finished yet.
 
-## 4.3.17 FICMRCCSD
+## 4.3.19 FICMRCCSD
 Multi-reference Coupled Cluster theory, based on the CASCI/CASSCF reference.
 
 Currently only the FIC-MRCCSD method in ORCA(>=5.0.0) is supported. Note here you can write this keyword as either FICMRCCSD or FIC-MRCCSD in .gjf file, but you'd better use the method name FIC-MRCCSD in official writing or publishing.
 
-## 4.3.18 BCCC2b
+## 4.3.20 BCCC2b
 Block-correlated coupled cluster theory based on the GVB reference.
 
 This is in fact a multi-reference coupled cluster theory based on GVB wave function, where 2b means only the two-block excitation operators \\( {\hat{T_2}} \\) are considered in the cluster expansion. Moreover, this method is a spin-pure coupled-cluster method.
@@ -146,7 +159,7 @@ Currently only correlations between two pairs are taken into consideration (i.e.
 
 This program scales as *O*(*n*<sup>4</sup>), where *n* is the number of GVB pairs. But the integral transformation needed for the BCCC2b scales as *O*(*n*<sup>5</sup>), so the overall scaling might behave as *O*(*n*<sup>5</sup>) for large number of pairs.
 
-## 4.3.19 BCCC3b
+## 4.3.21 BCCC3b
 Block-correlated coupled cluster theory based on the GVB reference, where 3b means \\( \hat{{T_2}} + \hat{{T_3}} \\).
 
 This means two-pair and three-pair correlations are considered based on the GVB reference. Also, this method is spin-pure. Currently only spin singlet is supported.

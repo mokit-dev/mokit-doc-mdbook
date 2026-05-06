@@ -15,24 +15,20 @@ This section goes over several installing approaches that, unlike [Section 2.3](
 
 Like [Section 2.3](./chap2-3.md), there is still something to do after "installation".
 
-1. If you don't install from conda, setup the environment variables of MOKIT itself, which is mentioned at the end of each approaches.
+1. If you did not install MOKIT from conda, you should setup environment variables of MOKIT itself, which is mentioned at the end of each approaches.
 2. Setup the environment variables of dependencies, like Gaussian, GAMESS, PySCF, etc. Please read [Section 2.5](./chap2-5.md) to determine which dependencies are necessary for you and read [Section 2.3.4](./chap2-3.md#234-environment-variables) to set up them.
 
 ## 2.2.1 Online Installation
 You can choose option 1 or 2 below. After mokit is successfully installed, if you want GAMESS to be called by `automr`, you need to [install GAMESS properly](./chap4-4.md#4410-gvb_prog) and write related environment variables.
 
-### Option 1: Install from conda (for Linux and MacOS)
+### Option 1: Install from conda (for Linux, Win and MacOS)
 This is the easiest way, but network is required to auto-download the requirements. 
 
-Currently we provide support for Linux x86-64, MacOS arm64 and experimental support for Windows x86-64.
-Other platforms are not supported yet, like Linux aarch64 or MacOS x86-64.
+Currently we provide support for Linux x86-64, MacOS arm64 and experimental support for Windows x86-64. Other platforms are not supported yet, like Linux aarch64 or MacOS x86-64.
 
-For Linux x86-64 platform, 
-we used to ship MOKIT at two channels, the `mokit` channel (used with anaconda default main channel) and the `mokit/label/cf` channel (used with conda-forge).
-Both the default and conda-forge channel require `glibc >= 2.17`.
-Starting from v1.2.7rc15, these two channels are merged into one channel `mokit` (used with conda-forge). `mokit/label/cf` can still be used as an alias for `mokit`.
+For Linux x86-64 platform, we used to ship MOKIT at two channels, the `mokit` channel (used with anaconda default main channel) and the `mokit/label/cf` channel (used with conda-forge). Both the default and conda-forge channel require `glibc >= 2.17`. Starting from v1.2.7rc15, these two channels are merged into one channel `mokit` (used with conda-forge). `mokit/label/cf` can still be used as an alias for `mokit`.
 
-For MacOS arm64 or Windows x86-64 platform, there's only one `mokit` channel. 
+For MacOS arm64 or Windows x86-64 platform, there's only one `mokit` channel. If you can read Chinese, we also provide a detailed Chinese tutorial for installing MOKIT on Windows, see [在Windows下安装和使用MOKIT的三种方式](https://gitlab.com/jxzou/qcinstall/-/blob/main/%E5%9C%A8Windows%E4%B8%8B%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8MOKIT%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F.md).
 
 <!--Replace conda with mamba/micromamba is ok in principle.-->
 
@@ -47,8 +43,7 @@ conda activate mokit-py311
 ```
 
 For Linux x86-64, you can use any version of Python 3.9-3.12. For MacOS arm64 or Windows x86-64, only 3.11 is available. 
-If you have enabled conda-forge (by `conda config --add channels conda-forge` or modifying condarc), you can
-omit the `-c conda-forge` option.
+If you have enabled conda-forge (by `conda config --add channels conda-forge` or modifying condarc), you can omit the `-c conda-forge` option.
 
 Each time when you login onto the machine, you need to activate the virtual environment by `conda activate mokit-py311` and then you can use MOKIT on the current computer/node. But if you want to submit MOKIT jobs to a queue on Cluster（集群）, things are somewhat different and please read [Section 2.4.3](./chap2-4.html#243-use-mokit-on-cluster) carefully.
 

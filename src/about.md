@@ -1,11 +1,11 @@
 # About us
 
 ## Developers
-* Jingxiang Zou
-* Shirong Wang
+* Dr. Jingxiang Zou
+* Dr. Shirong Wang
 
 ## Acknowledgement
-Thanks to all MOKIT contributors and users for constructive suggestions, bugs report and contributions.
+Thanks to all MOKIT contributors and users for constructive suggestions, bug reports and contributions.
 <!-- add a list? -->
 
 ## Download/citation count

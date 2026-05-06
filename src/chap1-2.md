@@ -12,9 +12,9 @@ Currently we have not published the paper of MOKIT program. As for the content o
 [4] Jingxiang Zou, MOKIT program, https://gitlab.com/jxzou/mokit (accessed Apr 13, 2024).
 ```
 
-where the "Apr 13" should be modified as the version you used. The version number can be found by running `automr --version`, or simply `automr -v`. Note that citing MOKIT only in the supporting information of a paper is insufficient, since such citation can hardly be gathered by search engine or database. Citation files of MOKIT can be found in the `$MOKIT_ROOT/doc/` directory, you can import them into EndNote. See [published papers](https://jeanwsr.gitlab.io/mokit-doc-mdbook/citing.html) which cite MOKIT.
+where the "Apr 13" should be modified as the version you used. The version number can be found by running `automr --version`, or simply `automr -v`. Note that citing MOKIT only in the supporting information of a paper is insufficient, since such citation can hardly be gathered by search engine or database. Citation files of MOKIT can be found in the `$MOKIT_ROOT/doc/` directory, you can import them into EndNote. See [published papers](https://www.mokit.xyz/bibliography) which cite MOKIT.
 
-If any of the keyword `ist=0,1,3` (see [Section 4.4.4](https://jeanwsr.gitlab.io/mokit-doc-mdbook/chap4-4.html#444-ist)) in program `automr` is used, citing the following two papers would be appreciated
+If any of the keyword `ist=0,1,3` (see [Section 4.4.4](./chap4-4.md#444-ist)) in program `automr` is used, citing the following two papers would be appreciated
 
 [2] J. Chem. Theory Comput. 2019, 15, 141–153. DOI: [10.1021/acs.jctc.8b00854](https://pubs.acs.org/doi/10.1021/acs.jctc.8b00854)  
 [3] J. Phys. Chem. A 2020, 124, 8321–8329. DOI: [10.1021/acs.jpca.0c05216](https://pubs.acs.org/doi/10.1021/acs.jpca.0c05216).
@@ -27,5 +27,5 @@ Besides, you need to CITE all quantum chemistry software packages called in your
 
 Therefore, in this case you should also cite corresponding references of [Gaussian](http://gaussian.com/citation), [GAMESS](https://www.msg.chem.iastate.edu/gamess/citation.html) and [PySCF](https://pyscf.org/about.html#how-to-cite), as well as possible references of electronic-structure methods and basis sets.
 
-**You can use MOKIT to perform computations for other people. But remember to remind him/her that MOKIT should be properly cited in the mainbody of the paper. And of course, all quantum chemistry software packages used in the calculations should be properly cited （您可以使用MOKIT为他人做计算（包括代算），但务必提醒他/她在发表文章时在正文中恰当引用MOKIT。同时，计算中所用到的量子化学软件也应当在发表的文章中恰当地引用之）.**
+**You can use MOKIT to perform computations for other people and even train an AI agent. But remember to remind the related users (or customers) that MOKIT should be properly cited in the mainbody of the paper. And of course, all quantum chemistry software packages used in the calculations should be properly cited （您可以使用MOKIT为他人做计算（包括代算）甚至是构建AI智能体，但务必提醒用户（或客户）在发表文章时在正文中恰当引用MOKIT。同时，计算中所用到的量子化学软件也应当在发表的文章中恰当地引用之）.**
 

@@ -21,7 +21,7 @@ automr 00-h2o_cc-pVDZ_1.5.gjf >00-h2o_cc-pVDZ_1.5.out 2>&1
 ```
 The `automr` program will successively perform HF, GVB, and CASSCF computations by calling Gaussian, GAMESS and PySCF, respectively. The active space will be automatically determined as (4,4) during computations. Detailed instructions for `automr` input can be found in [Section 4.1 - 4.4](./chap4-1.md).
 
-See more examples in [Section 5.1](https://jeanwsr.gitlab.io/mokit-doc-mdbook/chap5-1.html#51-examples-of-automr).
+See more examples in [Section 5.1](./chap5-1.md#51-examples-of-automr).
 
 ### 3.1.2 Automatic multireference computations
 The `automr` program supports automatic computation of many multireference methods, e.g. NEVPT2/CASPT2/MRCISD/MC-PDFT.

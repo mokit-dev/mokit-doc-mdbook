@@ -542,7 +542,7 @@ conda install pyscf -c conda-forge
 
 > Note: `fch2rest` is developed since MOKIT 1.2.7rc15. You are supposed to check MOKIT version first (e.g., by running `automr --version`).
 
-### 14.1 For DFT calculations
+**(1) For DFT calculations**  
 Most users of the REST program aim at high-accuracy or advanced DFT calculations, such as the double hybrid functionals XYGJOS, XYG3 or XYG7. Here we firstly introduce how to transform MOs from Gaussian to REST. Assuming that the user has accomplished a routine B3LYP/def2TZVP calculation using Gaussian, now he/she wants to transform and feed MOs to REST, the usages of the `fch2rest` utility are shown below
 ```
 fch2rest h2o.fch -dft 'B3LYP'
@@ -562,7 +562,7 @@ Note that very old versions of REST could not automatically find the path of the
 
 Since the XYG3 actually utilizes the B3LYP MOs to perform the PT2 calculation, we only need to perform the B3LYP calculation in Gaussian (rather than performing XYG3 in Gaussian). Note that double hybrid functionals usually do not need empirical dispersion D3/D4. Since MOKIT 1.2.8rc2, if the user specifies any double hybrid functional or RPA method after the `-dft` argument, the frozen-core keyword will be automatically written into `h2o.in`. There is no frozen core option for pure functional or hybrid functional.
 
-### 14.2 For HF calculations
+**(2) For HF calculations**  
 For RHF/ROHF/UHF with RIJK approximation, you can simply run
 ```
 fch2rest h2o.fch

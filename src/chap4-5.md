@@ -532,7 +532,7 @@ Note that if you use background charges in your studied system, the background c
 
 
 ## 4.5.30 fch2rest
-Transform MOs from Gaussian to [REST](https://gitee.com/restgroup/rest), i.e. generate two files `xxx.in`, `xxx.pchk` and one basis set directory `xxx-basis` from a .fch(k) file. To install the REST program, you can read the installation guide written by REST developers [REST程序安装和运行教程](https://mp.weixin.qq.com/s/VZmylY3MWkSh3oUoyhpbrA). Here we also offer a short guide to install REST, MOKIT and PySCF programs
+Transform MOs from Gaussian to [REST](https://gitee.com/restgroup/rest), i.e. generate two files `xxx.in`, `xxx.pchk` and one basis set directory `xxx-basis` from a .fch(k) file. To install the REST program, you can read the installation guide written by REST developers [REST程序安装文档](https://rest-doc.readthedocs.io/zh_CN/user/install.html). Here we also offer a short guide to install REST, MOKIT and PySCF programs
 ```
 conda create -n rest python=3.11 -c conda-forge
 conda activate rest
@@ -560,7 +560,7 @@ auxbas_path = "def2-SV(P)-JKFIT"
 ```
 Note that very old versions of REST could not automatically find the path of the auxiliary basis set file, so it is strongly recommended to update your REST version before performing any calculation. The RI approximation is invoked by default in REST (RIJ for pure functional and RIJK for hybrid functional, respectively). The empirical dispersion D3/D3BJ/D4 are posterior corrections to the electronic energy, which do not affect the SCF procedure. So the user will obtain the same set of MOs no matter he/she performs the B3LYP，B3LYP-D3，or B3LYP-D3(BJ) calculations. And any of three sets of MOs can be transformed and fed to REST. If the user specifies arguments like `B3LYP D3BJ` when using `fch2rest`, the dispersion correction keywords will be automatically written into `h2o.in`.
 
-Since the XYG3 actually utilizes the B3LYP MOs to perform the PT2 calculation, we only need to perform the B3LYP calculation in Gaussian (rather than performing XYG3 in Gaussian). Note that double hybrid functionals usually do not need empirical dispersion D3/D4. Since MOKIT 1.2.8rc2, if the user specifies any double hybrid functional or RPA method after the `-dft` argument, the frozen-core keyword will be automatically written into `h2o.in`. There is no frozen core option for pure functional or hybrid functional.
+Since the XYG3 functional actually utilizes the B3LYP MOs to perform the PT2 calculation, we only need to perform the B3LYP calculation in Gaussian (rather than performing XYG3 in Gaussian). Note that double hybrid functionals usually do not need empirical dispersion D3/D4. Since MOKIT 1.2.8rc2, if the user specifies any double hybrid functional or RPA method after the `-dft` argument, the frozen-core keyword will be automatically written into `h2o.in`. There is no frozen core option for pure functional or hybrid functional.
 
 **(2) For HF calculations**  
 For RHF/ROHF/UHF with RIJK approximation, you can simply run

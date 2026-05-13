@@ -10,7 +10,7 @@ module avai                 # find which compilers/versions you can use
 module load intel/2019u5    # load the Intel version you want to use
 module load anaconda/2024.2 # load the Python version you want to use
 cd $MOKIT_ROOT/src          # enter MOKIT source code directory
-make all                    # compile MOKIT
+make all CC=icc FC=ifort F90=ifort F77=ifort # compile MOKIT
 ```
 
 The first line finds which versions of software packages you can choose. The 2nd and 3rd lines load the corresponding software. The 4th line is that you enter the MOKIT source code directory. And the 5th line is compiling MOKIT. This is just a simple example telling you how to load modules on a Cluster. For detailed questions, please consult the administrator of your Cluster.

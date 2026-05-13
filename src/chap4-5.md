@@ -469,6 +469,20 @@ fch2mrcc h2o.fch
 ```
 Three files would be generated: `MINP`, `GENBAS`, and `MOCOEF`. If one has more than one .fch(k) file to be converted, the conversions should be performed in different directories such that generated files will not be overwritten by each other (Note: MRCC uses fixed filenames for these files).
 
+Since MOKIT 1.2.8rc3, `fch2mrcc` also supports the generation of ADC(2), CC2 and LR-CC2 input files plus wavefunction files, e.g.
+```
+fch2mrcc water.fch -adc2
+fch2mrcc water.fch -sosadc2
+fch2mrcc water.fch -scsadc2
+fch2mrcc water.fch -cc2
+fch2mrcc water.fch -soscc2
+fch2mrcc water.fch -scscc2
+fch2mrcc water.fch -lrcc2
+fch2mrcc water.fch -soslrcc2
+fch2mrcc water.fch -scslrcc2
+```
+For example, `-soscc2` means a ground state SOS-CC2 calculation, and `-soslrcc2` means SOS-LR-CC2 for excited state calculations.
+
 To convert MOs from PySCF to MRCC, one can use the module `py2mrcc`, see [Section 4.6.5](./chap4-6.md#465-the-py2xxx-modules). To convert MOs from ORCA to MRCC, one can use the utility `mkl2mrcc`.
 
 
@@ -532,7 +546,7 @@ Note that if you use background charges in your studied system, the background c
 
 
 ## 4.5.30 fch2rest
-Transform MOs from Gaussian to [REST](https://gitee.com/restgroup/rest), i.e. generate two files `xxx.in`, `xxx.pchk` and one basis set directory `xxx-basis` from a .fch(k) file. To install the REST program, you can read the installation guide written by REST developers [REST程序安装文档](https://rest-doc.readthedocs.io/zh_CN/user/install.html). Here we also offer a short guide to install REST, MOKIT and PySCF programs
+Transform MOs from Gaussian to [REST](https://gitee.com/restgroup/rest), i.e. generate two files `xxx.in`, `xxx.pchk` and one basis set directory `xxx-basis` from a .fch(k) file. To install the REST program, you can read the installation guide [REST程序安装文档](https://rest-doc.readthedocs.io/zh_CN/user/install.html) written by REST developers. Here we also offer a short guide to install REST, MOKIT and PySCF programs
 ```
 conda create -n rest python=3.11 -c conda-forge
 conda activate rest
@@ -555,12 +569,13 @@ fch2rest h2o.fch -dft 'XYGJOS'
 ```
 You only need to choose one of the usages. This will generate the REST input file `h2o.in`, a wave function file `h2o.pchk` and the corresponding basis set directory `h2o-basis` (which contains basis set files of each element). Using different basis sets for atoms of the same element is not supported in REST currently. The default auxiliary basis set is written in the input file (`h2o.in`)
 ```
-auxbas_path = "def2-SV(P)-JKFIT"
-# will be changed to "def2-universal-JKFIT" in the near future
+auxbas_path = "def2-universal-JKFIT"
 ```
-Note that very old versions of REST could not automatically find the path of the auxiliary basis set file, so it is strongly recommended to update your REST version before performing any calculation. The RI approximation is invoked by default in REST (RIJ for pure functional and RIJK for hybrid functional, respectively). The empirical dispersion D3/D3BJ/D4 are posterior corrections to the electronic energy, which do not affect the SCF procedure. So the user will obtain the same set of MOs no matter he/she performs the B3LYP，B3LYP-D3，or B3LYP-D3(BJ) calculations. And any of three sets of MOs can be transformed and fed to REST. If the user specifies arguments like `B3LYP D3BJ` when using `fch2rest`, the dispersion correction keywords will be automatically written into `h2o.in`.
+Note that very old versions of REST could not automatically find the path of the auxiliary basis set file, so it is strongly recommended to update your REST version before performing any calculation.
 
-Since the XYG3 functional actually utilizes the B3LYP MOs to perform the PT2 calculation, we only need to perform the B3LYP calculation in Gaussian (rather than performing XYG3 in Gaussian). Note that double hybrid functionals usually do not need empirical dispersion D3/D4. Since MOKIT 1.2.8rc2, if the user specifies any double hybrid functional or RPA method after the `-dft` argument, the frozen-core keyword will be automatically written into `h2o.in`. There is no frozen core option for pure functional or hybrid functional.
+The RI approximation is invoked by default in REST (RIJ for pure functional and RIJK for hybrid functional, respectively). The empirical dispersion D3/D3BJ/D4 are posterior corrections to the electronic energy, which do not affect the SCF procedure. So the user will obtain the same set of MOs no matter he/she performs the B3LYP，B3LYP-D3，or B3LYP-D3(BJ) calculations. And any of three sets of MOs can be transformed and fed to REST. If the user specifies arguments like `B3LYP D3BJ` when using `fch2rest`, the dispersion correction keywords will be automatically written into `h2o.in`.
+
+Since the XYG3 functional actually utilizes the B3LYP MOs to perform the PT2 calculation, we only need to perform the B3LYP calculation in Gaussian (rather than performing XYG3 in Gaussian). Since MOKIT 1.2.8rc2, if the user specifies any double hybrid functional or RPA method after the `-dft` argument, the frozen-core keyword will be automatically written into `h2o.in`. There is no frozen core option for pure/hybrid functional.
 
 **(2) For HF calculations**  
 For RHF/ROHF/UHF with RIJK approximation, you can simply run
@@ -581,10 +596,23 @@ Transform MOs from Gaussian to Turbomole, i.e. generate files `control` and `mos
 ```
 fch2tm h2o.fch
 ```
+Using this utility, you can skip the interactive module `define` of Turbomole, and obtain files `control` and `mos` directly. Default keywords written in `control` are for RHF/ROHF/UHF calculations.
 
-Using this utility, you can skip the interactive module `define` of Turbomole, and obtain files `control` and `mos` directly. Default keywords written in `control` are for RHF/ROHF/UHF calculations. If you want to perform other calculations, further modification of `control` is needed. Currently only spherical harmonic functions are supported for this utility, so please do not use Cartesian-type functions (i.e. `6D 10F`) in the generation of .fch file.
+Since MOKIT 1.2.8rc3, `fch2tm` also supports the generation of ADC(2), CC2 and LR-CC2 input files plus wavefunction files, e.g.
+```
+fch2tm h2o.fch -adc2
+fch2tm h2o.fch -sosadc2
+fch2tm h2o.fch -scsadc2
+fch2tm h2o.fch -cc2
+fch2tm h2o.fch -soscc2
+fch2tm h2o.fch -scscc2
+fch2tm h2o.fch -lrcc2
+fch2tm h2o.fch -soslrcc2
+fch2tm h2o.fch -scslrcc2
+```
+For example, `-soscc2` means a ground state SOS-CC2 calculation, and `-soslrcc2` means SOS-LR-CC2 for excited state calculations.
 
-To convert MOs from Turbomole back to Gaussian, see [molden2fch](#4540-molden2fch). Using utilities like [fch2qchem](#4528-fch2qchem), [fch2inporb](#4524-fch2inporb), [fch2com](#4521-fch2com), etc, you can convert MOs from Turbomole to many other quantum chemistry programs.
+To convert MOs from Turbomole back to Gaussian, see [molden2fch](#4540-molden2fch). Using utilities like [fch2qchem](#4528-fch2qchem), [fch2inporb](#4524-fch2inporb), [fch2com](#4521-fch2com), etc, you can convert MOs from Turbomole to many other quantum chemistry programs. If you can read Chinese, you can read this tutorial [MOKIT已支持Turbomole轨道的传入传出](https://gitlab.com/jxzou/qcinstall/-/blob/main/MOKIT%E5%B7%B2%E6%94%AF%E6%8C%81Turbomole%E8%BD%A8%E9%81%93%E7%9A%84%E4%BC%A0%E5%85%A5%E4%BC%A0%E5%87%BA.md) for more details.
 
 
 ## 4.5.32 fch2wfn

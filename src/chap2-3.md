@@ -32,11 +32,11 @@ cd mokit/src
 
 and run
 ```
-CC=icc FC=ifort make all
+make all CC=icc FC=ifort F90=ifort F77=ifort
 ```
 to compile MOKIT. This will take about 2 minutes. There is no `make install` step. If you are using Intel 2025 or higher, where there is `ifx` but no `ifort`, you can run
 ```
-CC=icx FC=ifx make all -f Makefile.intel_ifx
+make all CC=icx FC=ifx F90=ifx F77=ifx
 ```
 instead.
 

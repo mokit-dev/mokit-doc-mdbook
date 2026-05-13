@@ -38,13 +38,20 @@ to compile MOKIT. This will take about 2 minutes. There is no `make install` ste
 ```
 make all CC=icx FC=ifx F90=ifx F77=ifx
 ```
-instead.
+instead. Since MOKIT 1.2.8rc3, the file `Makefile.intel_ifx` is removed and the user is supposed to use the command line shown above.
 
 If you do not need `automr` for automatic multireference calculations and only want to compile one or several modules, e.g. `fch2inp` (for Gaussian -> GAMESS orbital transferring), then you simply need to run
 ```
-CC=icc FC=ifort make fch2inp
+make fch2inp CC=icc FC=ifort F90=ifort F77=ifort
 ```
-Be careful with hints on the screen, some modules depend on other modules, thus a compilation of two or three modules is necessary sometimes.
+Be careful with hints on the screen, some modules depend on other modules, thus a compilation of two or three modules is necessary sometimes. One can also compile all binary executables (with no python dynamic library)
+```
+make exe CC=icc FC=ifort F90=ifort F77=ifort
+```
+or one can compile all python dynamic libraries (with no binary executable)
+```
+make pymodules CC=icc FC=ifort F90=ifort F77=ifort
+```
 
 
 ## 2.3.3 Using fpm to compile

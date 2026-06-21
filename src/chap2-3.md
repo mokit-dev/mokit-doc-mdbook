@@ -8,9 +8,9 @@ The latest version of MOKIT source code can be downloaded via [mokit-master.zip]
 2. Intel MKL(recommended) or [OpenBLAS](https://github.com/xianyi/OpenBLAS)
 3. `f2py`: Anaconda Python3(recommended) or Miniconda + Numpy
 
-It is recommended to install the Intel compiler and Anaconda Python3 on your computer/node. Although these two packages may be large, they meet all prerequisites of compiling MOKIT. Note that the Intel compiler is free of charge for academic use. You can download Anaconda Python3 from the [NJU mirror website](http://mirrors.nju.edu.cn/anaconda/archive), e.g the package `Anaconda3-2024.02-1-Linux-x86_64.sh`.
+It is recommended to install the Intel compiler and Anaconda Python3 on your computer/node. Although these two packages may be large, they meet all prerequisites of compiling MOKIT. Note that the Intel compiler is free of charge for academic use. You can download Anaconda Python3 from the [NJU mirror](http://mirrors.nju.edu.cn/anaconda/archive) or [TUNA Mirror](https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive), e.g. the package `Anaconda3-2024.02-1-Linux-x86_64.sh`.
 
-> Note: if you use Python >= 3.12, Numpy >= 2.4 is required to correctly compile MOKIT source code. If Numpy version is lower, there might be no error during compiling, but `undefined symbol: __fch_content_xxx` errors will occur when you import any MOKIT dynamic library files.
+> Note: if you use Python >= 3.12, Numpy >= 2.4 is required to correctly compile MOKIT source code. If Numpy version is lower than expected, there might be no error during compiling, but the error `undefined symbol: __fch_content_xxx` will occur when you import any MOKIT dynamic library file.
 
 If you do not have the `ifort` compiler or Intel MKL on your computer, you may want to download and install them. There are several versions recommended, you can choose any one of them:  
 (1) Intel Parallel Studio XE 2017~2020 are all OK (2019 or 2020 preferred).  
@@ -33,10 +33,14 @@ cd mokit/src
 and run
 ```
 make all CC=icc FC=ifort F90=ifort F77=ifort
+cd ..
+pip install -e . --prefix=.
 ```
 to compile MOKIT. This will take about 2 minutes. There is no `make install` step. If you are using Intel 2025 or higher, where there is `ifx` but no `ifort`, you can run
 ```
 make all CC=icx FC=ifx F90=ifx F77=ifx
+cd ..
+pip install -e . --prefix=.
 ```
 instead. Since MOKIT 1.2.8rc3, the file `Makefile.intel_ifx` is removed and the user is supposed to use the command line shown above.
 
@@ -52,6 +56,8 @@ or one can compile all python dynamic libraries (with no binary executable)
 ```
 make pymodules CC=icc FC=ifort F90=ifort F77=ifort
 ```
+
+If you change any compiler during the compilation, please remember to run `make clean` to remove all `*.o` and `.mod` files, otherwise the new compiler will use existing `*.o` and `.mod` files and signal errors.
 
 
 ## 2.3.3 Using fpm to compile

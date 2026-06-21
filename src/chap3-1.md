@@ -81,7 +81,13 @@ Some commonly used utilities and their functionalities are listed below
 | fch2inp | Gaussian -> GAMESS |
 | fch2inporb | Gaussian -> (Open)Molcas |
 | fch2mkl | Gaussian -> ORCA |
+| fch2mrcc | Gaussian -> MRCC |
+| fch2nwc | Gaussian -> NWChem |
+| fch2openqp | Gaussian -> OpenQP |
 | fch2psi | Gaussian -> PSI4 |
+| fch2qchem | Gaussian -> Q-Chem |
+| fch2qm4d | Gaussian -> QM4D |
+| fch2rest | Gaussian -> REST |
 | fch2tm | Gaussian -> Turbomole |
 | mkl2fch | ORCA -> Gaussian |
 | molden2fch | others -> Gaussian |

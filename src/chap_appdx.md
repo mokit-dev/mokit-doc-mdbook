@@ -341,7 +341,7 @@ By default, MOKIT uses `5D 7F` no matter you use any basis set or ECP/PP. And MO
 
 ### Q26: No module named 'pyparsing' when using OpenMolcas
 If you encounter the following OpenMolcas error when using `automr`
-```
+```python
 Traceback (most recent call last):
   File "/public/home/jxzou/software/OpenMolcas-v25.02/bin/pymolcas", line 588, in <module>
     exec('import zlib,base64;exec(zlib.decompress(base64.b64decode(bytes(m[1],\'ascii\'))),module.__dict__);del zlib,base64')
@@ -349,11 +349,17 @@ Traceback (most recent call last):
   File "<string>", line 26, in <module>
 ModuleNotFoundError: No module named 'pyparsing'
 ```
-It means that your current Python does not have the 'pyparsing' library, and you can install it via running
+It means that your current Python does not have the library `pyparsing`, and you can install it via running
+```
+source activate mokit-py311
+conda install pyparsing -c conda-forge
+conda deactivate
+```
+Here we assume that you have installed MOKIT in an virtual environment, so you need to install pyparsing in that environment. But if you compiled and installed MOKIT from the source code without creating any virtual environment, you can simply install pyparsing via
 ```
 conda install pyparsing
 ```
-Note that if you are using MOKIT in an virtual environment, you need to install pyparsing exactly in that environment.
+in the `(base)` environment. This is not common since we usually keep the `(base)` environment unchanged.
 
 
 ## A2 Limitations and Suggestions
@@ -371,11 +377,35 @@ If, unfortunately, you are forced by your supervisor/advisor to learn how to per
 Unfortunately, molecular point group symmetry cannot be taken into consideration in any module of MOKIT. This is due to: (1) use of symmetry may change the orientation of the target molecule, and the MO coefficients will be changed accordingly; (2) localized orbitals are used in almost all modules of `automr`, this usually contradicts with symmetry.
 
 ### A2.3 Validity of MOs obtained by `automr` for excited state calculations
-When you use `automr` to perform a ground state CASSCF calculation, the obtained CASSCF MOs (whether pseudo-canonical MOs or NOs) is supposed to be excellent for the ground state electronic structure of the target molecule. And you can use this set of MOs (held in a .fch file) to further conduct excited state calculations like SS-CASSCF or SA-CASSCF. And moreover, MC-PDFT, NEVPT2, CASPT2 or even MRCISD, if you wish.
+When you use `automr` to perform a ground state CASSCF calculation, the obtained CASSCF MOs (no matrer pseudo-canonical MOs or NOs) is supposed to be excellent for the ground state electronic structure of the target molecule. But if you want to perform excited state multi-reference calculations next, please be careful that there are two different approaches:
 
-However, the resulting excitation energies and excited state MOs (e.g. state-averaged NOs) are not necessarily excellent. Here 'not necessarily excellent' means for some molecules you may get good results while may be unsatisfactory for some other molecules. The reason is simple: the current algorithms in `automr` focus on the multi-reference characters in the ground state of the molecule. Thus `automr` 'finds' excellent active orbitals of the ground state. But the active orbitals of excited states are not necessarily the same as those of the ground state. And the orbital optimization in SA-CASSCF does not guarantee leading to good MOs for excited states. This problem actually exists in almost all methods/programs which feature black-box or automatic multi-reference calculations.
+(1) You can read ground state CASSCF NOs (stored in a `xxx_CASSCF_NO.fch` file) to perform excited state calculations like State-specific CASSCF (SS-CASSCF) or State-averaged CASSCF (SA-CASSCF). And moreover, MC-PDFT, NEVPT2, CASPT2 or even MRCISD, if you wish. A SA-CASSCF example input file is shown below
+```
+%mem=180GB
+%nprocshared=64
+#p CASSCF(4,4)/cc-pVDZ
 
-There is a solution (although not perfect or elegant) to this problem: (visually) inspect the doubly occupied orbitals, pick up important orbitals (usually the lone-pair orbitals) and add them into the active space. For example, if you obtain a CAS(6e,6o) active space from MOKIT, and assuming you find 4 lone pair orbitals among doubly occupied orbitals, then you can combine them (by interchanging or permuting orbitals) to be a CAS(14e,10o) active space. Because `6+2*4=14` active electrons, and 6+4=10 active orbitals. You can do a SA-CASSCF(14e,10o) computation next. This usually converges in several cycles. Finally you can perform a NEVPT2/CASPT2/MRCISD computation based on SA-CASSCF(14e,10o) orbitals to get more accurate excitation energies.
+mokit{ist=5,readno='h2o_uhf_gvb4_CASSCF_NO.fch',Nstates=3}
+```
+By using this approach, however, the resulting excitation energies and excited state MOs (e.g. state-averaged MOs or state-specific NOs) are not necessarily excellent. Here 'not necessarily excellent' means for some molecules you may get good results while for some other molecules the results may be unsatisfactory. The reason is simple: the algorithms of automatic construction of active orbitals in `automr` focus on the multi-reference characters in the ground state of the molecule. `automr` tries to find excellent active orbitals of the ground state. But the active orbitals of excited states are not necessarily the same as those of the ground state. And the orbital optimization in SA-CASSCF does not guarantee leading to good MOs for excited states. This problem actually exists in almost all methods/programs which feature black-box or automatic multi-reference calculations.
+
+(2) The second approach is that you can construct good initial active MOs from scratch (which means you do not read the ground state CASSCF NOs). A SA-CASSCF example input file is shown below
+```
+%mem=10GB
+%nprocshared=4
+#p CASSCF/cc-pVDZ
+
+mokit{Nstates=3}
+
+0 1
+O      -0.23497692    0.90193619   -0.068688
+H       1.26502308    0.90193619   -0.068688
+H      -0.73568721    2.31589843   -0.068688
+
+```
+In this case, `automr` will perform RHF and UHF calculations firstly. If the RHF wave function is stable (or it is not stable but E(RHF) is almost equal to E(UHF)), the RHF-CIS calculation will be conducted and the CIS SA-NOs will be constructed using unrelaxed corresponding densities. The CIS SA-NOs would be used as the initial MOs for subsequent SA-CASSCF calculation. If E(UHF) is much lower than E(RHF), the triplet ROHF and MRSF-CIS calculations will be performed next. Similarly, the MRSF-CIS NOs would be used as the initial MOs for subsequent SA-CASSCF calculation. Systems with significant double excitation characters can be correctly taken into account by the MRSF-CIS method.
+
+Note that CASSCF provides a qualitatively correct wave function for the studied (strongly-correlated) system. If you want to compare relative energies or spectroscopic results with experimental results, it requires quantitatively accuracy so you have to perform post-CAS calculatuions (e.g. NEVPT2) based on SS-CASSCF/SA-CASSCF.
 
 ### A2.4 Possible multiple solutions of UHF
 There may exist multiple UHF solutions when a covalent bond cleavages homolytically, or in a transition-metal-containing molecule. In these special cases, if you use ist=0, the UHF calculated by `automr` may be not the lowest UHF solution (but it is stable). You may need to perform several UHF computations (by yourself) using various initial guesses. After you identify the lowest UHF solution, you can use keywords ist=1 and `readuhf` to read in the desired UHF .fch file.
@@ -392,7 +422,5 @@ If you find any bug frequently occurs, please go to [MOKIT GitLab](https://gitla
 
 (1) Open an [issue](https://gitlab.com/jxzou/mokit/-/issues) on the GitLab page, or [issue](https://github.com/1234zou/MOKIT/issues) on the GitHub page of MOKIT.  
 (2) Join the Tencent QQ group (Group ID: 470745084) if you can communicate in Chinese, and show your problem in the QQ group. Private messages through QQ might not be replied.  
-(3) Contact the developer jxzou via E-mail njumath[at]sina.cn, with your input and output files attached. Reply/Answer is not guaranteed since jxzou is very busy.
-
-
+(3) Contact the developer jxzou via E-mail njumath[at]sina.cn, with your input and output files attached. Reply/Answer is not guaranteed.
 

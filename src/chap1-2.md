@@ -9,10 +9,23 @@ If you use any module or utility of MOKIT in your work, you should cite MOKIT in
 
 Currently we have not published the paper of MOKIT program. As for the content of the reference, you should cite like
 ```
-[4] Jingxiang Zou, MOKIT program, https://gitlab.com/jxzou/mokit (accessed Apr 13, 2024).
+[4] Jingxiang Zou, Molecular Orbital Kit (MOKIT), https://gitlab.com/jxzou/mokit (accessed Jun 20, 2026).
 ```
 
-where the "Apr 13" should be modified as the version you used. The version number can be found by running `automr --version`, or simply `automr -v`. Note that citing MOKIT only in the supporting information of a paper is insufficient, since such citation can hardly be gathered by search engine or database. Citation files of MOKIT can be found in the `$MOKIT_ROOT/doc/` directory, you can import them into EndNote. See [published papers](https://www.mokit.xyz/bibliography) which cite MOKIT.
+where the "Jun 20" should be modified as the version you used. The version number can be found by running `automr --version`, or simply `automr -v`. We encourage the users to cite MOKIT in the main text of your paper. Citing MOKIT in the supporting information of a paper can hardly be gathered by search engine or database.
+
+Citation files (ris/enw/bib) of MOKIT can be found in the `$MOKIT_ROOT/doc/` directory, you can import them into EndNote, Zotero, etc. See [published papers](https://www.mokit.xyz/bibliography) which cite MOKIT. You can also copy the following text to create a `.bib` file
+```
+
+@misc{zou_jingxiang_2026,
+	title = {Molecular {Orbital} {Kit} ({MOKIT})},
+	url = {https://gitlab.com/jxzou/mokit},
+	urldate = {2026-06-20},
+	author = {Zou, Jingxiang},
+	month = jun,
+	annote = {(accessed: Jun 20, 2026)},
+}
+```
 
 If any of the keyword `ist=0,1,3` (see [Section 4.4.4](./chap4-4.md#444-ist)) in program `automr` is used, citing the following two papers would be appreciated
 

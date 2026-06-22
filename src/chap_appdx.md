@@ -349,7 +349,7 @@ Traceback (most recent call last):
   File "<string>", line 26, in <module>
 ModuleNotFoundError: No module named 'pyparsing'
 ```
-It means that your current Python does not have the library `pyparsing`, and you can install it via running
+It means that your current Python does not have the library `pyparsing`, and you can install it via
 ```
 source activate mokit-py311
 conda install pyparsing -c conda-forge
@@ -379,7 +379,7 @@ Unfortunately, molecular point group symmetry cannot be taken into consideration
 ### A2.3 Validity of MOs obtained by `automr` for excited state calculations
 When you use `automr` to perform a ground state CASSCF calculation, the obtained CASSCF MOs (no matrer pseudo-canonical MOs or NOs) is supposed to be excellent for the ground state electronic structure of the target molecule. But if you want to perform excited state multi-reference calculations next, please be careful that there are two different approaches:
 
-(1) You can read ground state CASSCF NOs (stored in a `xxx_CASSCF_NO.fch` file) to perform excited state calculations like State-specific CASSCF (SS-CASSCF) or State-averaged CASSCF (SA-CASSCF). And moreover, MC-PDFT, NEVPT2, CASPT2 or even MRCISD, if you wish. A SA-CASSCF example input file is shown below
+(1) You can read ground state CASSCF NOs (stored in a `xxx_CASSCF_NO.fch` file) to perform excited state calculations like State-specific CASSCF (SS-CASSCF) or State-averaged CASSCF (SA-CASSCF). And moreover, MC-PDFT, NEVPT2, CASPT2 or even MRCISD, if you wish. An SA-CASSCF example input file is shown below
 ```
 %mem=180GB
 %nprocshared=64
@@ -403,9 +403,9 @@ H       1.26502308    0.90193619   -0.068688
 H      -0.73568721    2.31589843   -0.068688
 
 ```
-In this case, `automr` will perform RHF and UHF calculations firstly. If the RHF wave function is stable (or it is not stable but E(RHF) is almost equal to E(UHF)), the RHF-CIS calculation will be conducted and the CIS SA-NOs will be constructed using unrelaxed corresponding densities. The CIS SA-NOs would be used as the initial MOs for subsequent SA-CASSCF calculation. If E(UHF) is much lower than E(RHF), the triplet ROHF and MRSF-CIS calculations will be performed next. Similarly, the MRSF-CIS NOs would be used as the initial MOs for subsequent SA-CASSCF calculation. Systems with significant double excitation characters can be correctly taken into account by the MRSF-CIS method.
+In this case, `automr` will perform RHF and UHF calculations firstly. If the RHF wave function is stable (or it is not stable but E(RHF) is almost equal to E(UHF)), the RHF-CIS calculation will be conducted and the CIS SA-NOs will be constructed using corresponding unrelaxed densities. The CIS SA-NOs would be used as the initial MOs for subsequent SA-CASSCF calculation. If E(UHF) is much lower than E(RHF), the triplet ROHF and MRSF-CIS calculations will be performed next. Similarly, the MRSF-CIS NOs would be used as the initial MOs for subsequent SA-CASSCF calculation. Systems with significant double excitation characters can be correctly taken into account by the MRSF-CIS method.
 
-Note that CASSCF provides a qualitatively correct wave function for the studied (strongly-correlated) system. If you want to compare relative energies or spectroscopic results with experimental results, it requires quantitatively accuracy so you have to perform post-CAS calculatuions (e.g. NEVPT2) based on SS-CASSCF/SA-CASSCF.
+Note that CASSCF provides a qualitatively correct wave function for the studied (strongly-correlated) system. If you want to compare relative energies or spectroscopic results with experimental results, it requires quantitatively accuracy so you have to perform post-CAS calculations (e.g. NEVPT2) based on SS-CASSCF/SA-CASSCF.
 
 ### A2.4 Possible multiple solutions of UHF
 There may exist multiple UHF solutions when a covalent bond cleavages homolytically, or in a transition-metal-containing molecule. In these special cases, if you use ist=0, the UHF calculated by `automr` may be not the lowest UHF solution (but it is stable). You may need to perform several UHF computations (by yourself) using various initial guesses. After you identify the lowest UHF solution, you can use keywords ist=1 and `readuhf` to read in the desired UHF .fch file.

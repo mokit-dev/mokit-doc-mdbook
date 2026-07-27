@@ -89,7 +89,7 @@ conda update mokit openblas -c mokit -c conda-forge
 ```
 (3) install a specified version (please visit [here](https://anaconda.org/mokit/mokit) to see the latest version number)
 ```
-conda install mokit=1.2.7rc16 -c mokit -c conda-forge
+conda install mokit=<version> -c mokit -c conda-forge
 ```
 
 > [!IMPORTANT]

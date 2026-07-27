@@ -3,7 +3,7 @@ name: Sync to GitLab
 on:
   # Trigger on push to specific branches
   push:
-    branches-ignore: []
+    branches: [master]
   
   # Optional: Also sync tags
   #tags:

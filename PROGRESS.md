@@ -7,7 +7,7 @@
 
 ## Factual error
 
-- [ ] `CASPT2_prog` doc says alias but source code rejects it (chap4-4.md, Section 4.4.15)
+- [x] `CASPT2_prog` doc says alias but source code rejects it (chap4-4.md, Section 4.4.15)
 
 ## New features missing docs
 

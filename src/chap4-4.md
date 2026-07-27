@@ -334,8 +334,8 @@ Specify a near-complete auxiliary basis set for the F12 technique in NEVPT2 comp
 
 ## 4.4.33 DLPNO
 Request to turn on the DLPNO technique in NEVPT2 computations conducted by ORCA.
-DLPNO is not used by default. But if you turn on DLPNO, RI (see 4.4.28) and FIC
-(see 4.4.33) will be turned on as byproducts.
+DLPNO is not used by default. But if you turn on DLPNO, RI (see 4.4.29) and FIC
+(see 4.4.34) will be turned on as byproducts.
 
 This option currently can only be used in CASSCF and CASSCF-NEVPT2 computations conducted by ORCA program, i.e. you need to specify `CASSCF_prog=ORCA,NEVPT_prog=ORCA,DLPNO` in mokit{}. Of course it can be combined with F12 to perform RI-DLPNO-FIC-NEVPT2-F12 computations for large systems, where the keywords should be `mokit{CASSCF_prog=ORCA,NEVPT_prog=ORCA,DLPNO,F12}`.
 
@@ -445,7 +445,7 @@ Request to freeze all doubly occupied orbitals in GVB calculations. Do not write
 By default, for CASCI/CASSCF and post-CAS calculations, FcGVB is automatically enabled in MOKIT. While for GVB and GVB-BCCC calculations, FcGVB is automatically disabled. The keyword `NoFcGVB` prevents freezing doubly occupied orbitals.
 
 ## 4.4.48 OnlyXH
-Request to keep only X-H bonds after a normal GVB computation finished. For example, a normal GVB computation of the benzene molecule using cc-pVDZ basis set will lead to 15 pairs in total, which contains 9 pairs of C-C bonds and 6 pairs of C-H bonds. If the keyword `OnlyXH` is specified in `mokit{}`, then a GVB(6) computation containing only C-H bonds will be automatically performed after GVB(15). This keyword can be viewed as an opposite option of [excludeXH](#4438-excludexh).
+Request to keep only X-H bonds after a normal GVB computation finished. For example, a normal GVB computation of the benzene molecule using cc-pVDZ basis set will lead to 15 pairs in total, which contains 9 pairs of C-C bonds and 6 pairs of C-H bonds. If the keyword `OnlyXH` is specified in `mokit{}`, then a GVB(6) computation containing only C-H bonds will be automatically performed after GVB(15). This keyword can be viewed as an opposite option of [excludeXH](#4437-excludexh).
 
 ## 4.4.49 Xmult
 Specify the spin multiplicity of the target excited state in a SS-CASSCF calculation. This keyword is usually used along with `root` in Section [Root](#4442-root). If the spin multiplicity in the input file is 1 (i.e. assuming a singlet ground state), here are some examples of calculating the target excited state:  

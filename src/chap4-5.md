@@ -92,7 +92,7 @@ See relevant Python modules [fch2py](#4546-fch2py), [py2fch](#4547-py2fch), and 
 
 
 ## 4.5.5 bas_gau2molcas
-Transform a basis set file in Gaussian format to another in (Open)Molcas format. If you turn on [RI](#4428-ri) and use OpenMolcas as the `CASSCF_prog`, there is no RI-JI auxiliary basis set file in current version of OpenMolcas package. Therefore, this utility will be called automatically to transform the auxiliary basis set file in `$MOKIT_ROOT/mokit/basis/` directory to the (Open)Molcas syntax. And the transformed file will normally be in `$MOLCAS/basis_library/jk_Basis/`.
+Transform a basis set file in Gaussian format to another in (Open)Molcas format. If you turn on [RI](#4429-ri) and use OpenMolcas as the `CASSCF_prog`, there is no RI-JI auxiliary basis set file in current version of OpenMolcas package. Therefore, this utility will be called automatically to transform the auxiliary basis set file in `$MOKIT_ROOT/mokit/basis/` directory to the (Open)Molcas syntax. And the transformed file will normally be in `$MOLCAS/basis_library/jk_Basis/`.
 
 You can, of course, use this utility by yourself. An example is shown below
 ```

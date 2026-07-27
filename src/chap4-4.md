@@ -6,7 +6,7 @@ Here are the list of all `automr` keywords, grouped by category.
 | --- | --- | --- | --- |
 | [HF_prog](#449-hf_prog) | [GVB_prog](#4410-gvb_prog) | [CASCI_prog](#4411-casci_prog) | [CASSCF_prog](#4412-casscf_prog) |
 | [DMRGCI_prog](#4413-dmrgci_prog) | [DMRGSCF_prog](#4414-dmrgscf_prog) | [CASPT_prog](#4415-caspt_prog) | [NEVPT_prog](#4416-nevpt_prog) |
-| [MRCISD_prog](#4417-mrcisd_prog) | [MRMP2_prog](#4419-mrmp2_prog) | [MCPDFT_prog](#4420-mcpdft_prog) | |
+| [MRCISD_prog](#4417-mrcisd_prog) | [MRMP2_prog](#4419-mrmp2_prog) | [MCPDFT_prog](#4420-mcpdft_prog) | [Polar_prog](#4454-polar_prog) |
 
 <br/>
 
@@ -29,8 +29,8 @@ Here are the list of all `automr` keywords, grouped by category.
 
 | Others | | | | 
 | --- | --- | --- | --- | 
-| Acceleration technique | [RI](#4429-ri), [RIJK_bas](#4430-rijk_bas) | [F12](#4431-f12), [F12_cabs](#4432-f12_cabs) for NEVPT2 | [DLPNO](#4433-dlpno) for NEVPT2 |
-|For additional properties | [Force](#447-force) | [NMR](#4438-nmr) | [ICSS](#4439-icss) |
+| Acceleration technique | [RI](#4429-ri), [RIJK_bas](#4430-rijk_bas), [RIC_bas](#4456-ric_bas) | [F12](#4431-f12), [F12_cabs](#4432-f12_cabs) for NEVPT2 | [DLPNO](#4433-dlpno) for NEVPT2 |
+|For additional properties | [Force](#447-force) | [NMR](#4438-nmr) | [ICSS](#4439-icss) | [polar](#4455-polar) |
 | For excited states  | [Nstates](#4440-nstates) | [MixedSpin](#4441-mixedspin) | [Root](#4442-root), [Xmult](#4449-xmult) |
 
 <br/>
@@ -153,7 +153,11 @@ Also note that the MPI version used by Block is probably contradicted with MPI v
 By default, the OpenMP version of Block would be called during performing DMRG calculations. But if you want to use MPI version of Block (and you have installed it), you need to write `mokit{block_mpi}`.
 
 ## 4.4.15 CASPT_prog
-Specify the program for performing a CASPT2 or CASPT3 calculation, e.g. `CASPT_prog=OpenMolcas`. Currently only OpenMolcas(default), Molpro and ORCA are supported. Bagel is not supported here but we are working on that. All core orbitals are not frozen. Note that a default IP-EA shift 0.25 a.u. will be applied and it cannot be modified. If your CASPT2 results are sensitive to the IP-EA shift, it implies that CASPT2 is not suitable to your problem in that case. Another two types of shift (the real or imaginary shift) is not supported. If the user wants only CASPT2, the keyword `CASPT2_prog` can be used as an alias for `CASPT_prog`. For CASPT3, `CASPT_prog=Molpro` is the default and only option, thus no need to specify this keyword.
+Specify the program for performing a CASPT2 or CASPT3 calculation, e.g. `CASPT_prog=OpenMolcas`. 
+For CASPT2, currently only OpenMolcas(default), Molpro and ORCA are supported. Bagel is not supported here but we are working on that. All core orbitals are not frozen. Note that a default IP-EA shift 0.25 a.u. will be applied and it cannot be modified. If your CASPT2 results are sensitive to the IP-EA shift, it implies that CASPT2 is not suitable to your problem in that case. Another two types of shift (the real or imaginary shift) is not supported. 
+For CASPT3, `CASPT_prog=Molpro` is the default and only option, thus no need to specify this keyword.
+
+The keyword `CASPT2_prog` is deprecated and no longer accepted; use `CASPT_prog` instead. 
 
 Generally speaking, NEVPT2 and CASPT2-K are more recommended than CASPT2 since there is no need for IP-EA shift, real or imaginary shift in NEVPT2 or CASPT2-K methods.
 
@@ -318,7 +322,8 @@ Request to turn on the RI-JK approximation for two-electron integrals in CASSCF.
 This option currently can only be used in CASSCF computations conducted by PySCF, OpenMolcas, Molpro, ORCA, or PSI4 programs. To learn more about the auxiliary basis set used in RI-JK approximation, see the following section.
 
 ## 4.4.30 RIJK_bas
-Specify an auxiliary basis set for RI-JK approximation in CASSCF computations conducted by ORCA. Usually you do not need to specify this, since the automr program will automatically assign a proper auxiliary basis set according to the basis set (e.g. def2/JK for def2TZVP, cc-pVTZ/JK for cc-pVTZ). You can simply open the output file of automr and see what auxiliary basis set is assigned.
+Specify an auxiliary basis set for RI-JK approximation in CASSCF computations. 
+Usually you do not need to specify this, since the automr program will automatically assign a proper auxiliary basis set according to the basis set (e.g. def2/JK for def2TZVP, cc-pVTZ/JK for cc-pVTZ). You can simply open the output file of automr and see what auxiliary basis set is assigned.
 
 In the current version of OpenMolcas, there is no auxiliary basis set in it. The
 `automr` program in MOKIT will automatically transformed the needed basis set file
@@ -475,4 +480,19 @@ Request the MPI version of Block program to be used in DMRG calculations. By def
 
 ## 4.4.53 LocDocc
 Request to perform the orbital localization upon the doubly occupied orbitals in a GVB job. This GVB job can be a target calculation, or just an intermediate step in a CASCI/CASSCF job. Note that this localization does not change the electronic energy of GVB/CASCI/CASSCF. It is just of convenient usage for some users, or for convenience of identifying core orbitals. The localization method is PM by default, and it is controlled by [LocalM](#445-localm).
+
+## 4.4.54 Polar_prog
+Request to specify which program should perform the CASSCF polarizability calculation. When [polar](#4455-polar) is turned on, this keyword determines which program is used.
+
+Available programs: `ORCA` (default, analytical), `Gaussian` (numerical) and `OpenMolcas` (analytical).
+
+Note: Currently only CASSCF polarizability is supported. CASCI polarizability is not supported. At least a CASSCF calculation must be specified.
+
+## 4.4.55 polar
+Request to calculate the CASSCF molecular polarizability (3×3 matrix, in atomic units) after the CASSCF computation finishes. The CASSCF natural orbitals from the preceding CASSCF calculation will be used.
+
+Note: This property is computed only when a CASSCF calculation exists in the workflow. It is currently not compatible with post-CASSCF methods (e.g., CASPT2, NEVPT2, MRCI) within the same job.
+
+## 4.4.56 RIC_bas
+Specify an auxiliary basis set for RI approximation in NEVPT2/CASPT2 computations. Usually you do not need to specify this, since when [RI](#4429-ri) is turned on, the automr program will automatically assign a proper auxiliary basis set according to the orbital basis set (e.g., def2-TZVP/C for def2-TZVP, cc-pVTZ/C for cc-pVTZ). Note that this is different from [RIJK_bas](#4430-rijk_bas), which is for J/K fitting in CASSCF.
 

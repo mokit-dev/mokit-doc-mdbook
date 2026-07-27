@@ -153,7 +153,11 @@ Also note that the MPI version used by Block is probably contradicted with MPI v
 By default, the OpenMP version of Block would be called during performing DMRG calculations. But if you want to use MPI version of Block (and you have installed it), you need to write `mokit{block_mpi}`.
 
 ## 4.4.15 CASPT_prog
-Specify the program for performing a CASPT2 or CASPT3 calculation, e.g. `CASPT_prog=OpenMolcas`. Currently only OpenMolcas(default), Molpro and ORCA are supported. Bagel is not supported here but we are working on that. All core orbitals are not frozen. Note that a default IP-EA shift 0.25 a.u. will be applied and it cannot be modified. If your CASPT2 results are sensitive to the IP-EA shift, it implies that CASPT2 is not suitable to your problem in that case. Another two types of shift (the real or imaginary shift) is not supported. If the user wants only CASPT2, the keyword `CASPT2_prog` can be used as an alias for `CASPT_prog`. For CASPT3, `CASPT_prog=Molpro` is the default and only option, thus no need to specify this keyword.
+Specify the program for performing a CASPT2 or CASPT3 calculation, e.g. `CASPT_prog=OpenMolcas`. 
+For CASPT2, currently only OpenMolcas(default), Molpro and ORCA are supported. Bagel is not supported here but we are working on that. All core orbitals are not frozen. Note that a default IP-EA shift 0.25 a.u. will be applied and it cannot be modified. If your CASPT2 results are sensitive to the IP-EA shift, it implies that CASPT2 is not suitable to your problem in that case. Another two types of shift (the real or imaginary shift) is not supported. 
+For CASPT3, `CASPT_prog=Molpro` is the default and only option, thus no need to specify this keyword.
+
+The keyword `CASPT2_prog` is deprecated and no longer accepted; use `CASPT_prog` instead. 
 
 Generally speaking, NEVPT2 and CASPT2-K are more recommended than CASPT2 since there is no need for IP-EA shift, real or imaginary shift in NEVPT2 or CASPT2-K methods.
 
@@ -490,5 +494,5 @@ Request to calculate the CASSCF molecular polarizability (3×3 matrix, in atomic
 Note: This property is computed only when a CASSCF calculation exists in the workflow. It is currently not compatible with post-CASSCF methods (e.g., CASPT2, NEVPT2, MRCI) within the same job.
 
 ## 4.4.56 RIC_bas
-Specify an auxiliary basis set for RI-C (correlation) approximation in NEVPT2/CASPT2 computations. Usually you do not need to specify this, since when [RI](#4429-ri) is turned on, the automr program will automatically assign a proper auxiliary basis set according to the orbital basis set (e.g., def2-TZVP/C for def2-TZVP, cc-pVTZ/C for cc-pVTZ). Note that this is different from [RIJK_bas](#4430-rijk_bas), which is for J/K fitting in CASSCF.
+Specify an auxiliary basis set for RI approximation in NEVPT2/CASPT2 computations. Usually you do not need to specify this, since when [RI](#4429-ri) is turned on, the automr program will automatically assign a proper auxiliary basis set according to the orbital basis set (e.g., def2-TZVP/C for def2-TZVP, cc-pVTZ/C for cc-pVTZ). Note that this is different from [RIJK_bas](#4430-rijk_bas), which is for J/K fitting in CASSCF.
 

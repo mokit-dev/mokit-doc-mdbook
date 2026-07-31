@@ -246,17 +246,10 @@ Generally, the ic- and FIC-MRCISD methods are recommended. See [here](./chap5-1.
 Specify the bond dimension MaxM in DMRG-related calculations. The default values is 1000 (e.g. `MaxM=1000`). When maxM increases, the DMRG-CASCI energy will become closer to the CASCI energy, but the computational cost increases as well. The value 1000 is suitable for common cases. But do check whether it is valid for your system. For example, three computations using different MaxM (e.g. 500, 1000, 1500) may be conducted to study whether the energy converges with MaxM.
 
 ## 4.4.23 hardwfn
-This option can only be applied to CASCI/CASSCF calculations using PySCF, OpenMolcas,
-GAMESS or PSI4. By specifying `hardwfn`, `automr` will add extra keywords into the
-CAS input files to ensure a better convergence. Note that normally you do not need
-this keyword, and it is useless if you specify other programs as the CAS solver.
+This option can only be applied to CASCI/CASSCF calculations using PySCF, OpenMolcas, GAMESS or PSI4. By specifying `hardwfn`, `automr` will add extra keywords into the CAS input files to ensure a better convergence. Note that normally you do not need this keyword, and it is useless if you specify other programs as the CAS solver.
 
 ## 4.4.24 crazywfn
-This option can only be applied to CASCI/CASSCF calculations using PySCF, OpenMolcas,
-GAMESS or PSI4. By specifying `crazywfn`, `automr` will add extra keywords (more than
-those of `hardwfn`) into the CAS input files to ensure a better convergence. Note that
-usually you do not need this keyword, and it is useless if you specify other programs
-as the CAS solver.
+This option can only be applied to CASCI/CASSCF calculations using PySCF, OpenMolcas, GAMESS or PSI4. By specifying `crazywfn`, `automr` will add extra keywords (more than those of `hardwfn`) into the CAS input files to ensure a better convergence. Note that usually you do not need this keyword, and it is useless if you specify other programs as the CAS solver.
 
 For example, when the N<sub>2</sub> molecule is stretched to *d*(N-N) = 4.0 Å, this is a system which features strong correlation and requires a CAS(6,6) active space. The Davidson iterative diagonalization in determinant CASCI (using GAMESS) may not find the singlet state in the lowest 5 states. In this case, specifying `crazywfn` will increase the NSTATE to 10, so that the singlet state can be found.
 
@@ -484,9 +477,9 @@ Request to perform the orbital localization upon the doubly occupied orbitals in
 ## 4.4.54 Polar_prog
 Request to specify which program should perform the CASSCF polarizability calculation. When [polar](#4455-polar) is turned on, this keyword determines which program is used.
 
-Available programs: `ORCA` (default, analytical), `Gaussian` (numerical) and `OpenMolcas` (analytical).
+Available programs: `Dalton` (default, analytical), `ORCA` (analytical), `OpenMolcas` (numerical) and `Gaussian` (numerical). For the numerical differentiation approach, six extra single-point energy and dipole moment calculations would be performed based on perturbed geometries.
 
-Note: Currently only CASSCF polarizability is supported. CASCI polarizability is not supported. At least a CASSCF calculation must be specified.
+Note: currently only the ground state CASSCF polarizability is supported. Any excited state CASCI/CASSCF polarizability is not supported yet. For the ground state CASCI polarizability (e.g. CASCI based on GVB MOs), it would be supported in the near future. So far, at least a CASSCF calculation must be specified.
 
 ## 4.4.55 polar
 Request to calculate the CASSCF molecular polarizability (3×3 matrix, in atomic units) after the CASSCF computation finishes. The CASSCF natural orbitals from the preceding CASSCF calculation will be used.

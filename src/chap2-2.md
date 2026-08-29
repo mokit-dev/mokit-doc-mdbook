@@ -10,6 +10,7 @@ This section goes over several installing approaches that, unlike [Section 2.3](
     > However, this approach does not require network, which may be a reason for choosing it.
 
 4. Even simpler way to use pre-built Linux binaries. 
+5. Pack the conda environment on a networked machine, then unpack it on the target machine (no network needed on the target). 
 
 **Setups after installation**
 
@@ -32,7 +33,7 @@ For MacOS arm64 or Windows x86-64 platform, there's only one `mokit` channel. If
 
 <!--Replace conda with mamba/micromamba is ok in principle.-->
 
-If you have no access to network, but still do not want to compile MOKIT manually, you can try options in [Section 2.2.2](#222-pre-built-linux-executables-and-libraries).
+If you have no access to network, but still do not want to compile MOKIT manually, you can try [Section 2.2.2](#222-offline-installation-transfer-the-conda-environment) (pack and transfer the conda environment) or options in [Section 2.2.3](#223-pre-built-linux-executables-and-libraries).
 
 #### Use MOKIT with conda-forge channel
 
@@ -165,9 +166,56 @@ brew upgrade --fetch-HEAD mokit
 
 
 
-## 2.2.2 Pre-built Linux Executables and Libraries
+## 2.2.2 Offline Installation: Transfer the Conda Environment
 
-Unlike the conda install approach, using pre-built MOKIT in this subsection do not require network. If you want full functionality of MOKIT, you still need to have necessary dependencies: Python3 environment and NumPy, which can be achieved by anaconda/miniconda (Read [here](#how-to-choose-anaconda-version-if-installing-offline) for installing anaconda offline). If you only want part of MOKIT, especially some certain binary utilities, see [Section 2.2.3](#223-only-want-frag_guess_wfn) for a simpler instruction.
+If the target machine (e.g. a cluster without internet access) has no network, you can still use the conda installation of [Section 2.2.1](#221-online-installation): create the environment on another (networked) machine, pack it into a single archive, transfer the archive to the target machine, and unpack it there. This is done with the third-party tool [conda-pack](https://conda.github.io/conda-pack/).
+
+Requirements:
+* The two machines must be of the same platform, e.g. both Linux x86-64. The target machine still needs `glibc >= 2.17`, the same requirement as the online conda installation.
+* Network is only needed on the source machine. Conda is recommended but not required on the target machine, since the packed environment is self-contained (Python, NumPy and MOKIT are all included).
+
+### Pack on the source machine
+
+First create the environment as usual, following Option 1 of [Section 2.2.1](#221-online-installation), e.g.
+```
+conda create -n mokit-py311 python=3.11 mokit -c mokit -c conda-forge
+```
+You may also install PySCF (or other Python packages) into this environment now, since adding them later on the offline machine is inconvenient.
+
+Then install conda-pack (recommended in the `base` environment) and pack the environment
+```
+conda install conda-pack -c conda-forge
+conda pack -n mokit-py311 -o mokit-py311.tar.gz
+```
+
+### Unpack on the target machine
+
+Transfer the archive to the target machine, e.g. by `scp`
+```
+scp mokit-py311.tar.gz username@target:~/
+```
+(or simply with a USB stick), then unpack it into the `envs/` directory of conda and activate
+```
+mkdir -p ~/miniconda3/envs/mokit-py311
+tar -xzf ~/mokit-py311.tar.gz -C ~/miniconda3/envs/mokit-py311
+conda activate mokit-py311
+conda-unpack
+```
+
+The environment is then shown by `conda env list` and behaves like any other conda environment. Here `conda-unpack` is a script bundled inside the archive (not from the conda package manager): it rewrites the paths of the source machine recorded inside the environment to the new location, and only needs to be run once. If the target machine has no conda at all, the archive still works: unpack it into any directory, e.g. `~/software/mokit-py311`, and activate it with `source ~/software/mokit-py311/bin/activate` (a standalone script shipped in the archive) instead.
+
+> [!NOTE]
+> Unpack the archive directly into its final location. Once `conda-unpack` has been executed, the environment cannot be moved to another directory any more.
+
+> [!TIP]
+> If you submit MOKIT jobs on a Cluster, write `source activate mokit-py311` into your job script. See [Section 2.4.3](./chap2-4.html#243-use-mokit-on-cluster) for details.
+
+Finally, remember to set up environment variables of the quantum chemistry packages you are going to use (Gaussian, GAMESS, PySCF, etc.), see [Section 2.5](./chap2-5.md) and [Section 2.3.4](./chap2-3.md#234-environment-variables).
+
+
+## 2.2.3 Pre-built Linux Executables and Libraries
+
+Unlike the conda install approach, using pre-built MOKIT in this subsection do not require network. If you want full functionality of MOKIT, you still need to have necessary dependencies: Python3 environment and NumPy, which can be achieved by anaconda/miniconda (Read [here](#how-to-choose-anaconda-version-if-installing-offline) for installing anaconda offline). If you only want part of MOKIT, especially some certain binary utilities, see [Section 2.2.4](#224-only-want-frag_guess_wfn) for a simpler instruction.
 
 ### Download
 
@@ -232,9 +280,9 @@ Tips:
 
 
 
-## 2.2.3 Only want `frag_guess_wfn`?
+## 2.2.4 Only want `frag_guess_wfn`?
 
-If you do not need full functionality of MOKIT and only want `frag_guess_wfn` for generating the input file of various EDA methods (or other binary utilities, like `fch2mkl`), the easiest way is to download the pre-compiled MOKIT in Section [2.2.2](./chap2-2.html#222-pre-built-linux-executables-and-libraries). There is no need to install Miniconda/Anaconda Python in this case, and no need for `conda install`.
+If you do not need full functionality of MOKIT and only want `frag_guess_wfn` for generating the input file of various EDA methods (or other binary utilities, like `fch2mkl`), the easiest way is to download the pre-compiled MOKIT in Section [2.2.3](./chap2-2.html#223-pre-built-linux-executables-and-libraries). There is no need to install Miniconda/Anaconda Python in this case, and no need for `conda install`.
 
 Firstly, download a pre-compiled MOKIT package according to your OS (e.g. CentOS 7), and change the directory name
 ```

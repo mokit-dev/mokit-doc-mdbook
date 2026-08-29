@@ -245,7 +245,7 @@ ModuleNotFoundError: No module named 'h5py'
 ```
 How to solve the problem?
 
-A18: If you are using python and f2py from PSI4 package, rather than python from Anaconda Python 3, you may encounter this PySCF error. One possible solution is to comment PSI4 variables and write this variable `export PSI4=...` (see Section 2.2.3). Then exit the terminal and re-login, and you now you are using your previous python, e.g. Anaconda Python 3. Next you can run
+A18: If you are using python and f2py from PSI4 package, rather than python from Anaconda Python 3, you may encounter this PySCF error. One possible solution is to comment PSI4 variables and write this variable `export PSI4=...` (see Section 2.2.4). Then exit the terminal and re-login, and you now you are using your previous python, e.g. Anaconda Python 3. Next you can run
 ```
 make distclean
 make all CC=icc FC=ifort F90=ifort F77=ifort

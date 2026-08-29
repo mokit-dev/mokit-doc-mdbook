@@ -25,6 +25,7 @@ Note: not all the error messages shows on screen, they may be found in program l
 | --- | --- | --- |
 | [pre-compiled version?](#q2-pre-compiled-version)  | [why orb2fch requires a fch?](#q3-why-orb2fch-requires-a-fch) | [support more programs?](#q4-support-more-programs) |
 | [is density in fch correct?](#q13-is-density-in-fch-correct) | [automr takes more time than manual computation?](#q19-automr-takes-more-time) | [my computation so slow!](#q21-my-computation-so-slow) |
+| [how to download anaconda/miniconda/miniforge?](#q27-how-to-download-anacondaminicondaminiforge) | | |
 
 <br/>
 
@@ -360,6 +361,16 @@ Here we assume that you have installed MOKIT in an virtual environment, so you n
 conda install pyparsing
 ```
 in the `(base)` environment. This is not common since we usually keep the `(base)` environment unchanged.
+
+
+### Q27: How to download anaconda/miniconda/miniforge
+Where to download anaconda/miniconda/miniforge? And how to download a certain (e.g. older) version of anaconda, e.g. for installing prebuilt MOKIT offline?
+
+A27: It is recommended to download the installer from a mirror site, e.g. [NJU Mirror](https://mirror.nju.edu.cn). The latest Anaconda3/Miniconda3 installers are listed on the page [mirrors.nju.edu.cn/download/Conda](https://mirrors.nju.edu.cn/download/Conda), while all versions are collected in [mirrors.nju.edu.cn/anaconda/archive/](https://mirrors.nju.edu.cn/anaconda/archive/) for Anaconda3 and [mirrors.nju.edu.cn/anaconda/miniconda/](https://mirrors.nju.edu.cn/anaconda/miniconda/) for Miniconda3. Miniforge3 installers are provided in [mirrors.nju.edu.cn/github-release/conda-forge/miniforge/](https://mirrors.nju.edu.cn/github-release/conda-forge/miniforge/), with the latest ones in its `LatestRelease/` subdirectory. The page address is similar in other mirror sites, like [TUNA Mirror](https://mirrors.tuna.tsinghua.edu.cn).
+
+The latest Miniconda3/Miniforge3 installer has a deterministic name, e.g. `Miniconda3-latest-Linux-x86_64.sh` or `Miniforge3-Linux-x86_64.sh` for Linux x86-64. For Anaconda3 there is no `latest` installer, you can find the latest version number on the download/archive page and download `Anaconda3-[latest version]-Linux-x86_64.sh`.
+
+A certain (e.g. older) version also follows a naming pattern, e.g. `Anaconda3-2022.10-Linux-x86_64.sh`, `Miniconda3-py311_26.5.3-2-Linux-x86_64.sh` (the leading `py311` denotes the bundled Python version) or `Miniforge3-26.5.3-0-Linux-x86_64.sh`. For example, to obtain the [recommended version](./chap2-2.md#how-to-choose-anaconda-version-if-installing-offline) of anaconda/miniconda for pre-built MOKIT, find the corresponding installer in the archive page according to this pattern.
 
 
 ## A2 Limitations and Suggestions

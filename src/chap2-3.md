@@ -8,7 +8,7 @@ The latest version of MOKIT source code can be downloaded via [mokit-master.zip]
 2. Intel MKL(recommended) or [OpenBLAS](https://github.com/xianyi/OpenBLAS)
 3. f2py (part of NumPy, installing from Miniconda3/Miniforge/Anaconda3 recommended)
 
-It is recommended to install the Intel compiler on your computer/node. Note that the Intel compiler is free of charge for academic use. You can download Anaconda Python3 from the [NJU mirror](http://mirrors.nju.edu.cn/anaconda/archive) or [TUNA Mirror](https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive), e.g. the package `Anaconda3-2024.02-1-Linux-x86_64.sh`.
+It is recommended to install the Intel compiler on your computer/node. Note that the Intel compiler is free of charge for academic use. You can download Miniconda3/Miniforge/Anaconda3 from mirror sites, see [FAQ](./chap_appdx.md#q27-how-to-download-anacondaminicondaminiforge), e.g. the package `Anaconda3-2024.02-1-Linux-x86_64.sh`.
 
 > Note: if you use Python >= 3.12, Numpy >= 2.4 is required to correctly compile MOKIT source code. In this case, meson and ninja are also needed.
 > If Numpy version is lower than expected, there might be no error during compiling, but the error `undefined symbol: __fch_content_xxx` will occur when you import any MOKIT dynamic library file.

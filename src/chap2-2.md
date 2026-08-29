@@ -211,8 +211,7 @@ If your linux kernel is roughly as old as Centos7's, choose the one started with
 | py310_gcc10 | 3.10 | 2023.03 | py310_23.3.1 | 1.23 |
 
 
-> How to download certain version of anaconda?
-> > For example, if you are using [TUNA Mirror](https://mirrors.tuna.tsinghua.edu.cn), you can go to [mirrors.tuna.tsinghua.edu.cn/anaconda/archive/](https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/) and find `Anaconda3-[some version]-Linux-x86_64.sh`. The page address is similar in other mirror site, like [NJU Mirror](https://mirror.nju.edu.cn).
+How to download anaconda/miniconda/miniforge (or a certain version of it)? See [FAQ](./chap_appdx.md#q27-how-to-download-anacondaminicondaminiforge).
 
 ### Detailed Compatibility Note
 

@@ -14,7 +14,7 @@ Here are the list of all `automr` keywords, grouped by category.
 | --- | --- | --- | --- | 
 | Input wavefunction | [readrhf](#441-readrhf) | [readuhf](#442-readuhf) | [readno](#443-readno) |
 | Workflow settings | [ist](#444-ist) (most important!) | [LocalM](#445-localm) |  [CIonly](#446-cionly) |
-| | [ON_thres](#4435-on_thres) | [UNO_thres](#4436-uno_thres) | [Skip_UNO](#4444-skip_uno) |
+| | [ON_thres](#4435-on_thres) | [UNO_thres](#4436-uno_thres) | [SkipUNO](#4444-skipuno) |
 | | [excludeXH](#4437-excludexh), [OnlyXH](#4448-onlyxh) | [HFonly](#4451-hfonly) |
 
 <br/>
@@ -413,11 +413,13 @@ There are two possible cases in which you may want to change the default GVB con
 
 (2) When dealing with *d* or *f* transition metal (e.g. Fe) molecules, the GVB orbital optimization often takes many cycles to converge or even diverge in the end, but the first ~30 cycles are often reasonable, so we can use a less tight threshold to converge the GVB wavefuntion.
 
-## 4.4.44 Skip_UNO
-Specify the number of pairs of UNOs to be skipped during orbital localization. Default is 0. For example, `Skip_UNO=1` means that the HONO and LUNO will be kept unchanged when localizing UNOs. And `Skip_UNO=2` means that the HONO-1, HONO, LUNO and LUNO+1 will be kept unchanged when localizing UNOs. This is useful when GVB exists multiple SCF solutions. Using `Skip_UNO=1` you can probably obtain a biradical-like GVB solution (if the molecule indeed has significant biradical characters). It is recommended to choose the solution with the lowest GVB electronic energies for subsequent post-GVB
+## 4.4.44 SkipUNO
+Specify the number of pairs of UNOs to be skipped during orbital localization. Default is 0. For example, `SkipUNO=1` means that the HONO and LUNO will be kept unchanged when localizing UNOs. And `SkipUNO=2` means that the HONO-1, HONO, LUNO and LUNO+1 will be kept unchanged when localizing UNOs. This is useful when GVB exists multiple SCF solutions. Using `SkipUNO=1` you can probably obtain a biradical-like GVB solution (if the molecule indeed has significant biradical characters). It is recommended to choose the solution with the lowest GVB electronic energies for subsequent post-GVB
 computations.
 
-This keyword is invalid for keyword ist=3,4,5. It is also invalid when `mokit{ist=6}` is specified. But it is valid for keywords `mokit{ist=6,inherit}` since the keyword `inherit` will force skip_UNO=N to be inherited in the GVB/STO-6G computation.
+This keyword is invalid for keyword ist=3,4,5. It is also invalid when `mokit{ist=6}` is specified. But it is valid for keywords `mokit{ist=6,inherit}` since the keyword `inherit` will force SkipUNO=N to be inherited in the GVB/STO-6G computation.
+
+Previously this keyword was `Skip_UNO` but it will be deprecated in the near future.
 
 ## 4.4.45 Inherit
 Request to inherit keywords and the number of GVB pairs (if explicitly specified) in GVB/STO-6G calculation from the target calculation. This keyword can only be used when ist=6. Default is not to inherit keywords. If you want to write this keyword, just write Inherit. Do not write Inherit=.True. or Inherit=True.

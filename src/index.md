@@ -4,7 +4,7 @@ for [MOKIT](https://gitlab.com/jxzou/mokit) version 1.2.8
 
 MOKIT developers
 
-Jul 31, 2026
+Aug 30, 2026
 
 <br>
 

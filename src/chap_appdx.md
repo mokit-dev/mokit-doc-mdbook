@@ -363,10 +363,28 @@ conda install pyparsing
 in the `(base)` environment. This is not common since we usually keep the `(base)` environment unchanged.
 
 
-### Q27: How to download anaconda/miniconda/miniforge
+### Q27: undefined symbol: __fch_content_xxx, undefined symbol: sleep_
+I found no error when compiling MOKIT source code, but got the error `undefined symbol: __fch_content_xxx` and/or the error `undefined symbol: sleep_` when import some MOKIT dynamic library file.
+
+A27: This is probably because the numpy version is lower than expected, or the setuptools version is higher than expected. We have introduced the versions in [2.3.1 Prerequisite](./chap2-3.md#231-prerequisite). To put it simply, if one wants to use Python >= 3.12 but the numpy/setuptools versions in `(base)` are not appropriate to compile MOKIT, he/she can create a new virtual environment
+```
+conda create -n mokit-py312 python=3.12 numpy=2.4 "setuptools<81" meson -c conda-forge
+conda activate mokit-py312
+```
+and then (re-)compile MOKIT source code.
+
+If one wants to use Python <= 3.11 but the numpy/setuptools versions in `(base)` are not appropriate to compile MOKIT, he/she can also create a new virtual environment
+```
+conda create -n mokit-py311 python=3.11 "numpy<2.0" "setuptools<=73" -c conda-forge
+conda activate mokit-py311
+```
+and then (re-)compile MOKIT source code. Remember to run `make distclean` to remove generated files from previous failed compilations. These trickes enable you compile and use MOKIT in a specified virtual environment, but you need to activate the target environment before using MOKIT.
+
+
+### Q28: How to download anaconda/miniconda/miniforge
 Where to download anaconda/miniconda/miniforge? And how to download a certain (e.g. older) version of anaconda, e.g. for installing prebuilt MOKIT offline?
 
-A27: It is recommended to download the installer from a mirror site, e.g. [NJU Mirror](https://mirror.nju.edu.cn). The latest Anaconda3/Miniconda3 installers are listed on the page [mirrors.nju.edu.cn/download/Conda](https://mirrors.nju.edu.cn/download/Conda), while all versions are collected in [mirrors.nju.edu.cn/anaconda/archive/](https://mirrors.nju.edu.cn/anaconda/archive/) for Anaconda3 and [mirrors.nju.edu.cn/anaconda/miniconda/](https://mirrors.nju.edu.cn/anaconda/miniconda/) for Miniconda3. Miniforge3 installers are provided in [mirrors.nju.edu.cn/github-release/conda-forge/miniforge/](https://mirrors.nju.edu.cn/github-release/conda-forge/miniforge/), with the latest ones in its `LatestRelease/` subdirectory. The page address is similar in other mirror sites, like [TUNA Mirror](https://mirrors.tuna.tsinghua.edu.cn).
+A28: It is recommended to download the installer from a mirror site, e.g. [NJU Mirror](https://mirror.nju.edu.cn). The latest Anaconda3/Miniconda3 installers are listed on the page [mirrors.nju.edu.cn/download/Conda](https://mirrors.nju.edu.cn/download/Conda), while all versions are collected in [mirrors.nju.edu.cn/anaconda/archive/](https://mirrors.nju.edu.cn/anaconda/archive/) for Anaconda3 and [mirrors.nju.edu.cn/anaconda/miniconda/](https://mirrors.nju.edu.cn/anaconda/miniconda/) for Miniconda3. Miniforge3 installers are provided in [mirrors.nju.edu.cn/github-release/conda-forge/miniforge/](https://mirrors.nju.edu.cn/github-release/conda-forge/miniforge/), with the latest ones in its `LatestRelease/` subdirectory. The page address is similar in other mirror sites, like [TUNA Mirror](https://mirrors.tuna.tsinghua.edu.cn).
 
 The latest Miniconda3/Miniforge3 installer has a deterministic name, e.g. `Miniconda3-latest-Linux-x86_64.sh` or `Miniforge3-Linux-x86_64.sh` for Linux x86-64. For Anaconda3 there is no `latest` installer, you can find the latest version number on the download/archive page and download `Anaconda3-[latest version]-Linux-x86_64.sh`.
 

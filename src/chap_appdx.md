@@ -363,7 +363,7 @@ conda install pyparsing
 in the `(base)` environment. This is not common since we usually keep the `(base)` environment unchanged.
 
 
-### Q27: undefined symbol: __fch_content_xxx, undefined symbol: sleep_
+### Q27: `undefined symbol: __fch_content_xxx`, `undefined symbol: sleep_`
 I found no error when compiling MOKIT source code, but got the error `undefined symbol: __fch_content_xxx` and/or the error `undefined symbol: sleep_` when import some MOKIT dynamic library file.
 
 A27: This is probably because the numpy version is lower than expected, or the setuptools version is higher than expected. We have introduced the versions in [2.3.1 Prerequisite](./chap2-3.md#231-prerequisite). To put it simply, if one wants to use Python >= 3.12 but the numpy/setuptools versions in `(base)` are not appropriate to compile MOKIT, he/she can create a new virtual environment

@@ -10,9 +10,11 @@ The latest version of MOKIT source code can be downloaded via [mokit-master.zip]
 
 You can download Miniconda3/Miniforge/Anaconda3 from mirror sites, see [FAQ](./chap_appdx.md#q28-how-to-download-anacondaminicondaminiforge), e.g. the package `Anaconda3-2024.02-1-Linux-x86_64.sh`.
 
-> Note: please check versions of python, numpy, and setuptools firstly. If you use Python >= 3.12, numpy >= 2.4, setuptools < 81 as well as meson are required to correctly compile MOKIT source code. See [Q27](./chap_appdx.md#q28-undefined-symbol-__fch_content_xxx-undefined-symbol-sleep_) in Appendix for more details.
+> Note: please check versions of python, numpy, and setuptools firstly. If you use Python >= 3.12, numpy >= 2.4, setuptools < 81 as well as meson are required to correctly compile MOKIT source code. See [Q27](./chap_appdx.md#q27-undefined-symbol-__fch_content_xxx-undefined-symbol-sleep_) in Appendix for more details.
 
-It is recommended to install the Intel compiler on your computer/node (this compiler is free of charge for academic use). Nowadays many people perform calculations on a cluster (集群) and they can directly activate the Intel compiler like `module load intel/oneapi2021.1`. If you are playing on a cluster, we have more [detailed instructions](./chap2-4.md#24-installation-on-cluster). If you want to install the Intel compiler by yourself (for example, there is not any Intel compiler installed on a very old computer/cluster), there are several versions recommended, and you can choose any one of them:  
+It is recommended to install the Intel compiler on your computer/node (this compiler is free of charge for academic use). Nowadays many people perform calculations on a cluster (集群) and they can directly activate the Intel compiler like `module load intel/oneapi2021.1`. If you are playing on a cluster, we have more [detailed instructions](./chap2-4.md#24-installation-on-cluster).
+
+If you want to install the Intel compiler by yourself (for example, there is not any Intel compiler installed on a very old computer/cluster), there are several versions recommended, and you can choose any one of them:  
 (1) Intel Parallel Studio XE 2017~2020 are all OK (2019 or 2020 preferred).  
 (2) Since 2021, there is no Parallel Studio XE, but only the Intel OneAPI. You should download and install both HPC Toolkit and MKL if you want to use 2021 version.
 

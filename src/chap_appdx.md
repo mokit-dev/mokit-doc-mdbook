@@ -25,7 +25,7 @@ Note: not all the error messages shows on screen, they may be found in program l
 | --- | --- | --- |
 | [pre-compiled version?](#q2-pre-compiled-version)  | [why orb2fch requires a fch?](#q3-why-orb2fch-requires-a-fch) | [support more programs?](#q4-support-more-programs) |
 | [is density in fch correct?](#q13-is-density-in-fch-correct) | [automr takes more time than manual computation?](#q19-automr-takes-more-time) | [my computation so slow!](#q21-my-computation-so-slow) |
-| [how to download anaconda/miniconda/miniforge?](#q27-how-to-download-anacondaminicondaminiforge) | | |
+| [how to download anaconda/miniconda/miniforge?](#q28-how-to-download-anacondaminicondaminiforge) | | |
 
 <br/>
 

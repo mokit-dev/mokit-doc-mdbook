@@ -381,10 +381,31 @@ conda activate mokit-py311
 and then (re-)compile MOKIT source code. Remember to run `make distclean` to remove generated files from previous failed compilations. These trickes enable you compile and use MOKIT in a specified virtual environment, but you need to activate the target environment before using MOKIT.
 
 
-### Q28: How to download anaconda/miniconda/miniforge
+### Q28: REST error `object 'mol' doesn't exist`
+If you encounter the following error when using the `fch2rest` utility,
+```
+thread 'main' (2385823) panicked at rest/src/fileop/chkfile.rs:248:40:
+called `Result::unwrap()` on an `Err` value: H5Dopen2(): unable to synchronously open dataset: object 'mol' doesn't exist
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+```
+
+A28: The reason is that there is a significant change/enhance for the wave function binary file of REST from 2026.1.0 to 2026.1.1. You can run `rest --version` to check the REST version. If you are using REST >= 2026.1.1 and MOKIT <= 1.2.9rc1, you will probably encounter this issue.
+
+If you are using REST >= 2026.1.1, we strongly recommend you update MOKIT to >= 1.2.9rc2, then everything runs as usual.
+
+If you are using REST <= 2026.1.0 and MOKIT <= 1.2.9rc1, everything runs as usual.
+
+If you are using REST <= 2026.1.0 and MOKIT >= 1.2.9rc2, you can run
+```
+fch2rest xxx.fch -ver 2025.02
+```
+to generate the legacy chkfile format of REST.
+
+
+### Q29: How to download anaconda/miniconda/miniforge
 Where to download anaconda/miniconda/miniforge? And how to download a certain (e.g. older) version of anaconda, e.g. for installing prebuilt MOKIT offline?
 
-A28: It is recommended to download the installer from a mirror site, e.g. [NJU Mirror](https://mirror.nju.edu.cn). The latest Anaconda3/Miniconda3 installers are listed on the page [mirrors.nju.edu.cn/download/Conda](https://mirrors.nju.edu.cn/download/Conda), while all versions are collected in [mirrors.nju.edu.cn/anaconda/archive/](https://mirrors.nju.edu.cn/anaconda/archive/) for Anaconda3 and [mirrors.nju.edu.cn/anaconda/miniconda/](https://mirrors.nju.edu.cn/anaconda/miniconda/) for Miniconda3. Miniforge3 installers are provided in [mirrors.nju.edu.cn/github-release/conda-forge/miniforge/](https://mirrors.nju.edu.cn/github-release/conda-forge/miniforge/), with the latest ones in its `LatestRelease/` subdirectory. The page address is similar in other mirror sites, like [TUNA Mirror](https://mirrors.tuna.tsinghua.edu.cn).
+A29: It is recommended to download the installer from a mirror site, e.g. [NJU Mirror](https://mirror.nju.edu.cn). The latest Anaconda3/Miniconda3 installers are listed on the page [mirrors.nju.edu.cn/download/Conda](https://mirrors.nju.edu.cn/download/Conda), while all versions are collected in [mirrors.nju.edu.cn/anaconda/archive/](https://mirrors.nju.edu.cn/anaconda/archive/) for Anaconda3 and [mirrors.nju.edu.cn/anaconda/miniconda/](https://mirrors.nju.edu.cn/anaconda/miniconda/) for Miniconda3. Miniforge3 installers are provided in [mirrors.nju.edu.cn/github-release/conda-forge/miniforge/](https://mirrors.nju.edu.cn/github-release/conda-forge/miniforge/), with the latest ones in its `LatestRelease/` subdirectory. The page address is similar in other mirror sites, like [TUNA Mirror](https://mirrors.tuna.tsinghua.edu.cn).
 
 The latest Miniconda3/Miniforge3 installer has a deterministic name, e.g. `Miniconda3-latest-Linux-x86_64.sh` or `Miniforge3-Linux-x86_64.sh` for Linux x86-64. For Anaconda3 there is no `latest` installer, you can find the latest version number on the download/archive page and download `Anaconda3-[latest version]-Linux-x86_64.sh`.
 

@@ -89,7 +89,13 @@ Some commonly used utilities and their functionalities are listed below
 | fch2qm4d | Gaussian -> QM4D |
 | fch2rest | Gaussian -> REST |
 | fch2tm | Gaussian -> Turbomole |
+| mkl2dal | ORCA -> Dalton |
 | mkl2fch | ORCA -> Gaussian |
+| mkl2inp | ORCA -> GAMESS |
+| mkl2inporb | ORCA -> OpenMolcas |
+| mkl2mrcc | ORCA -> MRCC |
+| mkl2psi | ORCA -> PSI4 |
+| mkl2py | ORCA -> PySCF |
 | molden2fch | others -> Gaussian |
 
 You can search a utility and read the documentations in Section [4.5](./chap4-5.md) or [4.6](./chap4-6.md).

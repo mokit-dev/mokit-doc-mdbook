@@ -1,17 +1,17 @@
 # 4.7 Supported methods in `autosr`
 Currently, the keywords of all supported methods in `autosr` are:
 
-[MP2](#471-mp2), [CCD](#472-ccd), [CCSD](#473-ccsd), [CCSD(T)](#474-ccsd(t)), [CCSDT](#475-ccsdt),
+[MP2](#471-mp2), [CCD](#472-ccd), [CCSD](#473-ccsd), [CCSD(T)](#474-ccsdt), [CCSDT](#475-ccsdt),
 
-[CCSD-F12](476-ccsd-f12), [CCSD(T)-F12](477-ccsd(t)-f12),
+[CCSD-F12](476-ccsd-f12), [CCSD(T)-F12](477-ccsdt-f12),
 
 [EOM-CCSD](478-eom-ccsd), [EOM-IP-CCSD](479-eom-ip-ccsd), [EOM-EA-CCSD](4710-eom-ip-ccsd),
 
 [CC2](4711-cc2), [CC3](4712-cc3),
 
-[ADC(2)](4713-adc(2)), [ADC(3)](4714-adc(3)),
+[ADC(2)](4713-adc2), [ADC(3)](4714-adc3),
 
-[QCISD](#4715-qcisd), [QCISD(T)](#4716-qcisd(t))
+[QCISD](#4715-qcisd), [QCISD(T)](#4716-qcisdt)
 
 ## 4.7.1 MP2
 Second-order Møller-Plesset perturbation theory. An example is shown below
@@ -59,12 +59,12 @@ or by
 
 mokit{MP2_prog=ORCA}
 ```
-Please read related keyword MP2_prog.
+Please read related keyword [MP2_prog](./chap4-8.md#482-mp2_prog).
 
 ## 4.7.2 CCD
 Coupled cluster doubles.
 
-Please read related keyword CC_prog.
+Please read related keyword [CC_prog](./chap4-8.md#483-cc_prog).
 
 | feature | keywords | supported programs |
 | --- | --- | --- |
@@ -96,7 +96,7 @@ or by
 
 mokit{CC_prog=ORCA}
 ```
-Please read related keyword CC_prog.
+Please read related keyword [CC_prog](./chap4-8.md#483-cc_prog).
 
 | feature | keywords | supported programs |
 | --- | --- | --- |
@@ -135,7 +135,7 @@ DLPNO-CCSD(T) employs localized MOs in correlation energy calculation, rather th
 
 By default, when the user requests DLPNO-CCSD(T) using two input formats above, the DLPNO-CCSD(T0) method is used, i.e. the perturbative triples are directly calculated as an approximation. If more accurate results are desired, it is strongly recommended to use DLPNO-CCSD(T1), where the perturbative t3 amplitudes are solved iteratively due to the non-canonical MO basis.
 
-Please read related keyword CC_prog.
+Please read related keyword [CC_prog](./chap4-8.md#483-cc_prog).
 
 | feature | keywords | supported programs |
 | --- | --- | --- |
@@ -154,7 +154,7 @@ Coupled cluster singles, doubles and (full) triples.
 
 The CCSDT nonlinear equations will be solved to obtain t1, t2 and t3 amplitudes, i.e. three sets of amplitudes are solved together and iteratively. The final numerical values of t1 and t2 amplitudes will be different from those values of t1 and t2 in CCSD. So usually we do not obtain the CCSD T1-diagnostic value in a CCSDT calculation. But when `CC_prog=PySCF`, `autosr` will firstly perform a CCSD calculation and then use obtained t1, t2 amplitudes as the initial guess of CCSDT, so you can see a T1-diagnostic value in such case.
 
-Please read related keyword CC_prog.
+Please read related keyword [CC_prog](./chap4-8.md#483-cc_prog).
 
 | feature | keywords | supported programs |
 | --- | --- | --- |
@@ -177,34 +177,34 @@ CCSD(T)-F12A and CCSD(T)-F12B methods (i.e. the A/B approximations) are also sup
 ## 4.7.8 EOM-CCSD
 Equation-of-motion based on the CCSD ground state wave function. This is a frequently used wave function method for excited state calculations. EOMCCSD is a synonym for this option.
 
-Please read related keyword EOM_prog.
+Please read related keyword [EOM_prog](./chap4-8.md#485-eom_prog).
 
 ## 4.7.9 EOM-IP-CCSD
 Ionized potential (IP) EOM framework based on the CCSD ground state wave function. This is a frequently used wave function method for IP calculations. IP-EOM-CCSD is a synonym for this option.
 
-Please read related keyword EOM_prog.
+Please read related keyword [EOM_prog](./chap4-8.md#485-eom_prog).
 
 ## 4.7.10 EOM-EA-CCSD
 Electron attachment (EA) EOM framework based on the CCSD ground state wave function. This is a frequently used wave function method for EA calculations. EA-EOM-CCSD is a synonym for this option.
 
-Please read related keyword EOM_prog.
+Please read related keyword [EOM_prog](./chap4-8.md#485-eom_prog).
 
 ## 4.7.11 CC2
 Second-order approximate coupled cluster singles and doubles.
 
-Please read related keyword CC_prog.
+Please read related keyword [CC_prog](./chap4-8.md#483-cc_prog).
 
 ## 4.7.12 CC3
 Third-order approximate coupled cluster singles, doubles, and triples.
 
-Please read related keyword CC_prog.
+Please read related keyword [CC_prog](./chap4-8.md#483-cc_prog).
 
 ## 4.7.13 ADC(2)
 Second-order algebraic diagrammatic construction method.
 
 The SOS-ADC(2) and SCS-ADC(2) variants are also supported. The IP-ADC(2) and EA-ADC(2) methods for IP/EA calculations are also supported.
 
-Please read related keyword ADC_prog.
+Please read related keyword [ADC_prog](./chap4-8.md#484-adc_prog).
 
 RI-ADC(2) for electronic excited states
 ```
@@ -269,7 +269,7 @@ H         0.00000000     0.78397600    -0.49205200
 ## 4.7.14 ADC(3)
 Third-order algebraic diagrammatic construction method.
 
-Please read related keyword ADC_prog.
+Please read related keyword [ADC_prog](./chap4-8.md#484-adc_prog).
 
 RI-ADC(3) for electronic excited states
 ```

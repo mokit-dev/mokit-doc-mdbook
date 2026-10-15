@@ -1,4 +1,4 @@
-# 4.3 Keywords of supported methods in `automr`
+# 4.3 Supported methods in `automr`
 Currently, the keywords of all supported methods in `automr` are: 
 
 [GVB](#431-gvb), [CASCI](#433-casci), [CASSCF](#432-casscf), [DMRGCI](#435-dmrgci), [DMRGSCF](#434-dmrgscf), 
@@ -11,8 +11,7 @@ Currently, the keywords of all supported methods in `automr` are:
 
 [MCPDFT](#4317-mcpdft), [DFTCI](#4318-dftci), [FICMRCCSD](#4319-ficmrccsd), [BCCC2b](#4320-bccc2b), [BCCC3b](#4321-bccc3b).
 
-More multi-configurational and multi-reference methods will be supported in the future.
-These terms should be written in the `#p ...` line in the .gjf file.
+More multi-configurational and multi-reference methods will be supported in the future. These terms should be written in the `#p ...` line in the .gjf file.
 
 There must be a '/' symbol between the method and the basis set, e.g. `CASSCF/cc-pVTZ`.
 `automr` does not allow the use of a spacing to separate the method and basis set (which is allowed in Gaussian). 

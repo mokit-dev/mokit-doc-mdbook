@@ -1,5 +1,5 @@
 # 5.8 Examples of `autosr`
-The utility `autosr` is designed for automatic single reference calculation. Currently supported methods are MP2, CCSD, CCSD(T), DLPNO-CCSD(T), etc (see the full list in [Section 4.7.1](./chap4-7.md#471-methods-in-autosr)). Supported basis sets are cc-pV*n*Z, aug-cc-pV*n*Z, and the def2- series. The RI technique is turned on by default in MP2 or CC calculations. See the supported programs for `MP2_prog` and `CC_prog` in [Section 4.7.2.1](./chap4-7.md#4721-sepcify-programs-for-each-step). By default, `HF_prog=Gaussian`.
+The utility `autosr` is designed for advanced electron correlation methods like CCSD(T), CCSDT, and their density-fitting (DF, also called RI) approximations, local correlation approximations, etc (see the full list in [Section 4.7.1](./chap4-7.md#471-methods-in-autosr)). The RI technique is turned on by default. See the supported programs for `MP2_prog` and `CC_prog` in [Section 4.7.2.1](./chap4-7.md#4721-sepcify-programs-for-each-step). By default, `HF_prog=Gaussian`.
 
 ## 5.8.1 DF-CCSD(T) calculation using Molpro
 See an example

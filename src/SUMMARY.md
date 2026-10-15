@@ -19,7 +19,7 @@
 - [User's Guide](./chap4_guide.md)
   - [Syntax Rules of `automr`](./chap4-1.md)
   - [Memory and Parallel Settings](./chap4-2.md)
-  - [Keywords of supported methods in `automr`](./chap4-3.md)
+  - [Supported methods in `automr`](./chap4-3.md)
   - [List of `automr` Keywords](./chap4-4.md)
   - [List of Utilities in MOKIT](./chap4-5.md)
   - [APIs in MOKIT](./chap4-6.md)

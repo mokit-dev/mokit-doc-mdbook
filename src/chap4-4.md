@@ -6,7 +6,8 @@ Here are the list of all `automr` keywords, grouped by category.
 | --- | --- | --- | --- |
 | [HF_prog](#449-hf_prog) | [GVB_prog](#4410-gvb_prog) | [CASCI_prog](#4411-casci_prog) | [CASSCF_prog](#4412-casscf_prog) |
 | [DMRGCI_prog](#4413-dmrgci_prog) | [DMRGSCF_prog](#4414-dmrgscf_prog) | [CASPT_prog](#4415-caspt_prog) | [NEVPT_prog](#4416-nevpt_prog) |
-| [MRCISD_prog](#4417-mrcisd_prog) | [MRMP2_prog](#4419-mrmp2_prog) | [MCPDFT_prog](#4420-mcpdft_prog) | [Polar_prog](#4454-polar_prog) |
+| [MRCISD_prog](#4417-mrcisd_prog) | [MRMP2_prog](#4419-mrmp2_prog) | [MCPDFT_prog](#4420-mcpdft_prog) | [RASCI_prog](#4421-rasci_prog) |
+| [RASSCF_prog](#4422-rasscf_prog) | [Polar_prog](#4423-polar_prog) |
 
 <br/>
 
@@ -14,24 +15,24 @@ Here are the list of all `automr` keywords, grouped by category.
 | --- | --- | --- | --- | 
 | Input wavefunction | [readrhf](#441-readrhf) | [readuhf](#442-readuhf) | [readno](#443-readno) |
 | Workflow settings | [ist](#444-ist) (most important!) | [LocalM](#445-localm) |  [CIonly](#446-cionly) |
-| | [ON_thres](#4435-on_thres) | [UNO_thres](#4436-uno_thres) | [SkipUNO](#4444-skipuno) |
-| | [excludeXH](#4437-excludexh), [OnlyXH](#4448-onlyxh) | [HFonly](#4451-hfonly) |
+| | [ON_thres](#4438-on_thres) | [UNO_thres](#4439-uno_thres) | [SkipUNO](#4447-skipuno) |
+| | [excludeXH](#4440-excludexh), [OnlyXH](#4451-onlyxh) | [HFonly](#4454-hfonly) |
 
 <br/>
 
 | For method details | | | | |
 | --- | --- | --- | --- | --- |
-| General |   [Cart](#448-cart) | [hardwfn](#4423-hardwfn), [crazywfn](#4424-crazywfn) | [charge](#4425-charge) | [DKH2](#4427-dkh2), [X2C](#4428-x2c) |
-| For MR methods | [CtrType](#4421-ctrtype) for MRCI | [MaxM](#4422-maxm) for DMRG | [OtPDF](#4426-otpdf)| [FIC](#4434-fic) for NEVPT2 |
-| For GVB | [GVB_conv](#4443-gvb_conv) | [Inherit](#4445-inherit) | [Npair](#4446-npair) | [FcGVB](#4447-fcgvb) |
+| General |   [Cart](#448-cart) | [hardwfn](#4426-hardwfn), [crazywfn](#4427-crazywfn) | [charge](#4428-charge) | [DKH2](#4430-dkh2), [X2C](#4431-x2c) |
+| For MR methods | [CtrType](#4424-ctrtype) for MRCI | [MaxM](#4425-maxm) for DMRG | [OtPDF](#4429-otpdf)| [FIC](#4437-fic) for NEVPT2 |
+| For GVB | [GVB_conv](#4446-gvb_conv) | [Inherit](#4448-inherit) | [Npair](#4449-npair) | [FcGVB](#4450-fcgvb) |
 
 <br/>
 
 | Others | | | | 
 | --- | --- | --- | --- | 
-| Acceleration technique | [RI](#4429-ri), [RIJK_bas](#4430-rijk_bas), [RIC_bas](#4456-ric_bas) | [F12](#4431-f12), [F12_cabs](#4432-f12_cabs) for NEVPT2 | [DLPNO](#4433-dlpno) for NEVPT2 |
-|For additional properties | [Force](#447-force) | [NMR](#4438-nmr) | [ICSS](#4439-icss) | [polar](#4455-polar) |
-| For excited states  | [Nstates](#4440-nstates) | [MixedSpin](#4441-mixedspin) | [Root](#4442-root), [Xmult](#4449-xmult) |
+| Acceleration technique | [RI](#4432-ri), [RIJK_bas](#4433-rijk_bas), [RIC_bas](#4458-ric_bas) | [F12](#4434-f12), [F12_cabs](#4435-f12_cabs) for NEVPT2 | [DLPNO](#4436-dlpno) for NEVPT2 |
+|For additional properties | [Force](#447-force) | [NMR](#4441-nmr) | [ICSS](#4442-icss) | [polar](#4457-polar) |
+| For excited states  | [Nstates](#4443-nstates) | [MixedSpin](#4444-mixedspin) | [Root](#4445-root), [Xmult](#4452-xmult) |
 
 <br/>
 
@@ -72,7 +73,7 @@ The value 0 (default) is recommended, if you do not know which one to choose.
 ## 4.4.5 LocalM
 Specify the orbital localization method. Only the Boys (also called Foster-Boys) localization and PM (Pipek-Mezey) localization method are supported. The corresponding keywords are `LocalM=Boys` and `LocalM=PM`(default), respectively.
 
-Note that there are 3 localization steps controlled by this keyword: (1) the orbital localization during constructing GVB initial guess; (2) the orbital localization of singly occupied orbitals (only if you perform a high-spin GVB calculation, here high-spin means triplet or higher); (3) the orbital localization of doubly occupied orbitals (only if you specify the keyword [LocDocc](#4453-locdocc)).
+Note that there are 3 localization steps controlled by this keyword: (1) the orbital localization during constructing GVB initial guess; (2) the orbital localization of singly occupied orbitals (only if you perform a high-spin GVB calculation, here high-spin means triplet or higher); (3) the orbital localization of doubly occupied orbitals (only if you specify the keyword [LocDocc](#4456-locdocc)).
 
 Note: the Boys method will mix \\( \sigma \\) and \\( \pi \\) orbitals, while the PM method tends to keep them separated. These two methods make no difference when the target molecule contains only \\( \sigma \\) bonds (and possibly a few isolated \\( \pi \\) bonds). But if you are dealing with multiple \\( \pi \\) bonds or conjugated \\( \pi \\) systems like oligoacene (benzene, naphthalene, etc), or if you want the active space to contain only \\( \pi \\) orbitals, better use the PM method. The GVB and CASSCF optimized orbitals will be affected by the localization method sometimes. If you explicitly specify the size of active space which is equal to the \\( \pi \\) space (note that frontier natural orbitals are usually \\( \pi \\) orbitals), then using `LocalM=Boys` is OK since Boys localization among pure \\( \pi \\) orbitals is safe (no sigma orbital is in the set).
 
@@ -188,7 +189,7 @@ mokit{NEVPT_prog=ORCA}
 ...
 ```
 
-Note that there exist at least two variants of the NEVPT2: SC-NEVPT2 and FIC-NEVPT2 (aka PC-NEVPT2). By default, for NEVPT_prog=PySCF/Molpro/ORCA/OpenMolcas, SC-NEVPT2 is chosen; while for `NEVPT_prog=BDF`, FIC-NEVPT2 is chosen. To turn on the FIC-NEVPT2 when using PySCF/Molpro/ORCA/OpenMolcas, please use the keyword [FIC](#4434-fic). Also note that
+Note that there exist at least two variants of the NEVPT2: SC-NEVPT2 and FIC-NEVPT2 (aka PC-NEVPT2). By default, for NEVPT_prog=PySCF/Molpro/ORCA/OpenMolcas, SC-NEVPT2 is chosen; while for `NEVPT_prog=BDF`, FIC-NEVPT2 is chosen. To turn on the FIC-NEVPT2 when using PySCF/Molpro/ORCA/OpenMolcas, please use the keyword [FIC](#4437-fic). Also note that
 
 (1) When you specify `NEVPT_prog=Molpro` or OpenMolcas, both of the SC-NEVPT2 and FIC-NEVPT2 energies are actually printed in Molpro/OpenMolcas output (.out file). You can open the output file and read it manually, if you need that energy.
 
@@ -197,7 +198,7 @@ Note that there exist at least two variants of the NEVPT2: SC-NEVPT2 and FIC-NEV
 (3) `NEVPT2_prog` can be used an alias when you request an NEVPT2 calculation. There is no alias like `NEVPT3_prog` or `NEVPT4_prog`.
 
 ## 4.4.17 MRCISD_prog
-Specify the program for performing MRCISD calculation. By default, `MRCISD_prog=OpenMolcas`. You MUST also specify a contraction type, please read [CtrType](#4421-ctrtype) carefully. Currently, `automr` supports the interfaces of three MRCISD variants:
+Specify the program for performing MRCISD calculation. By default, `MRCISD_prog=OpenMolcas`. You MUST also specify a contraction type, please read [CtrType](#4424-ctrtype) carefully. Currently, `automr` supports the interfaces of three MRCISD variants:
 
 (1) uncontracted MRCISD (uc-MRCISD)  
 (2) internally contracted MRCISD (ic-MRCISD)  
@@ -231,9 +232,22 @@ Note that MC-PDFT will be automatically switched to DMRG-PDFT if DMRG-CASCI/CASS
 
 Also note that in GAMESS, the MC-PDFT is only supported for version >= 2019(R2), and currently it can only be run in serial.
 
-See related keywords [CASCI_prog](./chap4-3.html#433-casci), [CASSCF_prog](./chap4-3.html#432-casscf), [OtPDF](#4426-otpdf) and [Force](#447-force).
+See related keywords [CASCI_prog](./chap4-3.html#433-casci), [CASSCF_prog](./chap4-3.html#432-casscf), [OtPDF](#4429-otpdf) and [Force](#447-force).
 
-## 4.4.21 CtrType
+## 4.4.21 RASCI_prog
+Specify the program for performing a RASCI calculation. Supported programs are OpenMolcas(default), Dalton, Gaussian, Molpro, ORCA. See related keywords [RASCI](./chap4-3.html#4318-rasci), [Force](#447-force).
+
+## 4.4.22 RASSCF_prog
+Specify the program for performing a RASSCF calculation. Supported programs are OpenMolcas(default), Dalton, Gaussian, Molpro. See related keywords [RASSCF](./chap4-3.html#4319-rasscf), [Force](#447-force).
+
+## 4.4.23 Polar_prog
+Request to specify which program should perform the CASSCF polarizability calculation. When [polar](#4457-polar) is turned on, this keyword determines which program is used.
+
+Available programs: `Dalton` (default, analytical), `ORCA` (analytical), `OpenMolcas` (numerical) and `Gaussian` (numerical). For the numerical differentiation approach, six extra single-point energy and dipole moment calculations would be performed based on perturbed geometries.
+
+Note: currently only the ground state CASSCF polarizability is supported. Any excited state CASCI/CASSCF polarizability is not supported yet. For the ground state CASCI polarizability (e.g. CASCI based on GVB MOs), it would be supported in the near future. So far, at least a CASSCF calculation must be specified.
+
+## 4.4.24 CtrType
 Specify the contraction type of the MRCISD method. The default value is 0. When you specify the MRCISD method and the `MRCISD_prog`, you must assign an integer for this variable, where
 
 1 for uc-MRCISD  
@@ -242,18 +256,18 @@ Specify the contraction type of the MRCISD method. The default value is 0. When 
 
 Generally, the ic- and FIC-MRCISD methods are recommended. See [here](./chap5-1.html#513-mrcisdq-calculation-of-the-ground-state) for more explanations of MRCISD computations. If your calculation involves Cartesian-type basis functions, then you cannot use FIC-MRCISD in ORCA. In such case, you can choose ic-MRCISD in OpenMolcas instead.
 
-## 4.4.22 MaxM
+## 4.4.25 MaxM
 Specify the bond dimension MaxM in DMRG-related calculations. The default values is 1000 (e.g. `MaxM=1000`). When maxM increases, the DMRG-CASCI energy will become closer to the CASCI energy, but the computational cost increases as well. The value 1000 is suitable for common cases. But do check whether it is valid for your system. For example, three computations using different MaxM (e.g. 500, 1000, 1500) may be conducted to study whether the energy converges with MaxM.
 
-## 4.4.23 hardwfn
+## 4.4.26 hardwfn
 This option can only be applied to CASCI/CASSCF calculations using PySCF, OpenMolcas, GAMESS or PSI4. By specifying `hardwfn`, `automr` will add extra keywords into the CAS input files to ensure a better convergence. Note that normally you do not need this keyword, and it is useless if you specify other programs as the CAS solver.
 
-## 4.4.24 crazywfn
+## 4.4.27 crazywfn
 This option can only be applied to CASCI/CASSCF calculations using PySCF, OpenMolcas, GAMESS or PSI4. By specifying `crazywfn`, `automr` will add extra keywords (more than those of `hardwfn`) into the CAS input files to ensure a better convergence. Note that usually you do not need this keyword, and it is useless if you specify other programs as the CAS solver.
 
 For example, when the N<sub>2</sub> molecule is stretched to *d*(N-N) = 4.0 Å, this is a system which features strong correlation and requires a CAS(6,6) active space. The Davidson iterative diagonalization in determinant CASCI (using GAMESS) may not find the singlet state in the lowest 5 states. In this case, specifying `crazywfn` will increase the NSTATE to 10, so that the singlet state can be found.
 
-## 4.4.25 Charge
+## 4.4.28 Charge
 This keyword has identical meaning with the same keyword in Gaussian software, i.e. including background point charges in calculations. This keyword is supported for almost all methods in `automr`. Methods which are incompatible with background point charges will signal errors immediately. The charge-charge and charge-nuclei interaction energies are both included in all electronic energies printed (UHF, GVB, CASSCF, NEVPT2, etc).
 
 The including of background point charges is useful for QM/MM calculations or fragmentation-based linear scaling methods (like GEBF, Many-body expansion, etc).
@@ -261,7 +275,7 @@ The including of background point charges is useful for QM/MM calculations or fr
 Note: please write this keyword in `mokit{}`. DO NOT WRITE this keyword in the Route
 Section of .gjf file (i.e. '#p ...' line).
 
-## 4.4.26 OtPDF
+## 4.4.29 OtPDF
 Specify the on-top pair density functional in a MC-PDFT calculation. This keyword has identical meaning with the keyword `KSDFT`/`FUNC` in `&MCPDFT` of (Open)Molcas. Currently available functionals are tPBE(default), tBLYP, tLSDA, trevPBE, tOPBE, ftPBE, ftBLYP, ftLSDA, ftrevPBE and ftOPBE. The functional name must be included in a pair of **single quotes**, i.e. `OtPDF='tPBE'`. The MC-PDFT output of `automr` would look like
 ```
 Enter subroutine do_mcpdft...
@@ -297,24 +311,24 @@ Note that for Openmolcas >= v22.02, the on-top pair density functional keywords 
 
 See related keywords [MCPDFT_prog](#4420-mcpdft_prog) and [Force](#447-force).
 
-## 4.4.27 DKH2
+## 4.4.30 DKH2
 Request the 2nd order scalar relativistic Douglas–Kroll–Hess (DKH2) correction to the one-electron Hamiltonian. Note that: (1) The two keywords DKH2 and X2C are mutually exclusive, i.e. you can only write one of them. (2) You should use all-electron basis sets like 'cc-pVTZ-DK', 'x2c-TZVPall' or 'ANO-RCC-VDZ' for all-electron relativistic calculations. Pseudopotential should not be used. (3) It is strongly not recommended to use Cartesian-type function of basis set (severe numerical instability observed), please just use the default spherical harmonic functions.
 
 Currently only the point nuclei charge distribution is supported. The DKH0 Hamiltonian is rough and thus not supported. These programs support the DKH2 Hamiltonian: Dalton, Gaussian, GAMESS, OpenMolcas, ORCA, Molpro, PSI4.
 
-## 4.4.28 X2C
+## 4.4.31 X2C
 Request the scalar (i.e. spin-free) relativistic X2C (eXact-two-Component) corrections to the one-electron Hamiltonian. Note that: (1) The two keywords DKH2 and X2C are mutually exclusive, i.e. you can only write one of them. (2) You should use all-electron basis sets like 'cc-pVTZ-DK', 'x2c-TZVPall' or 'ANO-RCC-VDZ' for all-electron relativistic calculations. Pseudopotential should not be used. (3) It is strongly not recommended to use Cartesian-type function of basis set (severe numerical instability observed), please just use the default spherical harmonic functions.
 
 Also note that by default, the RHF/UHF is performed using Gaussian called by `automr`, and GVB is performed using GAMESS called by `automr`. When you specify `mokit{X2C}`, the `HF_prog` will be switched to PySCF automatically. Since GAMESS does not support X2C currently, in this step the X2C will be replaced by DKH2. According to the limited tests of the developer jxzou, MOs resulting from DKH2 and X2C are similar and often converge in few cycles.
 
 Currently only the point nuclei charge distribution is supported. These programs support the X2C Hamiltonian: BDF, OpenMolcas, Molpro, PSI4, PySCF. X2C will be supported in ORCA in the near future.
 
-## 4.4.29 RI
+## 4.4.32 RI
 Request to turn on the RI-JK approximation for two-electron integrals in CASSCF. Default is off. Please just write `mokit{RI}`, do not write 'mokit{RI=True}' or 'mokit{RI on}'. The other two types of RI approximations RI-J and RIJCOSX are not supported.
 
 This option currently can only be used in CASSCF computations conducted by PySCF, OpenMolcas, Molpro, ORCA, or PSI4 programs. To learn more about the auxiliary basis set used in RI-JK approximation, see the following section.
 
-## 4.4.30 RIJK_bas
+## 4.4.33 RIJK_bas
 Specify an auxiliary basis set for RI-JK approximation in CASSCF computations. 
 Usually you do not need to specify this, since the automr program will automatically assign a proper auxiliary basis set according to the basis set (e.g. def2/JK for def2TZVP, cc-pVTZ/JK for cc-pVTZ). You can simply open the output file of automr and see what auxiliary basis set is assigned.
 
@@ -322,37 +336,37 @@ In the current version of OpenMolcas, there is no auxiliary basis set in it. The
 `automr` program in MOKIT will automatically transformed the needed basis set file
 and put that into `$MOLCAS/basis_library/jk_Basis/`.
 
-## 4.4.31 F12
-Request to turn on the F12 technique in NEVPT2 computations conducted by ORCA. F12 is not used by default. But if you turn on F12, [RI](#4429-ri) will be turned on as a byproduct.
+## 4.4.34 F12
+Request to turn on the F12 technique in NEVPT2 computations conducted by ORCA. F12 is not used by default. But if you turn on F12, [RI](#4432-ri) will be turned on as a byproduct.
 
 This option currently can only be used in CASSCF and CASSCF-NEVPT2 computations conducted by ORCA program, i.e. you need to specify `CASSCF_prog=ORCA,NEVPT_prog=ORCA,F12` in mokit{}. To learn more about the near-complete auxiliary basis set used in F12 technique, see the following section.
 
-## 4.4.32 F12_cabs
+## 4.4.35 F12_cabs
 Specify a near-complete auxiliary basis set for the F12 technique in NEVPT2 computations conducted by ORCA. Usually you do not need to specify this, since the automr program will automatically assign a proper auxiliary basis set according to the basis set (e.g. cc-pVTZ-F12-CABS for cc-pVTZ-F12). You can simply open the output file of automr and see what CABS is assigned.
 
-## 4.4.33 DLPNO
+## 4.4.36 DLPNO
 Request to turn on the DLPNO technique in NEVPT2 computations conducted by ORCA.
-DLPNO is not used by default. But if you turn on DLPNO, [RI](#4429-ri) and [FIC](#4434-fic) will be turned on as byproducts.
+DLPNO is not used by default. But if you turn on DLPNO, [RI](#4432-ri) and [FIC](#4437-fic) will be turned on as byproducts.
 
 This option currently can only be used in CASSCF and CASSCF-NEVPT2 computations conducted by ORCA program, i.e. you need to specify `CASSCF_prog=ORCA,NEVPT_prog=ORCA,DLPNO` in mokit{}. Of course it can be combined with F12 to perform RI-DLPNO-FIC-NEVPT2-F12 computations for large systems, where the keywords should be `mokit{CASSCF_prog=ORCA,NEVPT_prog=ORCA,DLPNO,F12}`.
 
-## 4.4.34 FIC
+## 4.4.37 FIC
 Request the FIC- variant of NEVPT2 (i.e. FIC-NEVPT2) to be used. By default SC-NEVPT2 is invoked if you specify NEVPT2 in route section `#p NEVPT2/...` and use PySCF/Molpro/OpenMolcas/ORCA program as `NEVPT_prog`. But if you specify `NEVPT_prog=BDF`, this option is turned on as a byproduct and FIC-NEVPT2 will then be performed. SC-NEVPT2 is not supported in BDF. FIC-NEVPT2 is not supported in PySCF.
 
-## 4.4.35 ON_thres
+## 4.4.38 ON_thres
 When ist=5, this parameter is the threshold of natural orbital occupation numbers (NOON) for determining the number of active orbitals. Default value is 0.02, which means orbital occupation numbers 0.02~1.98 will be considered as active orbitals in subsequent CAS/DMRG calculations.
 
 Note that when using ist=5, you should provide a .fch(k) file which contains paired natural orbitals, for example, UNO, UDFT NO, SUHF NO, etc. This is to ensure occupation numbers occur in a pairwise way (1-x, 1+x). Better not modify the default value unless you are an experienced user.
 
-## 4.4.36 UNO_thres
+## 4.4.39 UNO_thres
 When ist=1 or 2, this parameter is the threshold of UNO occupation numbers for determining the number of pairs in GVB computation. The default value is 0.00001 and it means all unoccupied UNOs with occupation numbers >1e-5 will be chosen (as well as their corresponding occupied UNOs) for subsequent orbital localization. The default value often corresponds to a full-valence computation of GVB. Similarly, setting UNO_thres=0.02 corresponds to the fact that any unoccupied UNOs with occupation numbers >0.02 will be chosen.
 
 DO NOT modify the default value unless you are an experienced user.
 
-## 4.4.37 excludeXH
+## 4.4.40 excludeXH
 Request the exclusion of inactive X-H bonds after normal GVB computation finished. For example, a normal GVB computation of the benzene molecule using cc-pVDZ basis set will lead to 15 pairs in total, which contains 9 pairs of C-C bonds and 6 pairs of C-H bonds. If the keyword `excludeXH` is specified in `mokit{}`, then a GVB(9) computation containing only C-C bonds will be automatically performed after GVB(15).
 
-## 4.4.38 NMR
+## 4.4.41 NMR
 Request the calculation of nuclear shielding constants. Currently only the CASSCF method is supported. 
 Gauge-Independent Atomic Orbital (GIAO) method is used to compute the NMR shielding tensors. Note that:
 
@@ -371,7 +385,7 @@ If you want ICSS, please read [5.4.1 ICSS of the ground state of cyclobutadiene]
 
 (7) MOKIT assumes the user uses 32-bit integer Dalton. The maximum memory allowed for 32-bit integer Dalton is around 16GB. So MOKIT will automatically reduce the memory to 16GB if the user specify >16GB in a NMR job.
 
-## 4.4.39 ICSS
+## 4.4.42 ICSS
 Request the calculation ICSS (Isochemical Shielding Surfaces). Currently only the CASSCF method is supported. 
 Gauge-Independent Atomic Orbital (GIAO) method is used to compute the NMR shieldings. 
 See the example `$MOKIT_ROOT/examples/automr/16-C4H4.gjf`.
@@ -390,16 +404,16 @@ Note that:
 (6) MOKIT will submit 2, 3 or 4 Dalton jobs in parallel to accelerate the ICSS computation. The number of Dalton job is determined as three cases: (i) if %nproc is multiples of 4, then 4 jobs will be submitted; (ii) otherwise if %nproc is multiples of 3, then 3 jobs will be submitted; (iii) otherwise 2 jobs will be submitted. In these cases, the allowed maximum total memory is 64GB, 48GB and 32GB, respectively. This is because MOKIT assumes the user uses 32-bit integer of Dalton, which can only utilize up to 16GB.
 See a detailed example in [5.4 ICSS and NICS](./chap5-4.html#54-icss-and-nics).
 
-## 4.4.40 Nstates
-Specify the number of roots to be averaged in SA-CASSCF computations. For example, Nstates=2 stands for 3 electronic states (ground state + two excited states). The default is to average states with the same spin. If you want to average S0/T1, you should also write the keyword [MixedSpin](#4441-mixedspin).
+## 4.4.43 Nstates
+Specify the number of roots to be averaged in SA-CASSCF computations. For example, Nstates=2 stands for 3 electronic states (ground state + two excited states). The default is to average states with the same spin. If you want to average S0/T1, you should also write the keyword [MixedSpin](#4444-mixedspin).
 
-## 4.4.41 MixedSpin
+## 4.4.44 MixedSpin
 Specifying this keyword means that allowing electronic states with different spin multiplicities to be averaged in SA-CASSCF. If you want to write this keyword, just write `MixedSpin` in `mokit{}`. Do not write `MixedSpin=.True.` or `MixedSpin=True`. If this keyword is not specified, the default setting is to average states with the same spin. `Mixed_Spin` is deprecated and no longer used. Currently a precise setting of the number of states for each spin is not implemented. When you specify `mokit{Nstates=1,MixedSpin}`, it usually leads to S0/T1 SA-CASSCF for a singlet species. But when you specify `mokit{Nstates=3,MixedSpin}`, the number of singlets/triplets is not a fixed number and may vary with molecules.
 
-## 4.4.42 Root
-Specify the root which you are interested in State-Specific CASSCF (SS-CASSCF) calculations. Default value is 0 (ground state). `Root=1` stands for the first excited state. For example, if the ground state is S0, then `Root=1` stands for the S1 state. Note that this keyword is mutually exclusive to the keyword `Nstates` in [Nstates](#4440-nstates), since the latter one is used for SA-CASSCF. Currently dynamic correlation based on SS-CASSCF is not supported. The SS-CASSCF calculation is performed after the ground state CASSCF calculation.
+## 4.4.45 Root
+Specify the root which you are interested in State-Specific CASSCF (SS-CASSCF) calculations. Default value is 0 (ground state). `Root=1` stands for the first excited state. For example, if the ground state is S0, then `Root=1` stands for the S1 state. Note that this keyword is mutually exclusive to the keyword `Nstates` in [Nstates](#4443-nstates), since the latter one is used for SA-CASSCF. Currently dynamic correlation based on SS-CASSCF is not supported. The SS-CASSCF calculation is performed after the ground state CASSCF calculation.
 
-## 4.4.43 GVB_conv
+## 4.4.46 GVB_conv
 Modify/Set the density matrix convergence criterion in GAMESS GVB to be a desired threshold. The default threshold is different for two cases:
 
 (1) 5D-4 (i.e. 0.0005 a.u.) for CASSCF and post-CASSCF calculations;  
@@ -413,7 +427,7 @@ There are two possible cases in which you may want to change the default GVB con
 
 (2) When dealing with *d* or *f* transition metal (e.g. Fe) molecules, the GVB orbital optimization often takes many cycles to converge or even diverge in the end, but the first ~30 cycles are often reasonable, so we can use a less tight threshold to converge the GVB wavefuntion.
 
-## 4.4.44 SkipUNO
+## 4.4.47 SkipUNO
 Specify the number of pairs of UNOs to be skipped during orbital localization. Default is 0. For example, `SkipUNO=1` means that the HONO and LUNO will be kept unchanged when localizing UNOs. And `SkipUNO=2` means that the HONO-1, HONO, LUNO and LUNO+1 will be kept unchanged when localizing UNOs. This is useful when GVB exists multiple SCF solutions. Using `SkipUNO=1` you can probably obtain a biradical-like GVB solution (if the molecule indeed has significant biradical characters). It is recommended to choose the solution with the lowest GVB electronic energies for subsequent post-GVB
 computations.
 
@@ -421,10 +435,10 @@ This keyword is invalid for keyword ist=3,4,5. It is also invalid when `mokit{is
 
 Previously this keyword was `Skip_UNO` but it will be deprecated in the near future.
 
-## 4.4.45 Inherit
+## 4.4.48 Inherit
 Request to inherit keywords and the number of GVB pairs (if explicitly specified) in GVB/STO-6G calculation from the target calculation. This keyword can only be used when ist=6. Default is not to inherit keywords. If you want to write this keyword, just write Inherit. Do not write Inherit=.True. or Inherit=True.
 
-## 4.4.46 Npair
+## 4.4.49 Npair
 Specify the number of GVB pairs in a non-GVB (e.g. CASSCF) calculation. For example, the following input file will lead a GVB(24) -> CASSCF(10,10) calculation, where 24 means 16 C-C bonds and 8 C-H bonds:
 ```
 %mem=48GB
@@ -438,25 +452,25 @@ But if you want to perform a GVB(5) -> CASSCF(10,10) calculation, which would sa
 mokit{ist=1,readuhf='naphthalene_cc-pVDZ_uhf.fch',Npair=5}
 ```
 
-## 4.4.47 FcGVB
+## 4.4.50 FcGVB
 Request to freeze all doubly occupied orbitals in GVB calculations. Do not write FcGVB=.T., FcGVB=.True., or FcGVB=True. Just specifying FcGVB will work, i.e. `mokit{FcGVB,...}`. This keyword is useful for obtaining the GVB solution with pure \\( \pi \\) orbitals in calculations of non-planar polycyclic hydrocarbons. If you want to calculate the S-T gap, remember to specify FcGVB in both singlet and triplet cases.
 
 By default, for CASCI/CASSCF and post-CAS calculations, FcGVB is automatically enabled in MOKIT. While for GVB and GVB-BCCC calculations, FcGVB is automatically disabled. The keyword `NoFcGVB` prevents freezing doubly occupied orbitals.
 
-## 4.4.48 OnlyXH
-Request to keep only X-H bonds after a normal GVB computation finished. For example, a normal GVB computation of the benzene molecule using cc-pVDZ basis set will lead to 15 pairs in total, which contains 9 pairs of C-C bonds and 6 pairs of C-H bonds. If the keyword `OnlyXH` is specified in `mokit{}`, then a GVB(6) computation containing only C-H bonds will be automatically performed after GVB(15). This keyword can be viewed as an opposite option of [excludeXH](#4437-excludexh).
+## 4.4.51 OnlyXH
+Request to keep only X-H bonds after a normal GVB computation finished. For example, a normal GVB computation of the benzene molecule using cc-pVDZ basis set will lead to 15 pairs in total, which contains 9 pairs of C-C bonds and 6 pairs of C-H bonds. If the keyword `OnlyXH` is specified in `mokit{}`, then a GVB(6) computation containing only C-H bonds will be automatically performed after GVB(15). This keyword can be viewed as an opposite option of [excludeXH](#4440-excludexh).
 
-## 4.4.49 Xmult
-Specify the spin multiplicity of the target excited state in a SS-CASSCF calculation. This keyword is usually used along with `root` in Section [Root](#4442-root). If the spin multiplicity in the input file is 1 (i.e. assuming a singlet ground state), here are some examples of calculating the target excited state:  
+## 4.4.52 Xmult
+Specify the spin multiplicity of the target excited state in a SS-CASSCF calculation. This keyword is usually used along with `root` in Section [Root](#4445-root). If the spin multiplicity in the input file is 1 (i.e. assuming a singlet ground state), here are some examples of calculating the target excited state:  
 (1) `mokit{root=1}` means the S<sub>1</sub> state;  
 (2) `mokit{root=1,Xmult=1}` is identical to (1);  
 (3) `mokit{root=1,Xmult=3}` means the T<sub>1</sub> state;  
 (4) `mokit{root=2,Xmult=1}` means the S<sub>2</sub> state.
 
-## 4.4.50 noDMRGNO
-This keyword is deprecated since MOKIT 1.2.7rc20. That is to say, you can only use this keyword for MOKIT <= 1.2.7rc19. If this keyword is specified, the users requests not to generate natural orbitals in a DMRG-CASCI calculation. It is only valid for a DMRG-CASCI job. This keyword could save some time when one wants to check whether the DMRG-CASCI electronic energy converges with [maxM](#4422-maxm). After the user confirms a suitable `maxM`, he/she can remove this keyword and perform a single point calculation to generate DMRG NOs. Since MOKIT>=1.2.7rc20, the DMRG-CASCI workflow is improved, and now it takes much less time to obtain both the electronic energy and natural orbitals.
+## 4.4.53 noDMRGNO
+This keyword is deprecated since MOKIT 1.2.7rc20. That is to say, you can only use this keyword for MOKIT <= 1.2.7rc19. If this keyword is specified, the users requests not to generate natural orbitals in a DMRG-CASCI calculation. It is only valid for a DMRG-CASCI job. This keyword could save some time when one wants to check whether the DMRG-CASCI electronic energy converges with [maxM](#4425-maxm). After the user confirms a suitable `maxM`, he/she can remove this keyword and perform a single point calculation to generate DMRG NOs. Since MOKIT>=1.2.7rc20, the DMRG-CASCI workflow is improved, and now it takes much less time to obtain both the electronic energy and natural orbitals.
 
-## 4.4.51 HFonly
+## 4.4.54 HFonly
 Request the `automr` program to terminate after the HF calculations are finished. This is useful when one wants to perform the sfX2C-UHF calculation using fragment guess. An input example is shown below
 
 ```
@@ -470,24 +484,17 @@ mokit{HF_prog=PySCF,DKH2,HFonly}
 
 `automr` will firstly call Gaussian to generate the fragment guess, then transfer initial guess orbitals to PySCF and call PySCF to perform the sfX2C-UHF calculation. After UHF is finished, `automr` will terminate and no GVB calculation will be performed. Here the keyword `DKH2` is for GVB calculation and will not be used in the UHF calculation.
 
-## 4.4.52 block_mpi
+## 4.4.55 block_mpi
 Request the MPI version of Block program to be used in DMRG calculations. By default `automr` would call the OpenMP version of the Block2 program since it is faster than MPI version in a single node. Note that this keyword only changes the parallelism of DMRG-CASCI and/or DMRG-CASSCF calculations, but the NEVPT2 calculation after DMRG always utilize MPI parallelism (which requires `mpi4py` to be installed). Usually you do not need this keyword unless you want to perform tests or debug.
 
-## 4.4.53 LocDocc
+## 4.4.56 LocDocc
 Request to perform the orbital localization upon the doubly occupied orbitals in a GVB job. This GVB job can be a target calculation, or just an intermediate step in a CASCI/CASSCF job. Note that this localization does not change the electronic energy of GVB/CASCI/CASSCF. It is just of convenient usage for some users, or for convenience of identifying core orbitals. The localization method is PM by default, and it is controlled by [LocalM](#445-localm).
 
-## 4.4.54 Polar_prog
-Request to specify which program should perform the CASSCF polarizability calculation. When [polar](#4455-polar) is turned on, this keyword determines which program is used.
-
-Available programs: `Dalton` (default, analytical), `ORCA` (analytical), `OpenMolcas` (numerical) and `Gaussian` (numerical). For the numerical differentiation approach, six extra single-point energy and dipole moment calculations would be performed based on perturbed geometries.
-
-Note: currently only the ground state CASSCF polarizability is supported. Any excited state CASCI/CASSCF polarizability is not supported yet. For the ground state CASCI polarizability (e.g. CASCI based on GVB MOs), it would be supported in the near future. So far, at least a CASSCF calculation must be specified.
-
-## 4.4.55 polar
+## 4.4.57 polar
 Request to calculate the CASSCF molecular polarizability (3×3 matrix, in atomic units) after the CASSCF computation finishes. The CASSCF natural orbitals from the preceding CASSCF calculation will be used.
 
 Note: This property is computed only when a CASSCF calculation exists in the workflow. It is currently not compatible with post-CASSCF methods (e.g., CASPT2, NEVPT2, MRCI) within the same job.
 
-## 4.4.56 RIC_bas
-Specify an auxiliary basis set for RI approximation in NEVPT2/CASPT2 computations. Usually you do not need to specify this, since when [RI](#4429-ri) is turned on, the automr program will automatically assign a proper auxiliary basis set according to the orbital basis set (e.g., def2-TZVP/C for def2-TZVP, cc-pVTZ/C for cc-pVTZ). Note that this is different from [RIJK_bas](#4430-rijk_bas), which is for J/K fitting in CASSCF.
+## 4.4.58 RIC_bas
+Specify an auxiliary basis set for RI approximation in NEVPT2/CASPT2 computations. Usually you do not need to specify this, since when [RI](#4432-ri) is turned on, the automr program will automatically assign a proper auxiliary basis set according to the orbital basis set (e.g., def2-TZVP/C for def2-TZVP, cc-pVTZ/C for cc-pVTZ). Note that this is different from [RIJK_bas](#4433-rijk_bas), which is for J/K fitting in CASSCF.
 

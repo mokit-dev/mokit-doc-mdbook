@@ -9,7 +9,9 @@ Currently, the keywords of all supported methods in `automr` are:
 
 [SDSPT2](#4312-sdspt2), [MRMP2](#4313-mrmp2), [OVBMP2](#4314-ovbmp2), [MRCISD](#4315-mrcisd), [MRCISDT](#4316-mrcisdt), 
 
-[MCPDFT](#4317-mcpdft), [DFTCI](#4318-dftci), [FICMRCCSD](#4319-ficmrccsd), [BCCC2b](#4320-bccc2b), [BCCC3b](#4321-bccc3b).
+[MCPDFT](#4317-mcpdft), [RASCI](#4318-rasci), [RASSCF](#4319-rasscf),  [FICMRCCSD](#4320-ficmrccsd),  
+
+[DFTCI](#4321-dftci), [BCCC2b](#4322-bccc2b), [BCCC3b](#4323-bccc3b).
 
 More multi-configurational and multi-reference methods will be supported in the future. These terms should be written in the `#p ...` line in the .gjf file.
 
@@ -133,7 +135,38 @@ Note that if the active space is larger than (15,15), the MC-PDFT will be automa
 
 Please read related keyword [MCPDFT_prog](./chap4-4.md#4420-mcpdft_prog) in Section 4.4.
 
-## 4.3.18 DFTCI
+## 4.3.18 RASCI
+Restricted Active Space Configuration Interaction.
+
+RASCI can be viewed as the 0-th step of the RASSCF step, i.e. RASSCF without orbital optimization. It is usually recommended to perform RASSCF rather than RASCI, expect for those who wish to compare the quality of different initial guesses, and/or do not want the RASSCF result.
+
+The utility `automr` automatically determines the RAS1/RAS2/RAS3 active orbitals and active electrons form natural orbital occupation numbers of any previous calculation (by built-in GVB workflow or by user-provided well-defined orbitals). If the user wants to specified an active space, the syntax is RASCI(n,l,m;i,j,k) which is the notation from J. Chem. Theory Comput. 2011, 7, 153. For example, (6,2,2;1,4,1) means
+
+1) the total number of active electrons in RAS1+RAS2+RAS3 is 6;  
+2) there are up to 2 electrons which could be excited from RAS1;  
+3) there are up to 2 electrons which could be excited to RAS3;  
+4) the number of orbitals in RAS1/RAS2/RAS3 subspaces are 1,4,1 respectively.
+
+Other RAS active space notation may be supported in the future. Pleae read the related keyword [RASCI_prog](./chap4-4.md#4421-rasci_prog) in Section 4.4.
+
+## 4.3.19 RASSCF
+Restricted Active Space Self-consistent Field.
+
+The utility `automr` automatically determines the RAS1/RAS2/RAS3 active orbitals and active electrons form natural orbital occupation numbers of any previous calculation (by built-in GVB workflow or by user-provided well-defined orbitals). If the user wants to specified an active space, the syntax is RASSCF(n,l,m;i,j,k) which is the notation from J. Chem. Theory Comput. 2011, 7, 153. For example, (6,2,2;1,4,1) means
+
+1) the total number of active electrons in RAS1+RAS2+RAS3 is 6;  
+2) there are up to 2 electrons which could be excited from RAS1;  
+3) there are up to 2 electrons which could be excited to RAS3;  
+4) the number of orbitals in RAS1/RAS2/RAS3 subspaces are 1,4,1 respectively.
+
+Other RAS active space notation may be supported in the future. Pleae read the related keyword [RASSCF_prog](./chap4-4.md#4422-rasscf_prog) in Section 4.4.
+
+## 4.3.20 FICMRCCSD
+Multi-reference Coupled Cluster theory, based on the CASCI/CASSCF reference.
+
+Currently only the FIC-MRCCSD method in ORCA(>=5.0.0) is supported. Note here you can write this keyword as either FICMRCCSD or FIC-MRCCSD in .gjf file, but you'd better use the method name FIC-MRCCSD in official writing or publishing.
+
+## 4.3.21 DFTCI
 The DFT/MRCI method by Stefan Grimme, Mirko Waletzke, and Martin Kleinschmidt et. al.
 
 Note that the name of this method is DFT/MRCI, but you should write the keyword DFTCI in the input file of `automr`, in order to perform DFT/MRCI computations.
@@ -142,12 +175,7 @@ Currently, to perform DFT/MRCI computations, you should have ORCA and DFT/MRCI p
 
 Note: full implementation of this keyword has not been finished yet.
 
-## 4.3.19 FICMRCCSD
-Multi-reference Coupled Cluster theory, based on the CASCI/CASSCF reference.
-
-Currently only the FIC-MRCCSD method in ORCA(>=5.0.0) is supported. Note here you can write this keyword as either FICMRCCSD or FIC-MRCCSD in .gjf file, but you'd better use the method name FIC-MRCCSD in official writing or publishing.
-
-## 4.3.20 BCCC2b
+## 4.3.22 BCCC2b
 Block-correlated coupled cluster theory based on the GVB reference.
 
 This is in fact a multi-reference coupled cluster theory based on GVB wave function, where 2b means only the two-block excitation operators \\( {\hat{T_2}} \\) are considered in the cluster expansion. Moreover, this method is a spin-pure coupled-cluster method.
@@ -158,7 +186,7 @@ Currently only correlations between two pairs are taken into consideration (i.e.
 
 This program scales as *O*(*n*<sup>4</sup>), where *n* is the number of GVB pairs. But the integral transformation needed for the BCCC2b scales as *O*(*n*<sup>5</sup>), so the overall scaling might behave as *O*(*n*<sup>5</sup>) for large number of pairs.
 
-## 4.3.21 BCCC3b
+## 4.3.23 BCCC3b
 Block-correlated coupled cluster theory based on the GVB reference, where 3b means \\( \hat{{T_2}} + \hat{{T_3}} \\).
 
 This means two-pair and three-pair correlations are considered based on the GVB reference. Also, this method is spin-pure. Currently only spin singlet is supported.

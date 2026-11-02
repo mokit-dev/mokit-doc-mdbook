@@ -175,7 +175,7 @@ This is supported since MOKIT >= 1.2.9rc3, remember to check the version you use
 
 | feature | keywords | supported programs |
 | --- | --- | --- |
-| CCSDT(Q) energy | mokit{noRI} | MRCC |
+| CCSDT(Q) energy | mokit{noRI} | PySCF/MRCC |
 | DF-CCSDT(Q) energy | mokit{} | MRCC |
 
 ## 4.7.7 CCSDTQ

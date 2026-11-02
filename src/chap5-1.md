@@ -155,7 +155,49 @@ For FIC-MRCISD+Q, the only option of `MRCISD_prog` is ORCA.
 
 The definition of size-consistency correction is not unique, and `automr` adopts the simplest one: \\( E_{+Q} = E_{corr}(1-{c_0}^{2}) \\). If you are interested in other types of size-consistency correction, you are referred to [this paper](https://doi.org/10.1039/C2CP23757A). If you find your result is sensitive to the type of size-consistency correction, maybe MRCISD+Q is not appropriate for your molecule, and you may want to try more advanced methods like FIC-MRCCSD.
 
-## 5.1.4 Acceleration techniques
+## 5.1.5 RASSCF calculation of the ground state
+One can easily perform a RASSCF calculation. An example is shown below
+```
+%mem=180GB
+%nprocshared=64
+#p RASSCF(8,2,2;2,4,2)/cc-pVDZ
+
+mokit{}
+
+0 1
+C   -0.11533121   -0.23206443    0.06407670
+H   -1.31533121   -0.23206443    0.06407670
+C    1.28466879   -0.23206443    0.06407670
+H    2.48466879   -0.23206443    0.06407670
+
+```
+
+The supported RASSCF programs are OpenMolcas(default), Dalton, Gaussian, Molpro, which can be specified via [RASSCF_prog](./chap4-4.md#4422-rasscf_prog). The RAS1/RAS2/RAS3 active orbitals and active elecrons are automatically determined from the built-in GVB calculation workflow. One can also specify the active space like (8,2,2;2,4,2), which means
+
+1) the total number of active electrons in RAS1+RAS2+RAS3 is 8;  
+2) there are up to 2 electrons which could be excited from RAS1;  
+3) there are up to 2 electrons which could be excited to RAS3;  
+4) the number of orbitals in RAS1/RAS2/RAS3 subspaces are 2,4,2 respectively.
+
+For a transition-metal containing molecule, you can put 3s/3p orbitals into RAS1, 3d orbitals into RAS2, 4d orbitals into RAS3 in a RASSCF calculation. This is usually cheaper than a large active space DMRG-CASSCF calculation. If you already have a set of orthonormal and excellent MOs and you do not want to perform the orbital optimization, you can modify `RASSCF` to `RASCI`. One can also start the calculation from a set of UHF MOs, e.g.
+```
+%mem=180GB
+%nprocshared=64
+#p RASSCF/cc-pVDZ
+
+mokit{ist=1,readuhf='ethyne_uhf.fch'}
+```
+
+Reading GVB NOs, or other reasonable (spatial) NOs are also supported, e.g.
+```
+%mem=180GB
+%nprocshared=64
+#p RASSCF/cc-pVDZ
+
+mokit{ist=5,readno='ethyne_uhf_uno_asrot2gvb5_s.fch'}
+```
+
+## 5.1.6 Acceleration techniques
 To speed up the calculation for a large molecule and/or a large basis set, one can add `RI` to enable the Resolution-of-Identity (RI) techniques whenever possible. For example,
 ```
 %mem=16GB

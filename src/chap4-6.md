@@ -213,6 +213,54 @@ dat2fch ben_triplet_uhf_uno_asrot2gvb2.dat ben_triplet_uhf_uno_asrot2gvb2.fch
 the filenames above come from a triplet CASSCF(6,6) calculation for benzene.
 
 
+### 4.6.1.14 read_cfc_from_fch, prt_cfc2fch
+One can read/write the Hessian matrix from/into a .fch(k) file. For example, an RHF/def2-SVP analytical Hessian calculation is shown below
+
+```python
+from pyscf import gto, scf, lib
+from mokit.lib.py2fch_direct import fchk
+from mokit.lib.util import prt_cfc2fch, read_cfc_from_fch
+import numpy as np
+
+lib.num_threads(2) # 2 CPU cores
+mol = gto.M()
+mol.atom = '''
+C    0.52523174   -0.34500514    0.00000000
+H    0.88188617   -1.35381515    0.00000000
+H    0.88190458    0.15939305   -0.87365150
+H   -0.54476826   -0.34499196    0.00000000
+F    0.97523953    0.29138510    1.10227059
+'''
+
+mol.basis = 'def2-SVP'
+mol.charge = 0
+mol.spin = 0
+mol.verbose = 4
+mol.build(parse_arg=False)
+
+mf = scf.RHF(mol)
+mf.max_memory = 4000 # MB
+mf.kernel()
+
+# generate .fch file and save MOs
+fchname = 'test.fch'
+fchk(mf, fchname, density=True)
+
+# calculate Hessian and save into .fch
+# Hessian().kernel() return [N,N,3,3]
+# prt_cfc2fch() accepts [N,N,3,3] or [3N,3N]
+h = mf.Hessian().kernel()
+prt_cfc2fch(fchname, h)
+
+# read Hessian from .fch and compute the maximum difference
+# read_cfc_from_fch() return [3N,3N]
+cfc = read_cfc_from_fch(fchname)
+natom = h.shape[0]
+h2 = h.transpose(0,2,1,3).reshape(3*natom, 3*natom)
+print(np.max(np.abs(cfc - h2)))
+```
+In such case, one can compute Hessian using PySCF then transfer it to Gaussian, or vice versa.
+
 
 ## 4.6.2 APIs from module `rwgeom`
 
